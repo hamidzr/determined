@@ -11,23 +11,26 @@ import trialResponse from 'assets/sample-trial.json';
 // https://plotly.com/javascript/react/
 // https://www.chartjs.org/docs/latest/getting-started/usage.html
 
+const data = trialResponse.steps
+  .map(step => ({ x: step.id, y: step.validation.metrics.validation_metrics.validation_error }));
+
+data.sort((a, b) => a.x > b.x ? 1 : -1);
+
+const xs = data.map(d => d.x);
+const ys = data.map(d => d.y);
+
 const plotlyData: Partial<PlotData>[] = [
   {
     marker: { color: 'red' },
     mode: 'lines+markers',
     type: 'scatter',
-    x: [ 1, 2, 3 ],
-    y: [ 2, 6, 3 ],
+    x: xs,
+    y: ys,
   },
-  { type: 'bar', x: [ 1, 2, 3 ], y: [ 2, 5, 3 ] },
+  { type: 'bar', x: xs, y: ys },
 ];
 
-const rechartsData = [
-  { name: 'Page A', uv: 400, zv: 2400 },
-  { name: 'Page b', uv: 300, zv: 2400 },
-  { name: 'Page c', uv: 200, zv: 2400 },
-  { name: 'Page d', uv: 800, zv: 2400 },
-];
+const rechartsData = data;
 
 const CJState = {
   datasets: [
@@ -35,17 +38,13 @@ const CJState = {
       backgroundColor: 'rgba(75,192,192,1)',
       borderColor: 'rgba(0,0,0,1)',
       borderWidth: 2,
-      data: [ 65, 59, 80, 81, 56 ],
+      data: ys,
       fill: false,
       label: 'Rainfall',
       lineTension: 0.5,
     },
   ],
-  labels: [ 'January',
-    'February',
-    'March',
-    'April',
-    'May' ],
+  labels: xs,
 };
 
 const TrialDetails: React.FC = () => {
@@ -66,9 +65,9 @@ const TrialDetails: React.FC = () => {
       />
 
       <LineChart data={rechartsData} height={400} width={400}>
-        <Line dataKey="uv" stroke="#8884d8" type="monotone" />
+        <Line dataKey="y" stroke="#8884d8" type="monotone" />
         <CartesianGrid stroke="#ccc" />
-        <XAxis dataKey="name" />
+        <XAxis dataKey="x" />
         <YAxis />
       </LineChart>
 
