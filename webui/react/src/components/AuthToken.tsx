@@ -2,11 +2,17 @@ import { CopyOutlined } from '@ant-design/icons';
 import { Button, Result } from 'antd';
 import React, { useCallback } from 'react';
 
+import Link from 'components/Link';
+import { defaultAppRoute } from 'routes';
 import { getCookie } from 'utils/browser';
 
 import css from './AuthToken.module.scss';
 
-const AuthToken: React.FC = () => {
+interface Props {
+  nextPage?: string;
+}
+
+const AuthToken: React.FC<Props> = ({ nextPage }: Props) => {
   const token = getCookie('auth') || 'Auth token not found.';
 
   const handleCopyToClipboard = useCallback(
@@ -18,13 +24,15 @@ const AuthToken: React.FC = () => {
     <Result
       className={css.base}
       extra={[
-        <Button href="/det/dashboard" key="dashboard" type="primary">
-          Go to dashboard
-        </Button>,
         <Button icon={<CopyOutlined />}
           key="copy" type="primary"
           onClick={handleCopyToClipboard}>
           Copy token to clipboard
+        </Button>,
+        <Button key="continue" type="primary">
+          <Link path={nextPage || defaultAppRoute.path}>
+            Continue
+          </Link>
         </Button>,
       ]}
       status="success"

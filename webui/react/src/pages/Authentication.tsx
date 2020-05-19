@@ -46,7 +46,7 @@ const Authentication: React.FC = () => {
   if (auth.isAuthenticated) {
     const redirect = queries.redirect || defaultAppRoute.path;
     if (queries.cli) {
-      return <AuthToken />;
+      return <AuthToken nextPage={queries.redirect} />;
     }
     routeAll(redirect);
     return <Spinner fullPage />;
