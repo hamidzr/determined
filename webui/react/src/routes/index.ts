@@ -3,6 +3,7 @@ import { RouteProps } from 'react-router';
 import Authentication from 'pages/Authentication';
 import Dashboard from 'pages/Dashboard';
 import Determined from 'pages/Determined';
+import TrialDetails from 'pages/TrialDetails';
 import history from 'routes/history';
 import { ensureAbsolutePath, isFullPath, parseUrl } from 'utils/routes';
 
@@ -43,6 +44,13 @@ export const appRoutes: RouteConfigItem[] = [
     needAuth: false,
     path: '/det/logout',
     title: 'Logout',
+  },
+  {
+    component: TrialDetails,
+    id: 'trialDetails',
+    needAuth: true,
+    path: '/det/trials/:id',
+    title: 'Trial Details',
   },
 ];
 export const defaultAppRoute = appRoutes[0];
