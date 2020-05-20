@@ -3,7 +3,9 @@ import { PlotData } from 'plotly.js';
 import React, { useEffect, useRef } from 'react';
 import { Line as LineCJ } from 'react-chartjs-2';
 import Plotly from 'react-plotly.js';
-import { CartesianGrid, Line, LineChart, ResponsiveContainer, Tooltip, XAxis, YAxis } from 'recharts';
+import { CartesianGrid, Line, LineChart, ResponsiveContainer, Tooltip,
+  XAxis, YAxis } from 'recharts';
+import 'chartjs-plugin-zoom';
 
 import trialResponse from 'assets/sample-trial.json';
 import Grid from 'components/Grid';
@@ -59,6 +61,24 @@ const CJState = {
 /* define the common options */
 const plotlyConfig = { displaylogo: false };
 const chartJsOptions = {
+  plugins: {
+    zoom: { // https://github.com/chartjs/chartjs-plugin-zoom
+      pan: {
+        enabled: false,
+        mode: 'xy',
+        // On category scale, factor of pan velocity
+        // speed: 20,
+        // Minimal pan distance required before actually applying pan
+        // threshold: 10,
+      },
+
+      zoom: {
+        drag: true,
+        enabled: true,
+        mode: 'xy',
+      },
+    },
+  },
   title:{
     display:true,
     text:'Average Rainfall per month',
@@ -105,7 +125,7 @@ const TrialDetails: React.FC = () => {
       />
       <canvas height="400" ref={canvasRef} width="400" />
 
-      <h2>Let{'&apos'}s put them in a Grid</h2>
+      <h2>Put them in a Grid</h2>
 
       <Grid minItemWidth={40}>
         <Plotly
