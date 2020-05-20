@@ -6,6 +6,9 @@ import Plotly from 'react-plotly.js';
 import { CartesianGrid, Line, LineChart, ResponsiveContainer, Tooltip,
   XAxis, YAxis } from 'recharts';
 import 'chartjs-plugin-zoom';
+import { VictoryAxis, VictoryChart, VictoryLine, VictoryScatter, VictoryTheme,
+  VictoryTooltip,
+  VictoryZoomContainer } from 'victory';
 
 import trialResponse from 'assets/sample-trial.json';
 import Grid from 'components/Grid';
@@ -22,7 +25,7 @@ const trialData = trialResponse.steps
 trialData.sort((a, b) => a.x > b.x ? 1 : -1);
 
 // use synthetic data
-const ys = generateSynData(1e+3);
+const ys = generateSynData(2e+2);
 const xs = generateSequence(ys.length);
 const rechartsData = xs.map((x, idx) => ({ x, y: ys[idx] }));
 
@@ -150,6 +153,27 @@ const TrialDetails: React.FC = () => {
         />
 
         <canvas ref={canvasRef2} />
+
+        <VictoryChart
+          containerComponent={<VictoryZoomContainer />}
+          domainPadding={20}
+          theme={VictoryTheme.material}
+        >
+          <VictoryAxis />
+          <VictoryAxis dependentAxis />
+          <VictoryScatter
+            data={rechartsData}
+            labelComponent={<VictoryTooltip />}
+            labels={({ datum }) => datum.y + ''}
+            x="x"
+            y="y"
+          />
+          <VictoryLine
+            data={rechartsData}
+            x="x"
+            y="y"
+          />
+        </VictoryChart>
       </Grid>
 
     </div>
