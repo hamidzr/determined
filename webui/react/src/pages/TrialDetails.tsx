@@ -87,7 +87,6 @@ const TrialDetails: React.FC = () => {
         options={{
           legend:{
             display:true,
-            position:'right',
           },
           title:{
             display:true,
@@ -120,7 +119,6 @@ const TrialDetails: React.FC = () => {
           options={{
             legend:{
               display:true,
-              position:'right',
             },
             responsive: true,
             title:{

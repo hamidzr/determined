@@ -1,5 +1,9 @@
 .base {
   [class^="Grid_"] {
     position: relative;
+    & > * {
+      min-width: 20rem;
+      max-width: 50rem;
+    }
   }
 }
