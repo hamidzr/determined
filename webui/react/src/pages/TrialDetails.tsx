@@ -7,6 +7,7 @@ import { CartesianGrid, Line, LineChart, ResponsiveContainer, XAxis, YAxis } fro
 
 import trialResponse from 'assets/sample-trial.json';
 import Grid from 'components/Grid';
+import { generateSequence, generateSynData } from 'utils/data';
 
 import css from './TrialDetails.module.scss';
 
@@ -14,13 +15,19 @@ import css from './TrialDetails.module.scss';
 // https://plotly.com/javascript/react/
 // https://www.chartjs.org/docs/latest/getting-started/usage.html
 
-const data = trialResponse.steps
+const trialData = trialResponse.steps
   .map(step => ({ x: step.id, y: step.validation.metrics.validation_metrics.validation_error }));
+trialData.sort((a, b) => a.x > b.x ? 1 : -1);
 
-data.sort((a, b) => a.x > b.x ? 1 : -1);
+// use synthetic data
+const ys = generateSynData(1e+3);
+const xs = generateSequence(ys.length);
+const rechartsData = xs.map((x, idx) => ({ x, y: ys[idx] }));
 
-const xs = data.map(d => d.x);
-const ys = data.map(d => d.y);
+// use trial data
+// const xs = trialData.map(d => d.x);
+// const ys = trialData.map(d => d.y);
+// const rechartsData = trialData;
 
 const plotlyData: Partial<PlotData>[] = [
   {
@@ -30,10 +37,7 @@ const plotlyData: Partial<PlotData>[] = [
     x: xs,
     y: ys,
   },
-  { type: 'bar', x: xs, y: ys },
 ];
-
-const rechartsData = data;
 
 // used by both chartjs implementations (react and native)
 const CJState = {
