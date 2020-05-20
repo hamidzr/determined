@@ -38,7 +38,7 @@ export const generateSynData = (count: number): number[] => {
   const baseArray =  new Array(count);
   // loop instead of anonymous functions or maps for better performance
   for (let i=0; i<count; i++) {
-    baseArray[i] = i + Math.random()*i;
+    baseArray[i] = i + (Math.random()-Math.random())*i;
   }
   return baseArray;
 };
