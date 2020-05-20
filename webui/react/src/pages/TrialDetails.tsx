@@ -3,9 +3,12 @@ import { PlotData } from 'plotly.js';
 import React, { useEffect, useRef } from 'react';
 import { Line as LineCJ } from 'react-chartjs-2';
 import Plotly from 'react-plotly.js';
-import { CartesianGrid, Line, LineChart, XAxis, YAxis } from 'recharts';
+import { CartesianGrid, Line, LineChart, ResponsiveContainer, XAxis, YAxis } from 'recharts';
 
 import trialResponse from 'assets/sample-trial.json';
+import Grid from 'components/Grid';
+
+import css from './TrialDetails.module.scss';
 
 // http://recharts.org/en-US/guide/getting-started
 // https://plotly.com/javascript/react/
@@ -32,6 +35,7 @@ const plotlyData: Partial<PlotData>[] = [
 
 const rechartsData = data;
 
+// used by both chartjs implementations (react and native)
 const CJState = {
   datasets: [
     {
@@ -49,16 +53,23 @@ const CJState = {
 
 const TrialDetails: React.FC = () => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
+  const canvasRef2 = useRef<HTMLCanvasElement>(null);
 
   useEffect(() => {
     new Chart(canvasRef.current?.getContext('2d') as CanvasRenderingContext2D, {
       data: CJState,
       type: 'line',
     });
+    const chart2 = new Chart(canvasRef2.current?.getContext('2d') as CanvasRenderingContext2D, {
+      data: CJState,
+      type: 'line',
+    });
+    chart2.options.responsive = true;
   }, []);
 
   return (
-    <div>
+    <div className={css.base}>
+
       <Plotly
         data={plotlyData}
         layout={ {  height: 400, title: 'A Fancy Plot', width: 400  } }
@@ -85,7 +96,43 @@ const TrialDetails: React.FC = () => {
           },
         }}
       />
-      <canvas height="400" id="myChartJs" ref={canvasRef} width="400" />
+      <canvas height="400" ref={canvasRef} width="400" />
+
+      <h2>Let's put them in a Grid</h2>
+
+      <Grid minItemWidth={40}>
+        <Plotly
+          data={plotlyData}
+          layout={ { title: 'A Fancy Plot' } }
+        />
+
+        <ResponsiveContainer>
+          <LineChart data={rechartsData}>
+            <Line dataKey="y" stroke="#8884d8" type="monotone" />
+            <CartesianGrid stroke="#ccc" />
+            <XAxis dataKey="x" />
+            <YAxis />
+          </LineChart>
+        </ResponsiveContainer>
+
+        <LineCJ
+          data={CJState}
+          options={{
+            legend:{
+              display:true,
+              position:'right',
+            },
+            responsive: true,
+            title:{
+              display:true,
+              fontSize:20,
+              text:'Average Rainfall per month',
+            },
+          }}
+        />
+
+        <canvas ref={canvasRef2} />
+      </Grid>
 
     </div>
   );
