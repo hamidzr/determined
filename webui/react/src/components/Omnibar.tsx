@@ -1,6 +1,8 @@
 import OmnibarNpm from 'omnibar';
 import React from 'react';
 
+import { funcExt, funcOnAction } from 'omnibar-extensions/Func';
+
 const titleData = [
   { title: 'Dropbox', url: 'https://dropbox.com' },
   { title: 'GitHub', url: 'https://google.com' },
@@ -51,9 +53,9 @@ const Omnibar: React.FC = () => {
   return (
     <div>
       <OmnibarNpm
-        extensions={[ ext4 ]}
+        extensions={[ funcExt ]}
         placeholder="Enter keyword"
-        onAction={(it: any) => it.onAction(it)}
+        onAction={funcOnAction}
         // onAction={it => alert(JSON.stringify(it, undefined, 2))}
         /*render={ItemRenderer}*/ />
     </div>
