@@ -1,6 +1,7 @@
 import React, { useCallback, useState } from 'react';
 
 import Grid, { GridMode } from 'components/Grid';
+import Omnibar from 'components/Omnibar';
 import OverviewStats from 'components/OverviewStats';
 import Section from 'components/Section';
 import Spinner from 'components/Spinner';
@@ -147,6 +148,7 @@ const Dashboard: React.FC = () => {
 
   return (
     <div className={css.base}>
+      <Omnibar />
       <Section title="Overview">
         <div className={css.overview}>
           <Grid gap={ShirtSize.medium} minItemWidth={12} mode={GridMode.AutoFill}>
