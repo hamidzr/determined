@@ -69,7 +69,6 @@ export const terminalRunStates = [
   RunState.Canceled,
   RunState.Completed,
   RunState.Errored,
-  RunState.Deleted,
 ];
 
 export const runStateToLabel: {[key in RunState]: string} = {
