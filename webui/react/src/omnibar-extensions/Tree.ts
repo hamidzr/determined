@@ -89,31 +89,36 @@ const root: NLNode  = {
 
 // traverses a tree to find subtrees.
 // path has to end in a NLNode
-const traverseTree = async (path: string[], startNode: NLNode): Promise<TreeNode> => {
+const traverseTree = async (address: string[], startNode: NLNode): Promise<TreePath> => {
   let curNode: TreeNode = startNode;
+  const path: TreePath = [ curNode ];
   let i = 0;
-  while(isNLNode(curNode) && i<path.length) {
+  while(isNLNode(curNode) && i<address.length) {
     const children: TreeNode[] = await getNodeChildren(curNode);
-    const rv = children.find(n => n.title === path[i]);
+    const rv = children.find(n => n.title === address[i]);
     if (rv === undefined) break;
     curNode = rv;
     i++;
+    path.push(curNode);
   }
-  if (i < path.length) throw new Error('bad path');
-  return curNode;
+  if (i < address.length) throw new Error('bad path');
+  return path;
 };
 
-const parseInput = (input: string) => {
-
+const parseInput = async (input: string): Promise<Input> => {
+  const sections = input.trim().split(' ');
+  const query = sections[sections.length-1];
+  const address = sections.slice(0,length-2);
+  const path = await traverseTree(address, root);
+  return {
+    path,
+    query,
+  };
 };
 
 export const ext = async (input: string): Promise<TreeNode[]> => {
-  const sections = input.trim().split(' ');
-  if (sections.length === 0) return [];
-  const query = sections[sections.length-1];
-  const path = sections.slice(0,length-2);
-  // path.splice(0,0,'root'); // start traversing from root
-  const node = await traverseTree(path, root);
+  const { path, query } = await parseInput(input);
+  const node = path[path.length-1];
   if (isLeafNode(node)) {
     // this is after the leafnode onaction triggers
     // or trigger it directly?
@@ -121,8 +126,8 @@ export const ext = async (input: string): Promise<TreeNode[]> => {
   }
   const children = await getNodeChildren(node);
 
-  const matchingSibilings = children.filter(it => it.title.match(new RegExp(query, 'i')));
-  return matchingSibilings;
+  const matches = children.filter(it => it.title.match(new RegExp(query, 'i')));
+  return matches;
 };
 
 const onTreeNodeAction = async (node: TreeNode): Promise<void> => {
