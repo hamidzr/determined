@@ -1,12 +1,5 @@
-import { toNullable } from 'fp-ts/lib/Option';
-
-import { getExperiments, killExperiment } from 'services/api';
+import root from 'omnibar-extensions/sampleTree';
 import { isAsyncFunction } from 'utils/data';
-
-// interface ResultItem {
-//   title: string; // to utilize the default renderer
-//   onAction?: Action<ResultItem>;
-// }
 
 const SEPARATOR = ' ';
 
@@ -23,11 +16,11 @@ type TreePath = TreeNode[]
 type TreeNode = LeafNode | NLNode;
 type TreeGenerator = (arg?: NLNode) => TreeNode[] | Promise<TreeNode[]>
 
-interface LeafNode extends BaseNodeProps {
+export interface LeafNode extends BaseNodeProps {
   onAction: (arg: LeafNode) => void; // with potential response. could be shown
 }
 
-interface NLNode extends BaseNodeProps {
+export interface NLNode extends BaseNodeProps {
   options: TreeNode[] | TreeGenerator; // leaf nodes have no children
 }
 
@@ -52,45 +45,6 @@ const getNodeChildren = async (node: NLNode): Promise<TreeNode[]> => {
   return children;
 };
 
-const root: NLNode  = {
-  options: [
-    {
-      title: 'showTime',
-      onAction: () => alert(new Date()),
-    },
-    {
-      title: 'killExperiments',
-      options: async () => {
-        const exps = await getExperiments({});
-        const options: LeafNode[] = exps.map(exp => (
-          {
-            title: `${exp.id}`,
-            onAction: () => killExperiment({ experimentId: exp.id }),
-          })); // is use of `this` discouraged?
-        return options;
-      },
-    },
-    {
-      title: 'manageCluster',
-      options: [
-        {
-          onAction: () => alert('restarted master'),
-          title: 'restart',
-        },
-        {
-          onAction: () => alert('reloaded master'),
-          title: 'reload',
-        },
-        {
-          onAction: () => alert('here are the logs..'),
-          title: 'showlogs',
-        },
-      ],
-    },
-  ],
-  title: 'root',
-};
-
 // traverses a tree to find subtrees.
 // path has to end in a NLNode
 const traverseTree = async (address: string[], startNode: NLNode): Promise<TreePath> => {
@@ -110,9 +64,9 @@ const traverseTree = async (address: string[], startNode: NLNode): Promise<TreeP
 };
 
 const parseInput = async (input: string): Promise<TreeRequest> => {
-  const sections = input.trim().split(SEPARATOR);
+  const sections = input.split(SEPARATOR);
   const query = sections[sections.length-1];
-  const address = sections.slice(0,length-2);
+  const address = sections.slice(0,sections.length-1);
   const path = await traverseTree(address, root);
   return {
     path,
@@ -122,12 +76,13 @@ const parseInput = async (input: string): Promise<TreeRequest> => {
 
 const absPathToAddress = (path: TreePath): string[] =>  (path.map(tn => tn.title).slice(1));
 
-export const ext = async (input: string): Promise<TreeNode[]> => {
+const query = async (input: string): Promise<TreeNode[]> => {
   const { path, query } = await parseInput(input);
   const node = path[path.length-1];
   if (isLeafNode(node)) {
     // this is after the leafnode onaction triggers
     // or trigger it directly?
+    // could do an execute confirmation?
     return [];
   }
   const children = await getNodeChildren(node);
@@ -136,9 +91,20 @@ export const ext = async (input: string): Promise<TreeNode[]> => {
   return matches;
 };
 
+export const ext = async(input: string): Promise<TreeNode[]> => {
+  try {
+    return await query(input);
+  } catch (e) {
+    console.error(e);
+    // omnibar eatsup the exceptions
+    // throw e;
+    return [];
+  }
+};
+
 const onTreeNodeAction = async (node: TreeNode): Promise<void> => {
   if (isLeafNode(node)) return node.onAction(node);
-  await getNodeChildren(node);
+  // await getNodeChildren(node);
   // TODO setup the omnibar with context and tree
 };
 
@@ -148,7 +114,8 @@ export const onAction = async <T>(item: T): Promise<void> => {
     if (input) {
       // TODO should be replaced, perhaps, with a update to the omnibar package's command decorator
       const { path } = await parseInput(input.value);
-      input.value = absPathToAddress(path).join(SEPARATOR) + SEPARATOR + item.title;
+      input.value = (path.length > 1 ?  absPathToAddress(path).join(SEPARATOR) + SEPARATOR  : '')
+        + item.title;
       // trigger the onchange
       input.onchange && input.onchange(undefined as unknown as Event);
     }
