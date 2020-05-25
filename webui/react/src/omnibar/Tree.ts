@@ -37,7 +37,7 @@ const query = async (input: string): Promise<TreeNode[]> => {
   return matches;
 };
 
-export const ext = async(input: string): Promise<TreeNode[]> => {
+export const extension = async(input: string): Promise<TreeNode[]> => {
   try {
     return await query(input);
   } catch (e) {
@@ -48,24 +48,20 @@ export const ext = async(input: string): Promise<TreeNode[]> => {
   }
 };
 
-const onTreeNodeAction = async (node: TreeNode): Promise<void> => {
-  if (isLeafNode(node)) return node.onAction(node);
-  // await getNodeChildren(node);
-  // TODO setup the omnibar with context and tree
-};
-
 export const onAction = async <T>(item: T): Promise<void> => {
   if (!!item && isTreeNode(item)) {
+    // TODO should be replaced, perhaps, with a update to the omnibar package's command decorator
+    // TODO setup the omnibar with context and tree
+    // TODO make below a generic omnibar decorator
     const input: HTMLInputElement|null = document.querySelector('#omnibar input[type="text"]');
     if (input) {
-      // TODO should be replaced, perhaps, with a update to the omnibar package's command decorator
       const { path } = await parseInput(input.value);
       input.value = (path.length > 1 ?  absPathToAddress(path).join(SEPARATOR) + SEPARATOR  : '')
         + item.title;
       // trigger the onchange
       input.onchange && input.onchange(undefined as unknown as Event);
     }
-    return onTreeNodeAction(item);
+    if (isLeafNode(item)) return item.onAction(item);
   }
   // else meh
   return Promise.resolve();

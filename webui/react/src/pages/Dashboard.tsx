@@ -1,7 +1,6 @@
 import React, { useCallback, useState } from 'react';
 
 import Grid, { GridMode } from 'components/Grid';
-import Omnibar from 'components/Omnibar';
 import OverviewStats from 'components/OverviewStats';
 import Section from 'components/Section';
 import Spinner from 'components/Spinner';
@@ -15,6 +14,7 @@ import Users from 'contexts/Users';
 import usePolling from 'hooks/usePolling';
 import { useRestApiSimple } from 'hooks/useRestApi';
 import useStorage from 'hooks/useStorage';
+import Omnibar from 'omnibar/Omnibar';
 import { ExperimentsParams, getExperiments } from 'services/api';
 import { ShirtSize } from 'themes';
 import {
