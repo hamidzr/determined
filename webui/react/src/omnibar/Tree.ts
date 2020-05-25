@@ -1,4 +1,4 @@
-import root from 'omnibar-extensions/sampleTree';
+import root from 'omnibar/sampleTree';
 import { isAsyncFunction } from 'utils/data';
 
 const SEPARATOR = ' ';

@@ -1,8 +1,8 @@
 import OmnibarNpm from 'omnibar';
 import React from 'react';
 
-import { funcExt, funcOnAction } from 'omnibar-extensions/Func';
-import * as Tree from 'omnibar-extensions/Tree';
+import { funcExt, funcOnAction } from 'omnibar/Func';
+import * as Tree from 'omnibar/Tree';
 
 const titleData = [
   { title: 'Dropbox', url: 'https://dropbox.com' },

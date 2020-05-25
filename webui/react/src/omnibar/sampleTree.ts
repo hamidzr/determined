@@ -1,4 +1,4 @@
-import { LeafNode, NLNode } from 'omnibar-extensions/Tree';
+import { LeafNode, NLNode } from 'omnibar/Tree';
 import { archiveExperiment, getExperiments, killExperiment } from 'services/api';
 import { activeRunStates, terminalRunStates } from 'utils/types';
 
