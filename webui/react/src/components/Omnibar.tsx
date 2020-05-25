@@ -2,6 +2,7 @@ import OmnibarNpm from 'omnibar';
 import React from 'react';
 
 import { funcExt, funcOnAction } from 'omnibar-extensions/Func';
+import * as Tree from 'omnibar-extensions/Tree';
 
 const titleData = [
   { title: 'Dropbox', url: 'https://dropbox.com' },
@@ -51,12 +52,12 @@ interface ItemProps<T> {
 
 const Omnibar: React.FC = () => {
   return (
-    <div>
+    <div id="omnibar">
       <OmnibarNpm
-        extensions={[ funcExt ]}
+        autoFocus={true}
+        extensions={[ Tree.ext ]}
         placeholder="Enter keyword"
-        onAction={funcOnAction}
-        // onAction={it => alert(JSON.stringify(it, undefined, 2))}
+        onAction={Tree.onAction}
         /*render={ItemRenderer}*/ />
     </div>
   );
