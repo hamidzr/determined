@@ -1,3 +1,5 @@
+import { toNullable } from 'fp-ts/lib/Option';
+
 import { getExperiments, killExperiment } from 'services/api';
 import { isAsyncFunction } from 'utils/data';
 
@@ -6,11 +8,13 @@ import { isAsyncFunction } from 'utils/data';
 //   onAction?: Action<ResultItem>;
 // }
 
+const SEPARATOR = ' ';
+
 interface BaseNodeProps {
   title: string; // should work with the separator. no space?
 }
 
-interface Input {
+interface TreeRequest {
   query: string;
   path: TreePath;
 }
@@ -105,8 +109,8 @@ const traverseTree = async (address: string[], startNode: NLNode): Promise<TreeP
   return path;
 };
 
-const parseInput = async (input: string): Promise<Input> => {
-  const sections = input.trim().split(' ');
+const parseInput = async (input: string): Promise<TreeRequest> => {
+  const sections = input.trim().split(SEPARATOR);
   const query = sections[sections.length-1];
   const address = sections.slice(0,length-2);
   const path = await traverseTree(address, root);
@@ -115,6 +119,8 @@ const parseInput = async (input: string): Promise<Input> => {
     query,
   };
 };
+
+const absPathToAddress = (path: TreePath): string[] =>  (path.map(tn => tn.title).slice(1));
 
 export const ext = async (input: string): Promise<TreeNode[]> => {
   const { path, query } = await parseInput(input);
@@ -136,12 +142,13 @@ const onTreeNodeAction = async (node: TreeNode): Promise<void> => {
   // TODO setup the omnibar with context and tree
 };
 
-export const onAction = <T>(item: T): Promise<void> => {
+export const onAction = async <T>(item: T): Promise<void> => {
   if (!!item && isTreeNode(item)) {
     const input: HTMLInputElement|null = document.querySelector('#omnibar input[type="text"]');
     if (input) {
       // TODO should be replaced, perhaps, with a update to the omnibar package's command decorator
-      input.value = item.title;
+      const { path } = await parseInput(input.value);
+      input.value = absPathToAddress(path).join(SEPARATOR) + SEPARATOR + item.title;
       // trigger the onchange
       input.onchange && input.onchange(undefined as unknown as Event);
     }
