@@ -94,6 +94,13 @@ export const commandStateToLabel: {[key in CommandState]: string} = {
   [CommandState.Terminated]: 'Terminated',
 };
 
+export const activeRunStates = [
+  RunState.Active,
+  RunState.StoppingCanceled,
+  RunState.StoppingCompleted,
+  RunState.StoppingError,
+];
+
 export const isTaskKillable = (task: RecentTask): boolean => {
   return killableRunStates.includes(task.state as RunState)
     || killableCmdStates.includes(task.state as CommandState);
