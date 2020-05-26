@@ -4,6 +4,8 @@ import React from 'react';
 import { funcExt, funcOnAction } from 'omnibar/Func';
 import * as Tree from 'omnibar/Tree';
 
+import css from './Component.module.scss';
+
 interface ItemProps<T> {
   item: T;
   isSelected: boolean;
@@ -18,14 +20,14 @@ const ItemRenderer = (p: ItemProps<any>) => {
 
 const Omnibar: React.FC = () => {
   return (
-    <>
-      <OmnibarNpm
-        autoFocus={true}
-        extensions={[ funcExt ]}
-        placeholder="Type a function name"
-        onAction={funcOnAction}
-      />
-      <div id="omnibar">
+    <div className={css.base}>
+      <div className={css.bar} id="omnibar">
+        {/* <OmnibarNpm
+          autoFocus={true}
+          extensions={[ funcExt ]}
+          placeholder="Type a function name"
+          onAction={funcOnAction}
+        /> */}
         <OmnibarNpm
           autoFocus={true}
           extensions={[ Tree.extension ]}
@@ -33,7 +35,7 @@ const Omnibar: React.FC = () => {
           onAction={Tree.onAction}
         /*render={ItemRenderer}*/ />
       </div>
-    </>
+    </div>
   );
 };
 

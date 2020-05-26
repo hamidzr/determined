@@ -14,7 +14,6 @@ import Users from 'contexts/Users';
 import usePolling from 'hooks/usePolling';
 import { useRestApiSimple } from 'hooks/useRestApi';
 import useStorage from 'hooks/useStorage';
-import Omnibar from 'omnibar/Omnibar';
 import { ExperimentsParams, getExperiments } from 'services/api';
 import { ShirtSize } from 'themes';
 import {
@@ -148,7 +147,6 @@ const Dashboard: React.FC = () => {
 
   return (
     <div className={css.base}>
-      <Omnibar />
       <Section title="Overview">
         <div className={css.overview}>
           <Grid gap={ShirtSize.medium} minItemWidth={12} mode={GridMode.AutoFill}>

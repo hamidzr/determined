@@ -16,7 +16,8 @@ import useRestApi from 'hooks/useRestApi';
 import useRouteTracker from 'hooks/useRouteTracker';
 import useTheme from 'hooks/useTheme';
 import { ioDeterminedInfo } from 'ioTypes';
-import { appRoutes } from 'routes';
+import Omnibar from 'omnibar/Component';
+import OmnibarCtx from 'omnibar/Context';
 import { appRoutes, defaultAppRoute } from 'routes';
 import { jsonToDeterminedInfo } from 'services/decoder';
 import { DeterminedInfo } from 'types';
@@ -29,6 +30,8 @@ const AppView: React.FC = () => {
   const cluster = ClusterOverview.useStateContext();
   const info = Info.useStateContext();
   const setInfo = Info.useActionContext();
+  const OmnibarState = OmnibarCtx.useStateContext();
+  const setOmnibar = OmnibarCtx.useActionContext();
   const username = user ? user.username : undefined;
   const [ infoResponse, requestInfo ] =
     useRestApi<DeterminedInfo>(ioDeterminedInfo, { mappers: jsonToDeterminedInfo });
@@ -64,6 +67,7 @@ const AppView: React.FC = () => {
           <Router routes={appRoutes} />
         </Switch>
       </div>
+      {OmnibarState.isShowing && <Omnibar />}
     </div>
   );
 };
@@ -81,6 +85,7 @@ const App: React.FC = () => {
       Notebooks.Provider,
       Shells.Provider,
       Tensorboards.Provider,
+      OmnibarCtx.Provider,
     ]}>
       <AppView />
     </Compose>
