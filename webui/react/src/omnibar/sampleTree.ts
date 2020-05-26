@@ -2,6 +2,9 @@ import { Children, LeafNode, NLNode } from 'AsyncTree';
 import { archiveExperiment, getExperiments, killExperiment } from 'services/api';
 import { activeRunStates, terminalRunStates } from 'utils/types';
 
+const alertAction = (msg: string) => ((): void => alert(msg));
+const visitAction = (url: string) => ((): void => window.location.assign(url));
+
 const root: NLNode  = {
   options: [
     {
@@ -33,35 +36,61 @@ const root: NLNode  = {
       title: 'archiveExperiments',
     },
     {
-      options: async (): Promise<Children> => {
-        // const staticOptions = [
-        //   {
-        //     title: 'zeroSlot',
-        //     onAction: ():
-        //   },
-        // ];
-        const exps = await getExperiments({ states: terminalRunStates });
-        const options: LeafNode[] = exps.map(exp => (
-          {
-            onAction: (): unknown => archiveExperiment(exp.id, true),
-            title: `${exp.id}`,
-          })); // is use of `this` discouraged?
-        return options;
-      },
+      options: [
+        {
+          title: 'experiments',
+          onAction: visitAction('/ui/experiments'),
+        },
+        {
+          title: 'experiment',
+          options: async () => {
+            const exps = await getExperiments({});
+            // const options: LeafNode[] = exps.map(exp => (
+            //   {
+            //     options: new Array(3).fill(null).map((_, idx) => idx+1),
+            //     title: `${exp.id}`, // render more info
+            //   })); // is use of `this` discouraged?
+            const options: LeafNode[] = exps.map(exp => (
+              {
+                onAction: visitAction('/ui/experiments/' + exp.id),
+                title: `${exp.id}`, // render more info
+              })); // is use of `this` discouraged?
+            return options;
+
+          },
+        },
+        {
+          title: 'tensorboards',
+          onAction: visitAction('/ui/experiments'),
+        },
+      ],
+      title: 'goto',
+    },
+    {
+      options: [
+        {
+          onAction: alertAction('created zeroslot notebook'),
+          title: 'zeroSlot',
+        },
+        {
+          onAction: alertAction('created oneslot notebook'),
+          title: 'oneSlot',
+        },
+      ],
       title: 'launchNotebook',
     },
     {
       options: [
         {
-          onAction: (): void => alert('restarted master'),
+          onAction: alertAction('restarted master'),
           title: 'restart',
         },
         {
-          onAction: (): void => alert('reloaded master'),
+          onAction: alertAction('reloaded master'),
           title: 'reload',
         },
         {
-          onAction: (): void => alert('here are the logs..'),
+          onAction: alertAction('here are the logs..'),
           title: 'showlogs',
         },
       ],

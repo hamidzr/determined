@@ -30,6 +30,7 @@ const Omnibar: React.FC = () => {
         <OmnibarNpm
           autoFocus={true}
           extensions={[ Tree.extension ]}
+          maxResults={7}
           placeholder="Type away.."
           onAction={Tree.onAction}
         /*render={ItemRenderer}*/ />
