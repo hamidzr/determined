@@ -23,10 +23,10 @@ const Omnibar: React.FC = () => {
     <div className={css.base}>
       <div className={css.bar} id="omnibar">
         {/* <OmnibarNpm
-          autoFocus={true}
-          extensions={[ funcExt ]}
-          placeholder="Type a function name"
-          onAction={funcOnAction}
+        autoFocus={true}
+        extensions={[ funcExt ]}
+        placeholder="Type a function name"
+        onAction={funcOnAction}
         /> */}
         <OmnibarNpm
           autoFocus={true}
@@ -37,6 +37,10 @@ const Omnibar: React.FC = () => {
       </div>
     </div>
   );
+};
+
+export const keymap = {
+  HIDE_OMNIBAR: 'esc',
 };
 
 export default Omnibar;

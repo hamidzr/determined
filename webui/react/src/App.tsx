@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react';
+import { GlobalHotKeys } from 'react-hotkeys';
 import { Redirect, Route, Switch } from 'react-router-dom';
 
 import NavBar from 'components/NavBar';
@@ -16,7 +17,7 @@ import useRestApi from 'hooks/useRestApi';
 import useRouteTracker from 'hooks/useRouteTracker';
 import useTheme from 'hooks/useTheme';
 import { ioDeterminedInfo } from 'ioTypes';
-import Omnibar from 'omnibar/Component';
+import Omnibar, { keymap as omnibarKeymap } from 'omnibar/Component';
 import OmnibarCtx from 'omnibar/Context';
 import { appRoutes, defaultAppRoute } from 'routes';
 import { jsonToDeterminedInfo } from 'services/decoder';
@@ -24,6 +25,11 @@ import { DeterminedInfo } from 'types';
 import { updateFaviconType } from 'utils/browser';
 
 import css from './App.module.scss';
+
+const globalKeymap = {
+  HIDE_OMNIBAR: [ 'esc' ], // TODO scope it to the component
+  SHOW_OMNIBAR: [ 'ctrl+space' ],
+};
 
 const AppView: React.FC = () => {
   const { isAuthenticated, user } = Auth.useStateContext();
@@ -36,6 +42,10 @@ const AppView: React.FC = () => {
   const [ infoResponse, requestInfo ] =
     useRestApi<DeterminedInfo>(ioDeterminedInfo, { mappers: jsonToDeterminedInfo });
 
+  const globalKeyHandler = {
+    HIDE_OMNIBAR: (): void => setOmnibar({ type: OmnibarCtx.ActionType.Hide }),
+    SHOW_OMNIBAR: (): void => setOmnibar({ type: OmnibarCtx.ActionType.Show }),
+  };
   updateFaviconType(cluster.allocation !== 0);
 
   useRouteTracker();
@@ -68,11 +78,13 @@ const AppView: React.FC = () => {
         </Switch>
       </div>
       {OmnibarState.isShowing && <Omnibar />}
+      <GlobalHotKeys handlers={globalKeyHandler} keyMap={globalKeymap} />
     </div>
   );
 };
 
 const App: React.FC = () => {
+
   return (
     <Compose components={[
       Auth.Provider,

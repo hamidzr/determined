@@ -29,6 +29,7 @@
     "query-string": "^6.12.1",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
+    "react-hotkeys": "^2.0.0",
     "react-router-dom": "^5.1.2",
     "react-scripts": "3.4.1",
     "timeago-react": "^3.0.0"
