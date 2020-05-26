@@ -1,7 +1,6 @@
 import OmnibarNpm from 'omnibar';
 import React from 'react';
 
-import { funcExt, funcOnAction } from 'omnibar/Func';
 import * as Tree from 'omnibar/Tree';
 
 import css from './Component.module.scss';
@@ -31,7 +30,7 @@ const Omnibar: React.FC = () => {
         <OmnibarNpm
           autoFocus={true}
           extensions={[ Tree.extension ]}
-          placeholder="Enter keyword"
+          placeholder="Type away.."
           onAction={Tree.onAction}
         /*render={ItemRenderer}*/ />
       </div>

@@ -1,5 +1,5 @@
-import { getNodeChildren, isLeafNode, isTreeNode,
-  traverseTree, TreeNode, TreePath } from 'AsyncTree';
+import { Children, getNodeChildren, isLeafNode,
+  isTreeNode, traverseTree, TreePath } from 'AsyncTree';
 import root from 'omnibar/sampleTree';
 
 const SEPARATOR = ' ';
@@ -22,13 +22,12 @@ const parseInput = async (input: string): Promise<TreeRequest> => {
 
 const absPathToAddress = (path: TreePath): string[] =>  (path.map(tn => tn.title).slice(1));
 
-const query = async (input: string): Promise<TreeNode[]> => {
+const query = async (input: string): Promise<Children> => {
   const { path, query } = await parseInput(input);
   const node = path[path.length-1];
   if (isLeafNode(node)) {
     // this is after the leafnode onaction triggers
-    // or trigger it directly?
-    // could do an execute confirmation?
+    // could do an execute confirmation.
     return [];
   }
   const children = await getNodeChildren(node);
@@ -37,7 +36,7 @@ const query = async (input: string): Promise<TreeNode[]> => {
   return matches;
 };
 
-export const extension = async(input: string): Promise<TreeNode[]> => {
+export const extension = async(input: string): Promise<Children> => {
   try {
     return await query(input);
   } catch (e) {

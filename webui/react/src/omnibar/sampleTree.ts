@@ -1,31 +1,31 @@
-import { LeafNode, NLNode } from 'AsyncTree';
+import { Children, LeafNode, NLNode } from 'AsyncTree';
 import { archiveExperiment, getExperiments, killExperiment } from 'services/api';
 import { activeRunStates, terminalRunStates } from 'utils/types';
 
 const root: NLNode  = {
   options: [
     {
+      onAction: (): void => alert(new Date()),
       title: 'showTime',
-      onAction: () => alert(new Date()),
     },
     {
-      options: async () => {
+      options: async (): Promise<Children> => {
         const exps = await getExperiments({ states: activeRunStates });
         const options: LeafNode[] = exps.map(exp => (
           {
+            onAction: (): unknown => killExperiment({ experimentId: exp.id }),
             title: `${exp.id}`,
-            onAction: () => killExperiment({ experimentId: exp.id }),
           })); // is use of `this` discouraged?
         return options;
       },
       title: 'killExperiments',
     },
     {
-      options: async () => {
+      options: async (): Promise<Children> => {
         const exps = await getExperiments({ states: terminalRunStates });
         const options: LeafNode[] = exps.map(exp => (
           {
-            onAction: () => archiveExperiment(exp.id, true),
+            onAction: (): unknown => archiveExperiment(exp.id, true),
             title: `${exp.id}`,
           })); // is use of `this` discouraged?
         return options;
@@ -33,17 +33,35 @@ const root: NLNode  = {
       title: 'archiveExperiments',
     },
     {
+      options: async (): Promise<Children> => {
+        // const staticOptions = [
+        //   {
+        //     title: 'zeroSlot',
+        //     onAction: ():
+        //   },
+        // ];
+        const exps = await getExperiments({ states: terminalRunStates });
+        const options: LeafNode[] = exps.map(exp => (
+          {
+            onAction: (): unknown => archiveExperiment(exp.id, true),
+            title: `${exp.id}`,
+          })); // is use of `this` discouraged?
+        return options;
+      },
+      title: 'launchNotebook',
+    },
+    {
       options: [
         {
-          onAction: () => alert('restarted master'),
+          onAction: (): void => alert('restarted master'),
           title: 'restart',
         },
         {
-          onAction: () => alert('reloaded master'),
+          onAction: (): void => alert('reloaded master'),
           title: 'reload',
         },
         {
-          onAction: () => alert('here are the logs..'),
+          onAction: (): void => alert('here are the logs..'),
           title: 'showlogs',
         },
       ],
