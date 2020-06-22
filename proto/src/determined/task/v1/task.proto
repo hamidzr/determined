@@ -1,0 +1,31 @@
+syntax = "proto3";
+
+package determined.task.v1;
+option go_package = "github.com/determined-ai/determined/proto/pkg/taskv1";
+
+import "google/protobuf/timestamp.proto";
+import "determined/agent/v1/agent.proto";
+
+// Base attributes for Tensorboards, Notebooks, commands, and shells
+
+// User is an account in the determined cluster.
+message Task {
+    // Unique id of the task
+    string id = 1;
+    // The time when the agent registered with the master.
+    google.protobuf.Timestamp registered_time = 2;
+    // The user whom requested the task.
+    // TODO replace with user object
+    uint32 user_id = 3;
+    // the current state of the task container
+    determined.agent.v1.State state = 4;
+    // Whether the task is ready 
+    bool is_ready = 5;
+    // Exit status of the task
+    string exit_status = 6; 
+    // Misc json
+    string misc = 7;
+    // TODO add service address fields
+    /* ServiceAddress
+       Addresses */
+}
