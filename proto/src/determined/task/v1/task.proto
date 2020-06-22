@@ -8,6 +8,7 @@ import "determined/agent/v1/agent.proto";
 import "determined/shared/v1/shared.proto";
 
 // Base attributes for Tensorboards, Notebooks, commands, and shells
+// TODO separate to one for each type. start with just TB
 
 // User is an account in the determined cluster.
 message Task {
@@ -16,17 +17,18 @@ message Task {
     // The time when the agent registered with the master.
     google.protobuf.Timestamp registered_time = 2;
     // The user whom requested the task.
-    // TODO replace with user object
+    // TODO replace with user object. no use object. username!
     uint32 user_id = 3;
     // the current state of the task container
-    determined.shared.v1.ContainerState state = 4;
+    determined.shared.v1.ContainerState state = 4; // TODO use the container from Agent
     // Whether the task is ready 
     bool is_ready = 5;
     // Exit status of the task
     string exit_status = 6; 
     // Misc json
-    string misc = 7;
+    string misc = 7; // will get separated.
     // TODO add service address fields
-    /* ServiceAddress
-       Addresses */
+    /* ServiceAddress string; */
+    /* Addresses don't expose */
+  /* Config         model.CommandConfig    `json:"config"` // for individual ones */
 }
