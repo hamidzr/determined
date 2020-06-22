@@ -12,6 +12,7 @@ import (
 	"github.com/determined-ai/determined/master/pkg/actor/api"
 	"github.com/determined-ai/determined/master/pkg/check"
 	proto "github.com/determined-ai/determined/proto/pkg/apiv1"
+	"github.com/determined-ai/determined/proto/pkg/sharedv1"
 )
 
 // Initialize creates a new global agent actor.
@@ -50,7 +51,7 @@ func (a *agents) Receive(ctx *actor.Context) error {
 		}
 		sort.Slice(response.Agents, func(i, j int) bool {
 			a1, a2 := response.Agents[i], response.Agents[j]
-			if msg.OrderBy == proto.GetAgentsRequest_ORDER_BY_DESC {
+			if msg.OrderBy == sharedv1.OrderBy_ORDER_BY_DESC {
 				a1, a2 = a2, a1
 			}
 			switch msg.SortBy {

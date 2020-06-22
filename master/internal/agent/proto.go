@@ -6,6 +6,7 @@ import (
 	"github.com/determined-ai/determined/master/pkg/container"
 	"github.com/determined-ai/determined/master/pkg/device"
 	proto "github.com/determined-ai/determined/proto/pkg/agentv1"
+	protoShared "github.com/determined-ai/determined/proto/pkg/sharedv1"
 )
 
 func toProtoAgent(a agentSummary) *proto.Agent {
@@ -51,20 +52,20 @@ func toProtoContainer(c container.Container) *proto.Container {
 	}
 }
 
-func toProtoContainerState(s container.State) proto.Container_State {
+func toProtoContainerState(s container.State) protoShared.ContainerState {
 	switch s {
 	case container.Assigned:
-		return proto.Container_STATE_ASSIGNED
+		return protoShared.ContainerState_STATE_ASSIGNED
 	case container.Pulling:
-		return proto.Container_STATE_PULLING
+		return protoShared.ContainerState_STATE_PULLING
 	case container.Starting:
-		return proto.Container_STATE_STARTING
+		return protoShared.ContainerState_STATE_STARTING
 	case container.Running:
-		return proto.Container_STATE_RUNNING
+		return protoShared.ContainerState_STATE_RUNNING
 	case container.Terminated:
-		return proto.Container_STATE_TERMINATED
+		return protoShared.ContainerState_STATE_TERMINATED
 	default:
-		return proto.Container_STATE_UNSPECIFIED
+		return protoShared.ContainerState_STATE_UNSPECIFIED
 	}
 }
 
