@@ -5,6 +5,7 @@ option go_package = "github.com/determined-ai/determined/proto/pkg/taskv1";
 
 import "google/protobuf/timestamp.proto";
 import "determined/agent/v1/agent.proto";
+import "determined/shared/v1/shared.proto";
 
 // Base attributes for Tensorboards, Notebooks, commands, and shells
 
@@ -18,7 +19,7 @@ message Task {
     // TODO replace with user object
     uint32 user_id = 3;
     // the current state of the task container
-    determined.agent.v1.State state = 4;
+    determined.shared.v1.ContainerState state = 4;
     // Whether the task is ready 
     bool is_ready = 5;
     // Exit status of the task

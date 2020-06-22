@@ -1,0 +1,30 @@
+syntax = "proto3";
+
+package determined.shared.v1;
+option go_package = "github.com/determined-ai/determined/proto/pkg/sharedv1";
+
+// Order in either ascending or descending order.
+enum OrderBy {
+  // Returns in no specific order.
+  ORDER_BY_UNSPECIFIED = 0;
+  // Returns in ascending order.
+  ORDER_BY_ASC = 1;
+  // Returns in descending order.
+  ORDER_BY_DESC = 2;
+}
+
+enum ContainerState {
+    // The container state is unknown.
+    STATE_UNSPECIFIED = 0;
+    // The container has been assigned to an agent but has not started yet.
+    STATE_ASSIGNED = 1;
+    // The container's base image is being pulled from the Docker registry.
+    STATE_PULLING = 2;
+    // The image has been built and the container is being started, but the service in the container is not ready yet.
+    STATE_STARTING = 3;
+    // The service in the container is able to accept requests.
+    STATE_RUNNING = 4;
+    // The container has completely exited or the container has been aborted prior to getting assigned.
+    STATE_TERMINATED = 5;
+}
+

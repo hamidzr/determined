@@ -10,6 +10,7 @@ import "determined/api/v1/agent.proto";
 import "determined/api/v1/auth.proto";
 import "determined/api/v1/master.proto";
 import "determined/api/v1/model.proto";
+import "determined/api/v1/task.proto";
 import "determined/api/v1/template.proto";
 import "determined/api/v1/user.proto";
 
@@ -49,6 +50,12 @@ service Determined {
     rpc GetSlots(GetSlotsRequest) returns (GetSlotsResponse) { option (google.api.http) = {get: "/api/v1/agents/{agent_id}/slots"}; }
     // Get the requested slot for the agent with the given id.
     rpc GetSlot(GetSlotRequest) returns (GetSlotResponse) { option (google.api.http) = {get: "/api/v1/agents/{agent_id}/slots/{slot_id}"}; }
+
+    // TODO separate by task type
+    // Get a list of tasks.
+    rpc GetTasks(GetTasksRequest) returns (GetTasksResponse) { option (google.api.http) = {get: "/api/v1/tasks"}; }
+    // Get the requested task.
+    rpc GetTask(GetTaskRequest) returns (GetTaskResponse) { option (google.api.http) = {get: "/api/v1/tasks/{task_id}"}; }
 
     // Enable the agent.
     rpc EnableAgent(EnableAgentRequest) returns (EnableAgentResponse) { option (google.api.http) = {post: "/api/v1/agents/{agent_id}/enable"}; }
