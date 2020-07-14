@@ -86,3 +86,31 @@ export const consumeStream = async <T = unknown>(
     processApiError(fetchArgs.url, e);
   }
 };
+
+export const consumeStream2 = <T = unknown>(
+  fetchArgs: DetSwagger.FetchArgs, onEvent: (event: T) => void): Promise<void> => {
+  return fetch('http://localhost:9090')
+    .then(( response ) => {
+      if (response.body === null) throw new Error('null body');
+      return response.body.getReader();
+      // return ndjsonStream( response.body ).getReader();
+    })
+    .then( ( reader ) => {
+      //retain access to the reader so that you can cancel it
+      console.log('here');
+
+      const read = ( result: any ): any => {
+        console.log('executing read');
+        if ( result.done ) {
+          return;
+        }
+        console.log( result.value ); //logs {item:"first"}
+        return reader.read().then( read );
+      };
+
+      return reader.read()
+        .then(read)
+        .catch(console.error);
+    })
+    .catch(e => processApiError(fetchArgs.url, e));
+};
