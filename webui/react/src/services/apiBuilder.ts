@@ -7,6 +7,7 @@ import { serverAddress } from 'utils/routes';
 
 /* eslint-disable @typescript-eslint/no-var-requires */
 const ndjsonStream = require('can-ndjson-stream');
+const ndjson = require('ndjson');
 
 export const http = axios.create({
   responseType: 'json',
@@ -81,6 +82,23 @@ export const consumeStream = async <T = unknown>(
       result = await exampleReader.read();
       if (result.done) return;
       onEvent(result.value.result);
+    }
+  } catch (e) {
+    processApiError(fetchArgs.url, e);
+  }
+};
+
+export const consumeStream3 = async <T = unknown>(
+  fetchArgs: DetSwagger.FetchArgs, onEvent: (event: T) => void): Promise<void> => {
+  try {
+    const response = await fetch(serverAddress() + fetchArgs.url, fetchArgs.options);
+    if (response.body === null) throw new Error('null body');
+    const reader = response.body.getReader();
+    let result;
+    while (!result || !result.done) {
+      result = await reader.read();
+      if (result.done) return;
+      onEvent(result.value);
     }
   } catch (e) {
     processApiError(fetchArgs.url, e);
