@@ -5,6 +5,8 @@ swagger_client := src/services/swagger
 source_files := $(shell find src public -type f)
 ts_bindings_src := ../../bindings/build/typescript-fetch
 ts_bindings_dest := src/services/api-ts-sdk
+PROJECT_ROOT := "../../"
+SKIPPED_STORIES = "^(Experiment|Table|TaskCard|Nav).*"
 
 .PHONY: default
 default: get-deps
@@ -79,3 +81,11 @@ fmt: fmt-js fmt-css
 .PHONY: test
 test:
 	npm run test -- --watchAll=false
+
+.PHONY: test-update
+test-update:
+	npx loki update --skipStories ${SKIPPED_STORIES} --chromeConcurrency 4
+
+.PHONY: test-visual
+test-visual:
+	npx loki test --skipStories ${SKIPPED_STORIES} --chromeConcurrency 4

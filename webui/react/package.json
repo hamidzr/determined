@@ -118,6 +118,7 @@
     "ify-loader": "^1.1.0",
     "less": "^4.1.1",
     "less-loader": "^7.0.2",
+    "loki": "^0.24.0",
     "monaco-editor-webpack-plugin": "^3.0.1",
     "morgan": "^1.10.0",
     "npm-force-resolutions": "0.0.10",
@@ -142,5 +143,16 @@
     "coveragePathIgnorePatterns": [
       "/src/services/api-ts-sdk/"
     ]
+  },
+  "loki": {
+    "configurations": {
+      "chrome.laptop": {
+        "target": "chrome.app",
+        "width": 1366,
+        "height": 768,
+        "deviceScaleFactor": 1,
+        "mobile": false
+      }
+    }
   }
 }
