@@ -53,3 +53,12 @@ message Experiment {
     // The username of the user that created the experiment.
     string username = 10;
 }
+
+message ExperimentDetails {
+    // Base experiment info.
+    Experiment experiment = 1;
+    // Experiment configuration;
+    string config = 2;
+    // DISCUSS: trials, validation history (metrics), and checkpoints neeed to either be provided
+    // here or as separate endpoint.
+}

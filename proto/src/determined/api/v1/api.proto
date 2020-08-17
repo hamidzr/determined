@@ -137,6 +137,11 @@ service Determined {
         option (google.api.http) = {get: "/api/v1/experiments"};
         option (grpc.gateway.protoc_gen_swagger.options.openapiv2_operation) = {tags: "Experiments"};
     }
+    // Get a single of experiment.
+    rpc GetExperiment(GetExperimentRequest) returns (GetExperimentResponse) {
+        option (google.api.http) = {get: "/api/v1/experiments/{id}"};
+        option (grpc.gateway.protoc_gen_swagger.options.openapiv2_operation) = {tags: "Experiments"};
+    }
     // Activate an experiment.
     rpc ActivateExperiment(ActivateExperimentRequest) returns (ActivateExperimentResponse) {
         option (google.api.http) = {post: "/api/v1/experiments/{id}/activate" };

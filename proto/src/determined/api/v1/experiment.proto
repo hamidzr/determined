@@ -11,6 +11,7 @@ import "determined/checkpoint/v1/checkpoint.proto";
 import "determined/experiment/v1/experiment.proto";
 import "determined/experiment/v1/searcher.proto";
 
+
 // Get a list of experiments.
 message GetExperimentsRequest {
     // Sorts experiments by the given field.
@@ -59,6 +60,16 @@ message GetExperimentsResponse {
     repeated determined.experiment.v1.Experiment experiments = 1;
     // Pagination information of the full dataset.
     Pagination pagination = 2;
+}
+
+// Get an experiment.
+message GetExperimentRequest {
+  // The id of the experiment.
+  int32 id = 1;
+}
+// Response to GetExperimentRequest.
+message GetExperimentResponse {
+    determined.experiment.v1.ExperimentDetails experiment = 1;
 }
 
 // Preview hyperparameter search.
