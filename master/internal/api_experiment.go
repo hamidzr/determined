@@ -71,6 +71,20 @@ func (a *apiServer) GetExperiments(
 	return resp, a.paginate(&resp.Pagination, &resp.Experiments, req.Offset, req.Limit)
 }
 
+func (a *apiServer) GetExperiment(
+	_ context.Context, req *apiv1.GetExperimentRequest,
+) (*apiv1.GetExperimentResponse, error) {
+	resp := &apiv1.GetExperimentResponse{}
+	resp.Experiment = &experimentv1.ExperimentDetails{}
+	resp.Experiment.Experiment = &experimentv1.Experiment{}
+	if err := a.m.db.QueryProto("get_experiment", resp.Experiment.Experiment, req.Id); err != nil {
+		return nil, err
+	}
+	config, err := a.m.db.ExperimentConfig(int(req.Id))
+	resp.Experiment.Config = config
+	return resp, nil
+}
+
 func (a *apiServer) PreviewHPSearch(
 	_ context.Context, req *apiv1.PreviewHPSearchRequest) (*apiv1.PreviewHPSearchResponse, error) {
 	bytes, err := protojson.Marshal(req.Config)
