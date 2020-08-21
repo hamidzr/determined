@@ -159,6 +159,12 @@ func (a *apiServer) KillTrial(
 	return &resp, err
 }
 
+// func trialToProcessedLength() {
+
+// 	// addr := actor.Addr("trials", req.Id).String()
+// 	// switch err = a.actorRequest(addr, req, &resp); {
+// }
+
 func (a *apiServer) GetExperimentTrials(
 	_ context.Context, req *apiv1.GetTrialsRequest) (*apiv1.GetTrialsResponse, error) {
 	resp := &apiv1.GetTrialsResponse{}
@@ -182,6 +188,7 @@ func (a *apiServer) GetExperimentTrials(
 		return !eliminate
 	})
 
+	a.m.db.ExperimentConfigRaw(int(req.ExperimentId))
 	// TODO add missing fields. best val, best cp, processed length
 
 	a.sort(resp.Trials, req.OrderBy, req.SortBy, apiv1.GetTrialsRequest_SORT_BY_ID)
