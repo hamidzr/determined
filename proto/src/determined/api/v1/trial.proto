@@ -7,6 +7,7 @@ import "determined/experiment/v1/experiment.proto";
 import "determined/trial/v1/trial.proto";
 import "determined/api/v1/pagination.proto";
 import "determined/checkpoint/v1/checkpoint.proto";
+import "protoc-gen-swagger/options/annotations.proto";
 
 // Stream Trial logs.
 message TrialLogsRequest {
@@ -83,6 +84,11 @@ message KillTrialResponse {}
 
 // Get a list of trials.
 message GetTrialsRequest {
+    option (grpc.gateway.protoc_gen_swagger.options.openapiv2_schema) = {
+        json_schema: {
+        required: ["experiment_id"]
+     }
+    };
     // Sorts trials by the given field.
     enum SortBy {
         // Returns trials in an unsorted list.
@@ -109,7 +115,7 @@ message GetTrialsRequest {
     // Limit trials to those that match the provided state.
     repeated determined.experiment.v1.State states = 7;
     // Limit trials to those that are owned by the specified experiments.
-    repeated int32 experiment_id = 8;
+    int32 experiment_id = 8;
 }
 // Response to GetTrialsRequest.
 message GetTrialsResponse {
