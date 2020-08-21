@@ -158,3 +158,32 @@ func (a *apiServer) KillTrial(
 	}
 	return &resp, err
 }
+
+func (a *apiServer) GetExperimentTrials(
+	_ context.Context, req *apiv1.GetTrialsRequest) (*apiv1.GetTrialsResponse, error) {
+	resp := &apiv1.GetTrialsResponse{}
+	if err := a.m.db.QueryProto("get_trials_for_experiment", &resp.Trials, req.ExperimentId); err != nil {
+		return nil, err
+	}
+	a.filter(&resp.Trials, func(i int) bool {
+		v := resp.Trials[i]
+		eliminate := false
+
+		if len(req.States) != 0 && !eliminate {
+			eliminate = true
+			for _, state := range req.States {
+				if state == v.State {
+					eliminate = false
+					break
+				}
+			}
+		}
+
+		return !eliminate
+	})
+
+	// TODO add missing fields. best val, best cp, processed length
+
+	a.sort(resp.Trials, req.OrderBy, req.SortBy, apiv1.GetTrialsRequest_SORT_BY_ID)
+	return resp, a.paginate(&resp.Pagination, &resp.Trials, req.Offset, req.Limit)
+}
