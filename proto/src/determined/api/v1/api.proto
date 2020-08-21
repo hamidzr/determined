@@ -189,6 +189,12 @@ service Determined {
         option (google.api.http) = {post: "/api/v1/preview-hp-search" body: "*"};
         option (grpc.gateway.protoc_gen_swagger.options.openapiv2_operation) = {tags: "Experiments"};
     }
+
+    // Get a list of trials.
+    rpc GetTrials(GetTrialsRequest) returns (GetTrialsResponse) {
+        option (google.api.http) = {get: "/api/v1/trials" };
+        option (grpc.gateway.protoc_gen_swagger.options.openapiv2_operation) = {tags: ["Trials", "Experiments"]};
+    }
     // Stream Trial logs.
     rpc TrialLogs(TrialLogsRequest) returns (stream TrialLogsResponse) {
         option (google.api.http) = {get: "/api/v1/trials/{trial_id}/logs"};
