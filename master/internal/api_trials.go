@@ -188,8 +188,14 @@ func (a *apiServer) GetExperimentTrials(
 		return !eliminate
 	})
 
+	// TODO add missing fields. best val, best cp
+	// get config
 	a.m.db.ExperimentConfigRaw(int(req.ExperimentId))
-	// TODO add missing fields. best val, best cp, processed length
+	// find the main metric name, which is smaller better, find
+	// find the best validation => find the best step id, find the checkpoint
+
+	// TODO processed length
+	// use totalbatchesprocessed, only supporting new experiments
 
 	a.sort(resp.Trials, req.OrderBy, req.SortBy, apiv1.GetTrialsRequest_SORT_BY_ID)
 	return resp, a.paginate(&resp.Pagination, &resp.Trials, req.Offset, req.Limit)
