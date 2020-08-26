@@ -40,4 +40,6 @@ message Trial {
   determined.checkpoint.v1.Checkpoint best_checkpoint = 8;
   // Trial hyperparameters.
   google.protobuf.Struct hparams = 9;
+  // Latest trial validation.
+  double latest_validation = 10;
 }

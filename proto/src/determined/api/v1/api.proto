@@ -190,7 +190,7 @@ service Determined {
         option (grpc.gateway.protoc_gen_swagger.options.openapiv2_operation) = {tags: "Experiments"};
     }
 
-    // Get a list of trials.
+    // Get the list of trials for an experiment.
     rpc GetExperimentTrials(GetTrialsRequest) returns (GetTrialsResponse) {
         option (google.api.http) = {get: "/api/v1/experiments/{experiment_id}/trials" };
         option (grpc.gateway.protoc_gen_swagger.options.openapiv2_operation) = {tags: ["Trials", "Experiments"]};

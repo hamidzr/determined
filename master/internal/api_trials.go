@@ -2,6 +2,7 @@ package internal
 
 import (
 	"context"
+	"encoding/json"
 	"fmt"
 	"time"
 
@@ -170,6 +171,12 @@ func (a *apiServer) KillTrial(
 func (a *apiServer) GetExperimentTrials(
 	_ context.Context, req *apiv1.GetTrialsRequest) (*apiv1.GetTrialsResponse, error) {
 	resp := &apiv1.GetTrialsResponse{}
+
+	// disallow unlimited requests
+	if req.Limit == 0 {
+		req.Limit = 100
+	}
+
 	if err := a.m.db.QueryProto("get_trials_for_experiment", &resp.Trials, req.ExperimentId); err != nil {
 		return nil, err
 	}
@@ -190,16 +197,19 @@ func (a *apiServer) GetExperimentTrials(
 		return !eliminate
 	})
 
-	// TODO add missing fields. best val, best cp
-	// get config
-	// a.m.db.ExperimentConfigRaw(int(req.ExperimentId))
-	// find the main metric name, which is smaller better, find
-	// find the best validation => find the best step id, find the checkpoint
+	a.sort(resp.Trials, req.OrderBy, req.SortBy, apiv1.GetTrialsRequest_SORT_BY_ID)
+	if err := a.paginate(&resp.Pagination, &resp.Trials, req.Offset, req.Limit); err != nil {
+		return nil, err
+	}
 
-	// TODO processed length
-	// use totalbatchesprocessed, only supporting new experiments
+	type valCheckpoint struct {
+		BestValidation   float64 `json:"best_validation"`
+		LatestValidation float64 `json:"latest_validation"`
+		BestCheckpoint   string  `json:"best_checkpoint"`
+	}
 
 	for _, trial := range resp.Trials {
+		// TODO consider missing (eg terminal) trials
 		trialAddr := actor.Addr("trials", trial.Id).String()
 		var tbp int
 		// OPT do in parallel?
@@ -209,12 +219,25 @@ func (a *apiServer) GetExperimentTrials(
 				Value: int32(tbp),
 				Unit:  trialv1.LengthUnit_LENGTH_UNIT_BATCHES,
 			}
-			fmt.Println(tbp)
 		default:
 			return nil, err
 		}
+
+		var stats valCheckpoint
+		res, err := a.m.db.RawQuery("get_trial_stats", req.ExperimentId, trial.Id)
+		if err != nil {
+			return nil, err
+		}
+		fmt.Println(res)
+		if err = json.Unmarshal(res, &stats); err != nil {
+			return nil, err
+		}
+
+		// TODO populate the whole checkpoint
+		trial.BestCheckpoint = &checkpointv1.Checkpoint{Uuid: stats.BestCheckpoint}
+		trial.BestValidation = stats.BestValidation
+		trial.LatestValidation = stats.LatestValidation
 	}
 
-	a.sort(resp.Trials, req.OrderBy, req.SortBy, apiv1.GetTrialsRequest_SORT_BY_ID)
-	return resp, a.paginate(&resp.Pagination, &resp.Trials, req.Offset, req.Limit)
+	return resp, nil
 }

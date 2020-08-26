@@ -10,16 +10,15 @@ WITH const AS (
                 END
         ) as sign
     FROM experiments
-    WHERE id = 14 -- $experimentid
+    WHERE id = $1 -- $experimentid
 )
 SELECT row_to_json(x)
 FROM (
         SELECT const.metric_name,
             (
-                SELECT to_jsonb(v)
+                SELECT *
                 FROM (
-                        SELECT step->'validation'->'metrics'->'validation_metrics'->>const.metric_name AS value,
-                            step
+                        SELECT step->'validation'->'metrics'->'validation_metrics'->>const.metric_name
                         FROM (
                                 SELECT (
                                         SELECT row_to_json(s)
@@ -54,8 +53,8 @@ FROM (
                                 FROM checkpoints c,
                                     trials t,
                                     const
-                                WHERE c.trial_id = 14
-                                    AND t.id = 14 -- $1
+                                WHERE c.trial_id = $2
+                                    AND t.id = $2
                             ) val_step
                         WHERE (
                                 (
@@ -69,10 +68,9 @@ FROM (
                     ) v
             ) AS latest_validation,
             (
-                SELECT to_jsonb(v)
+                SELECT *
                 FROM (
-                        SELECT step->'validation'->'metrics'->'validation_metrics'->>const.metric_name AS value,
-                            step
+                        SELECT step->'validation'->'metrics'->'validation_metrics'->>const.metric_name
                         FROM (
                                 SELECT (
                                         SELECT row_to_json(s)
@@ -107,8 +105,8 @@ FROM (
                                 FROM checkpoints c,
                                     trials t,
                                     const
-                                WHERE c.trial_id = 14
-                                    AND t.id = 14 -- $1
+                                WHERE c.trial_id = $2
+                                    AND t.id = $2 -- $1
                             ) val_step
                         WHERE (
                                 (
@@ -124,9 +122,9 @@ FROM (
                     ) v
             ) AS best_validation,
             (
-                SELECT to_jsonb(c)
+                SELECT *
                 FROM (
-                        SELECT *
+                        SELECT cp_step.uuid AS uuid
                         FROM (
                                 SELECT c.id,
                                     c.trial_id,
@@ -170,8 +168,8 @@ FROM (
                                 FROM checkpoints c,
                                     trials t,
                                     const
-                                WHERE c.trial_id = 14
-                                    AND t.id = 14 -- $1
+                                WHERE c.trial_id = $2
+                                    AND t.id = $2 -- $1
                             ) cp_step
                         WHERE (
                                 (
