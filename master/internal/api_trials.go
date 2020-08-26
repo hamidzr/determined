@@ -249,6 +249,7 @@ func (a *apiServer) GetExperimentTrials(
 	return resp, nil
 }
 
+// this could basically be a special case of getTrials assuming we support include_steps query param
 func (a *apiServer) GetTrial(_ context.Context, req *apiv1.GetTrialRequest) (
 	*apiv1.GetTrialResponse, error,
 ) {

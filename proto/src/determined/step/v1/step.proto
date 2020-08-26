@@ -50,6 +50,11 @@ enum CheckpointState {
   CHECKPOINT_STATE_DELETED = 3;
 }
 
+/* DISCUSS in the db we store these as jsonb and they have no predictable shape.
+ we could either:
+ 1. parse that into key value pairs and serve as []Metric
+ 2. serve as a json blob
+*/
 message Metric {
   string name = 1;
   double value = 2;
@@ -79,6 +84,7 @@ message Checkpoint {
   google.protobuf.Timestamp end_time = 6;
 }
 
+// DISCUSS is this a bit weird that we stick validation and checkpoints into (basically) a training step?
 message Step {
   // The id of the step.
   int32 id = 1;
