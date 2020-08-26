@@ -32,44 +32,65 @@ import "google/protobuf/timestamp.proto";
 /*     STATE_DELETED = 9; */
 /* } */
 
-/* message Metric { */
-/*   string name = 1; */
-/*   double value = 2; */
-/* } */
+enum StepState {
+  STEP_STATE_ACTIVE = 0;
+  STEP_STATE_CANCELED = 1;
+  STEP_STATE_COMPLETED = 2;
+  STEP_STATE_DELETED = 3;
+  STEP_STATE_ERROR = 4;
+  STEP_STATE_PAUSED = 5;
+  STEP_STATE_STOPPING_ERROR = 6;
+  STEP_STATE_STOPPING_COMPLETED = 7;
+}
+
+enum CheckpointState {
+  CHECKPOINT_STATE_ACTIVE = 0;
+  CHECKPOINT_STATE_COMPLETED = 1;
+  CHECKPOINT_STATE_ERROR = 2;
+  CHECKPOINT_STATE_DELETED = 3;
+}
+
+message Metric {
+  string name = 1;
+  double value = 2;
+}
+
+message Resource {
+  string path = 1;
+  int32 size = 2;
+}
 
 
 message Validation {
   int32 id = 1;
-  // state
   int32 num_inputs = 2;
-  repeated string validation_metrics = 3;
-  // state
-  // start & end time
+  repeated Metric validation_metrics = 3;
+  StepState state = 4;
+  google.protobuf.Timestamp start_time = 5;
+  google.protobuf.Timestamp end_time = 6;
 }
 
 message Checkpoint {
   int32 id = 1;
   string uuid = 2;
-  // resources
-  // state
-  // start & end time
+  repeated Resource resources = 3;
+  CheckpointState state = 4;
+  google.protobuf.Timestamp start_time = 5;
+  google.protobuf.Timestamp end_time = 6;
 }
 
-// Step is a collection of one or more steps that are exploring a user-defined
-// hyperparameter space.
 message Step {
   // The id of the step.
   int32 id = 1;
   int32 trial_id = 2;
   // The time the step was started.
   google.protobuf.Timestamp start_time = 3;
-  // The time the step ended if the step is stopped.
   google.protobuf.Timestamp end_time = 4;
   // The current state of the step.
-  /* state state = 5; */
+  StepState state = 5;
   int32 num_batches = 6;
   int32 prior_batches_processed = 7;
-  /* int32 validation */
-  /* checkpoint */
-  /* repeated average_metrics */ 
+  Validation validation = 8;
+  Checkpoint checkpoint = 9;
+  repeated Metric average_metrics = 10; 
 }
