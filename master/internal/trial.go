@@ -85,6 +85,8 @@ type (
 		ContainerID scheduler.ContainerID
 		socket      *websocket.Conn
 	}
+
+	trialProgress struct{}
 )
 
 // Trial-specific external messages.
@@ -391,6 +393,9 @@ func (t *trial) runningReceive(ctx *actor.Context) error {
 
 	case killTrial:
 		t.killTrial(ctx)
+
+	case trialProgress:
+		ctx.Respond(t.sequencer.totalBatchesProcessed)
 
 	case terminateTimeout:
 		if t.task != nil && msg.runID == t.runID {

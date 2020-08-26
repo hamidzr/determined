@@ -2,6 +2,7 @@ package internal
 
 import (
 	"context"
+	"fmt"
 	"time"
 
 	"google.golang.org/grpc/codes"
@@ -15,6 +16,7 @@ import (
 	"github.com/determined-ai/determined/master/pkg/model"
 	"github.com/determined-ai/determined/proto/pkg/apiv1"
 	"github.com/determined-ai/determined/proto/pkg/checkpointv1"
+	"github.com/determined-ai/determined/proto/pkg/trialv1"
 )
 
 const (
@@ -190,12 +192,28 @@ func (a *apiServer) GetExperimentTrials(
 
 	// TODO add missing fields. best val, best cp
 	// get config
-	a.m.db.ExperimentConfigRaw(int(req.ExperimentId))
+	// a.m.db.ExperimentConfigRaw(int(req.ExperimentId))
 	// find the main metric name, which is smaller better, find
 	// find the best validation => find the best step id, find the checkpoint
 
 	// TODO processed length
 	// use totalbatchesprocessed, only supporting new experiments
+
+	for _, trial := range resp.Trials {
+		trialAddr := actor.Addr("trials", trial.Id).String()
+		var tbp int
+		// OPT do in parallel?
+		switch err := a.actorRequest(trialAddr, req, &tbp); err {
+		case nil:
+			trial.ProcessedLength = &trialv1.Length{
+				Value: int32(tbp),
+				Unit:  trialv1.LengthUnit_LENGTH_UNIT_BATCHES,
+			}
+			fmt.Println(tbp)
+		default:
+			return nil, err
+		}
+	}
 
 	a.sort(resp.Trials, req.OrderBy, req.SortBy, apiv1.GetTrialsRequest_SORT_BY_ID)
 	return resp, a.paginate(&resp.Pagination, &resp.Trials, req.Offset, req.Limit)
