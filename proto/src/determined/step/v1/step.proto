@@ -64,7 +64,7 @@ message Resource {
 message Validation {
   int32 id = 1;
   int32 num_inputs = 2;
-  repeated Metric validation_metrics = 3;
+  /* repeated Metric metrics = 3; */
   StepState state = 4;
   google.protobuf.Timestamp start_time = 5;
   google.protobuf.Timestamp end_time = 6;
@@ -90,7 +90,7 @@ message Step {
   StepState state = 5;
   int32 num_batches = 6;
   int32 prior_batches_processed = 7;
-  /* Validation validation = 8; */
+  Validation validation = 8;
   /* Checkpoint checkpoint = 9; */
   /* repeated Metric average_metrics = 10; */ 
 }
