@@ -15,6 +15,7 @@ import (
 	"github.com/determined-ai/determined/master/pkg/model"
 	"github.com/determined-ai/determined/proto/pkg/apiv1"
 	"github.com/determined-ai/determined/proto/pkg/checkpointv1"
+	"github.com/determined-ai/determined/proto/pkg/stepv1"
 	"github.com/determined-ai/determined/proto/pkg/trialv1"
 )
 
@@ -252,8 +253,18 @@ func (a *apiServer) GetTrial(_ context.Context, req *apiv1.GetTrialRequest) (
 	*apiv1.GetTrialResponse, error,
 ) {
 	var protoTrial trialv1.Trial
-	if err := a.m.db.QueryProto("get_proto_trial", &protoTrial, req.Id); err != nil {
+	var response apiv1.GetTrialResponse
+	if err := a.m.db.QueryProto("get_prototrial", &protoTrial, req.Id); err != nil {
 		return nil, err
 	}
-	return &apiv1.GetTrialResponse{Trial: &protoTrial}, nil
+	response.Trial = &protoTrial
+	if req.IncludeSteps {
+		var protoSteps []*stepv1.Step
+		// OPT merge with first query for better performance.
+		if err := a.m.db.QueryProto("get_trial_protosteps", &protoSteps); err != nil {
+			return nil, err
+		}
+		response.Steps = protoSteps
+	}
+	return &response, nil
 }
