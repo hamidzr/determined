@@ -82,8 +82,8 @@ message KillTrialRequest {
 // Response to KillTrialRequest.
 message KillTrialResponse {}
 
-// Get a list of trials.
-message GetTrialsRequest {
+// Get the list of trials for an experiment.
+message GetExperimentTrialsRequest {
     option (grpc.gateway.protoc_gen_swagger.options.openapiv2_schema) = {
         json_schema: {
         required: ["experiment_id"]
@@ -117,10 +117,18 @@ message GetTrialsRequest {
     // Limit trials to those that are owned by the specified experiments.
     int32 experiment_id = 8;
 }
-// Response to GetTrialsRequest.
-message GetTrialsResponse {
+// Response to GetExperimentTrialsRequest.
+message GetExperimentTrialsResponse {
     // The list of returned trials.
     repeated determined.trial.v1.Trial trials = 1;
     // Pagination information of the full dataset.
     Pagination pagination = 2;
+}
+
+
+// Get trial details.
+message GetTrialRequest {
+}
+// Response to GetTrialRequest.
+message GetTrialResponse {
 }

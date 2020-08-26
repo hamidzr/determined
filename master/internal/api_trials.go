@@ -166,13 +166,8 @@ func (a *apiServer) KillTrial(
 // }
 
 func (a *apiServer) GetExperimentTrials(
-	_ context.Context, req *apiv1.GetTrialsRequest) (*apiv1.GetTrialsResponse, error) {
-	resp := &apiv1.GetTrialsResponse{}
-
-	// disallow unlimited requests
-	if req.Limit == 0 {
-		req.Limit = 100
-	}
+	_ context.Context, req *apiv1.GetExperimentTrialsRequest) (*apiv1.GetExperimentTrialsResponse, error) {
+	resp := &apiv1.GetExperimentTrialsResponse{}
 
 	if err := a.m.db.QueryProto("get_trials_for_experiment", &resp.Trials, req.ExperimentId); err != nil {
 		return nil, err
@@ -194,7 +189,7 @@ func (a *apiServer) GetExperimentTrials(
 		return !eliminate
 	})
 
-	a.sort(resp.Trials, req.OrderBy, req.SortBy, apiv1.GetTrialsRequest_SORT_BY_ID)
+	a.sort(resp.Trials, req.OrderBy, req.SortBy, apiv1.GetExperimentTrialsRequest_SORT_BY_ID)
 	if err := a.paginate(&resp.Pagination, &resp.Trials, req.Offset, req.Limit); err != nil {
 		return nil, err
 	}
