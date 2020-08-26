@@ -7,23 +7,19 @@ SELECT s.id,
   s.end_time,
   s.num_batches,
   s.prior_batches_processed,
-  -- (
-  --   SELECT row_to_json(r3)
-  --   FROM (
-  --       SELECT c.id,
-  --         c.trial_id,
-  --         c.step_id,
-  --         c.state,
-  --         c.start_time,
-  --         c.end_time,
-  --         c.uuid,
-  --         c.resources,
-  --         c.metadata
-  --       FROM checkpoints c
-  --       WHERE c.trial_id = t.id
-  --         AND c.step_id = s.id
-  --     ) r3
-  -- ) AS checkpoint,
+  (
+    SELECT row_to_json(r3)
+    FROM (
+        SELECT c.id,
+          'CHECKPOINT_STATE_' || c.state as state,
+          c.start_time,
+          c.end_time,
+          c.uuid
+        FROM checkpoints c
+        WHERE c.trial_id = t.id
+          AND c.step_id = s.id
+      ) r3
+  ) AS checkpoint,
   (
     SELECT row_to_json(r4)
     FROM (
@@ -42,4 +38,4 @@ FROM steps s
     s.trial_id = t.id
     AND t.id = 18
   )
-ORDER BY s.id ASC -- ) r2
+ORDER BY s.id ASC
