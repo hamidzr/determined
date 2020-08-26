@@ -15,6 +15,7 @@ import (
 	"github.com/determined-ai/determined/master/pkg/model"
 	"github.com/determined-ai/determined/proto/pkg/apiv1"
 	"github.com/determined-ai/determined/proto/pkg/checkpointv1"
+	"github.com/determined-ai/determined/proto/pkg/trialv1"
 )
 
 const (
@@ -245,4 +246,14 @@ func (a *apiServer) GetExperimentTrials(
 	// }
 
 	return resp, nil
+}
+
+func (a *apiServer) GetTrial(_ context.Context, req *apiv1.GetTrialRequest) (
+	*apiv1.GetTrialResponse, error,
+) {
+	var protoTrial trialv1.Trial
+	if err := a.m.db.QueryProto("get_proto_trial", &protoTrial, req.Id); err != nil {
+		return nil, err
+	}
+	return &apiv1.GetTrialResponse{Trial: &protoTrial}, nil
 }

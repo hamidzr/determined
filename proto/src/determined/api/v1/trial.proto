@@ -128,7 +128,13 @@ message GetExperimentTrialsResponse {
 
 // Get trial details.
 message GetTrialRequest {
+    // The requested trial's id.
+    int32 id = 1;
+    // Whether to inclue the list of steps or not.
+    /* bool include_steps = 2; */
 }
 // Response to GetTrialRequest.
 message GetTrialResponse {
+    determined.trial.v1.Trial trial = 1;
+    /* repeated Step steps = 2; */
 }
