@@ -63,6 +63,59 @@ FROM (
                                 )::float8 IS NOT NULL
                             )
                         ORDER BY (
+                                (step->>'id')::int
+                            ) DESC
+                        LIMIT 1
+                    ) v
+            ) AS latest_validation,
+            (
+                SELECT to_jsonb(v)
+                FROM (
+                        SELECT step->'validation'->'metrics'->'validation_metrics'->>const.metric_name AS value,
+                            step
+                        FROM (
+                                SELECT (
+                                        SELECT row_to_json(s)
+                                        FROM (
+                                                SELECT s.end_time,
+                                                    s.id,
+                                                    s.start_time,
+                                                    s.state,
+                                                    s.trial_id,
+                                                    s.num_batches,
+                                                    s.prior_batches_processed,
+                                                    (
+                                                        SELECT row_to_json(v)
+                                                        FROM (
+                                                                SELECT v.end_time,
+                                                                    v.id,
+                                                                    v.metrics,
+                                                                    v.start_time,
+                                                                    v.state,
+                                                                    v.step_id,
+                                                                    v.trial_id
+                                                                FROM validations v
+                                                                WHERE v.trial_id = s.trial_id
+                                                                    AND v.step_id = s.id
+                                                            ) v
+                                                    ) AS validation
+                                                FROM steps s
+                                                WHERE s.id = c.step_id
+                                                    AND s.trial_id = c.trial_id
+                                            ) s
+                                    ) AS step
+                                FROM checkpoints c,
+                                    trials t,
+                                    const
+                                WHERE c.trial_id = 14
+                                    AND t.id = 14 -- $1
+                            ) val_step
+                        WHERE (
+                                (
+                                    step->'validation'->'metrics'->'validation_metrics'->>const.metric_name
+                                )::float8 IS NOT NULL
+                            )
+                        ORDER BY (
                                 const.sign * (
                                     step->'validation'->'metrics'->'validation_metrics'->>const.metric_name
                                 )::float8
