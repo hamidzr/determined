@@ -32,14 +32,14 @@ message Trial {
   google.protobuf.Timestamp end_time = 4;
   // The current state of the trial.
   determined.experiment.v1.State state = 5;
-  // The current processed length.
-  Length processed_length = 6; // DISCUSS or a struct
-  // The best validation metric for trial.
-  double best_validation = 7;
-  // Best checkpoint for trial.
-  determined.checkpoint.v1.Checkpoint best_checkpoint = 8;
   // Trial hyperparameters.
-  google.protobuf.Struct hparams = 9;
+  google.protobuf.Struct hparams = 6;
+  // The current processed length.
+  /* Length processed_length = 6; // DISCUSS or a struct */
+  // The best validation metric for trial.
+  /* double best_validation = 7; */
+  // Best checkpoint for trial.
+  /* determined.checkpoint.v1.Checkpoint best_checkpoint = 8; */
   // Latest trial validation.
-  double latest_validation = 10;
+  /* double latest_validation = 10; */
 }
