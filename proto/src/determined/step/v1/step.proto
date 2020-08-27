@@ -55,6 +55,7 @@ enum CheckpointState {
  1. parse that into key value pairs and serve as []Metric
  2. serve as a json blob
 */
+// TODO use metric from checkpoint
 message Metric {
   string name = 1;
   double value = 2;
@@ -78,13 +79,15 @@ message Validation {
 message Checkpoint {
   int32 id = 1;
   string uuid = 2;
-  /* repeated Resource resources = 3; */
+  repeated Resource resources = 3;
   CheckpointState state = 4;
   google.protobuf.Timestamp start_time = 5;
   google.protobuf.Timestamp end_time = 6;
 }
 
-// DISCUSS is this a bit weird that we stick validation and checkpoints into (basically) a training step?
+/* message TrainingStep {} */
+
+//  this is a training step. sometimes has validation and/or checkpoint attached to it.
 message Step {
   // The id of the step.
   int32 id = 1;

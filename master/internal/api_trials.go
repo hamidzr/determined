@@ -171,7 +171,10 @@ func (a *apiServer) GetExperimentTrials(
 	_ context.Context, req *apiv1.GetExperimentTrialsRequest) (*apiv1.GetExperimentTrialsResponse, error) {
 	resp := &apiv1.GetExperimentTrialsResponse{}
 
-	if err := a.m.db.QueryProto("get_trials_for_experiment", &resp.Trials, req.ExperimentId); err != nil {
+	switch err := a.m.db.QueryProto("get_trials_for_experiment", &resp.Trials, req.ExperimentId); {
+	case err == db.ErrNotFound:
+		return nil, status.Errorf(codes.NotFound, "experiment %d not found:", req.ExperimentId)
+	case err != nil:
 		return nil, err
 	}
 	a.filter(&resp.Trials, func(i int) bool {

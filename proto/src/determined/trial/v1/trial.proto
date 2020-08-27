@@ -8,19 +8,6 @@ import "determined/experiment/v1/experiment.proto";
 import "determined/checkpoint/v1/checkpoint.proto";
 import "google/protobuf/timestamp.proto";
 
-enum LengthUnit {
-  LENGTH_UNIT_RECORD = 0;
-  LENGTH_UNIT_BATCHES = 1;
-  LENGTH_UNIT_EPOCHS = 2;
-}
-
-message Length {
-  LengthUnit unit = 1;
-  int32 value = 2;
-}
-
-// Trial is a collection of one or more trials that are exploring a user-defined
-// hyperparameter space.
 message Trial {
   // The id of the trial.
   int32 id = 1;
@@ -34,8 +21,8 @@ message Trial {
   determined.experiment.v1.State state = 5;
   // Trial hyperparameters.
   google.protobuf.Struct hparams = 6;
-  // The current processed length.
-  /* Length processed_length = 6; // DISCUSS or a struct */
+  // The current processed batches.
+  int32 batches_processed = 7;
   // The best validation metric for trial.
   /* double best_validation = 7; */
   // Best checkpoint for trial.
