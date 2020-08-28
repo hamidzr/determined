@@ -128,7 +128,7 @@ func (n *notebookManager) handleAPIRequest(ctx *actor.Context, apiCtx echo.Conte
 		userFilter := apiCtx.QueryParam("user")
 		ctx.Respond(apiCtx.JSON(
 			http.StatusOK,
-			ctx.AskAll(getSummary{userFilter: userFilter}, ctx.Children()...)))
+			ctx.AskAll(GetSummary{userFilter: userFilter}, ctx.Children()...)))
 
 	case echo.POST:
 		var params commandParams
@@ -161,7 +161,7 @@ func (n *notebookManager) handleAPIRequest(ctx *actor.Context, apiCtx echo.Conte
 		}
 
 		a, _ := ctx.ActorOf(notebook.taskID, notebook)
-		ctx.Respond(apiCtx.JSON(http.StatusOK, ctx.Ask(a, getSummary{})))
+		ctx.Respond(apiCtx.JSON(http.StatusOK, ctx.Ask(a, GetSummary{})))
 		ctx.Log().Infof("created notebook %s", a.Address().Local())
 
 	default:

@@ -9,6 +9,7 @@ import (
 
 	"github.com/pkg/errors"
 
+	"github.com/determined-ai/determined/master/internal/api"
 	"github.com/determined-ai/determined/master/internal/db"
 	"github.com/determined-ai/determined/master/internal/grpc"
 	"github.com/determined-ai/determined/master/pkg/actor"
@@ -35,6 +36,7 @@ func trialStatus(d *db.PgDB, trialID int32) (model.State, int, error) {
 	return trialStatus.State, trialStatus.NumLogs, err
 }
 
+// CHECK migrate to api.ProcessLogs?
 func (a *apiServer) TrialLogs(
 	req *apiv1.TrialLogsRequest, resp apiv1.Determined_TrialLogsServer) error {
 	if err := grpc.ValidateRequest(
@@ -47,7 +49,7 @@ func (a *apiServer) TrialLogs(
 		return err
 	}
 
-	offset := effectiveOffset(int(req.Offset), total)
+	offset := api.EffectiveOffset(int(req.Offset), total)
 
 	if limit := int32(total - offset); !req.Follow && (limit < req.Limit || req.Limit == 0) {
 		req.Limit = limit

@@ -113,7 +113,7 @@ func (c *command) Receive(ctx *actor.Context) error {
 		})
 		ctx.Tell(c.eventStream, event{Snapshot: newSummary(c), ScheduledEvent: &c.taskID})
 
-	case getSummary:
+	case GetSummary:
 		if msg.userFilter == "" || c.owner.Username == msg.userFilter {
 			ctx.Respond(newSummary(c))
 		}
