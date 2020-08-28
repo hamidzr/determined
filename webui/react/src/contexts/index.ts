@@ -1,10 +1,13 @@
 import React, { Dispatch, useContext, useReducer } from 'react';
 
-import { clone } from 'utils/data';
+import useStorage from 'hooks/useStorage';
+import { ObjectPath } from 'types';
+import { clone, getPathList, setPathList } from 'utils/data';
 
 enum ActionType { Reset, Set }
 
 interface Options<T, A> {
+  persist?: ObjectPath[];
   initialState: T;
   name: string;
   reducer?: (state: T, action: A) => T;
@@ -34,7 +37,7 @@ const generateContextHook = <T>(
 };
 
 export const generateContext = <T, A = Action<T>>(options: Options<T, A>): Export<T, A> => {
-  const initialState = clone(options.initialState);
+  const initialState = clone(options.initialState) as T;
   const StateContext = React.createContext<T | null>(null);
   const ActionContext = React.createContext<Dispatch<A> | null>(null);
 
@@ -55,6 +58,13 @@ export const generateContext = <T, A = Action<T>>(options: Options<T, A>): Expor
   }
 
   const Provider: React.FC<Props> = (props: Props) => {
+    // const storage = useStorage(options.name);
+    // if (options.persist) {
+    //   options.persist.forEach(path => {
+    //     const value = storage.getWithDefault(path.join('.'), getPathList(initialState, path));
+    //     setPathList(initialState, path, value);
+    //   });
+    // }
     const [ state, dispatch ] = useReducer(reducer, initialState);
 
     return React.createElement(
