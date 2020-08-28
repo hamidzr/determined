@@ -7,9 +7,10 @@ import Auth from 'contexts/Auth';
 import ClusterOverview from 'contexts/ClusterOverview';
 import UI from 'contexts/UI';
 import handleError, { ErrorLevel, ErrorType } from 'ErrorHandler';
-import useStorage from 'hooks/useStorage';
+// import useStorage from 'hooks/useStorage';
 import { createNotebook } from 'services/api';
 import { openBlank } from 'utils/routes';
+// import { globalStorage } from 'utils/storage';
 import { commandToTask } from 'utils/types';
 
 import Avatar from './Avatar';
@@ -54,15 +55,11 @@ const NavigationItem: React.FC<ItemProps> = ({ status, ...props }: ItemProps) =>
   ) : link;
 };
 
-const STORAGE_KEY = 'collapsed';
-
 const Navigation: React.FC = () => {
   const { isAuthenticated, user } = Auth.useStateContext();
   const overview = ClusterOverview.useStateContext();
   const ui = UI.useStateContext();
   const setUI = UI.useActionContext();
-  const storage = useStorage('navigation');
-  const [ isCollapsed, setIsCollapsed ] = useState(storage.getWithDefault(STORAGE_KEY, false));
   const [ isShowingCpu, setIsShowingCpu ] = useState(false);
 
   const showNavigation = isAuthenticated && ui.showChrome;
@@ -96,14 +93,10 @@ const Navigation: React.FC = () => {
   const handleVisibleChange = useCallback((visible: boolean) => setIsShowingCpu(visible), []);
 
   const handleCollapse = useCallback(() => {
-    const newCollapsed = !isCollapsed;
-    storage.set(STORAGE_KEY, newCollapsed);
-    setIsCollapsed(newCollapsed);
-  }, [ isCollapsed, storage ]);
-
-  useEffect(() => {
-    setUI({ type: isCollapsed ? UI.ActionType.CollapseChrome : UI.ActionType.ExpandChrome });
-  }, [ isCollapsed, setUI ]);
+    setUI(
+      { type: !ui.chromeCollapsed ? UI.ActionType.CollapseChrome : UI.ActionType.ExpandChrome },
+    );
+  }, [ setUI, ui.chromeCollapsed ]);
 
   return showNavigation ? (
     <CSSTransition
@@ -116,7 +109,7 @@ const Navigation: React.FC = () => {
         exitActive: css.collapsedExitActive,
         exitDone: css.collapsedExitDone,
       }}
-      in={isCollapsed}
+      in={ui.chromeCollapsed}
       timeout={200}>
       <nav className={css.base}>
         <header>
@@ -143,7 +136,7 @@ const Navigation: React.FC = () => {
               <DropdownMenu
                 menu={(
                   <Menu>
-                    {isCollapsed && <Menu.Item onClick={handleNotebookLaunch}>
+                    {ui.chromeCollapsed && <Menu.Item onClick={handleNotebookLaunch}>
                       Launch Notebook
                     </Menu.Item>}
                     <Menu.Item onClick={handleCpuNotebookLaunch}>
@@ -151,8 +144,8 @@ const Navigation: React.FC = () => {
                     </Menu.Item>
                   </Menu>
                 )}
-                offset={isCollapsed ? { x: 8, y: 0 } : { x: 0, y: 8 }}
-                placement={isCollapsed ? Placement.RightTop : Placement.BottomRight}
+                offset={ui.chromeCollapsed ? { x: 8, y: 0 } : { x: 0, y: 8 }}
+                placement={ui.chromeCollapsed ? Placement.RightTop : Placement.BottomRight}
                 onVisibleChange={handleVisibleChange}>
                 <Button className={css.launchIcon}>
                   <Icon name={isShowingCpu ? 'arrow-up': 'arrow-down'} size="tiny" />
@@ -180,8 +173,8 @@ const Navigation: React.FC = () => {
                 <Link path={'/det/logout'}>Sign Out</Link>
               </Menu.Item>
             </Menu>}
-            offset={isCollapsed ? { x: -8, y: 0 } : { x: 16, y: -8 }}
-            placement={isCollapsed ? Placement.Right : Placement.TopLeft}>
+            offset={ui.chromeCollapsed ? { x: -8, y: 0 } : { x: 16, y: -8 }}
+            placement={ui.chromeCollapsed ? Placement.Right : Placement.TopLeft}>
             <div className={css.user}>
               <Avatar hideTooltip name={username} />
               <span>{username}</span>

@@ -84,3 +84,5 @@ export class Storage {
     this.store.setItem(path, item);
   }
 }
+
+export const globalStorage = new Storage({ basePath: 'global', store: window.localStorage });

@@ -1,4 +1,5 @@
 import { generateContext } from 'contexts';
+import { globalStorage } from 'utils/storage';
 
 enum ActionType {
   CollapseChrome,
@@ -15,6 +16,7 @@ type State = {
   showSpinner: boolean;
 }
 
+export const CHROME_COLLAPSED_KEY = 'chromeCollapsed';
 type Action =
   | { type: ActionType.CollapseChrome }
   | { type: ActionType.ExpandChrome }
@@ -24,7 +26,7 @@ type Action =
   | { type: ActionType.ShowSpinner }
 
 const defaultState = {
-  chromeCollapsed: false,
+  chromeCollapsed: globalStorage.getWithDefault(CHROME_COLLAPSED_KEY, false),
   showChrome: true,
   showSpinner: false,
 };
@@ -32,8 +34,10 @@ const defaultState = {
 const reducer = (state: State, action: Action): State => {
   switch (action.type) {
     case ActionType.CollapseChrome:
+      globalStorage.set(CHROME_COLLAPSED_KEY, true);
       return { ...state, chromeCollapsed: true };
     case ActionType.ExpandChrome:
+      globalStorage.set(CHROME_COLLAPSED_KEY, false);
       return { ...state, chromeCollapsed: false };
     case ActionType.HideChrome:
       return { ...state, showChrome: false };
