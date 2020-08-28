@@ -1,6 +1,5 @@
 /* eslint-disable-next-line @typescript-eslint/no-explicit-any */
 export type RawJson = Record<string, any>;
-export type ObjectPath = string[];
 
 export interface User {
   id: number;

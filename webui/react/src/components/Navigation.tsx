@@ -62,7 +62,7 @@ const Navigation: React.FC = () => {
   const ui = UI.useStateContext();
   const setUI = UI.useActionContext();
   const storage = useStorage('navigation');
-  const [ isCollapsed, setIsCollapsed ] = useState(true);
+  const [ isCollapsed, setIsCollapsed ] = useState(storage.getWithDefault(STORAGE_KEY, false));
   const [ isShowingCpu, setIsShowingCpu ] = useState(false);
 
   const showNavigation = isAuthenticated && ui.showChrome;

@@ -52,7 +52,7 @@ const reducer = (state: State, action: Action): State => {
 
 const contextProvider = generateContext<State, Action>({
   initialState: defaultState,
-  name: 'UI',
+  name: 'Spinner',
   reducer,
 });
 
