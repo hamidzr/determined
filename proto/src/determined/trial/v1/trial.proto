@@ -8,10 +8,11 @@ import "determined/experiment/v1/experiment.proto";
 import "determined/checkpoint/v1/checkpoint.proto";
 import "google/protobuf/timestamp.proto";
 
+// Trial is a set of workloads and are exploring a determined set of hyperparameters.
 message Trial {
   // The id of the trial.
   int32 id = 1;
-  // The id of parent experiment
+  // The id of the parent experiment.
   int32 experiment_id = 2;
   // The time the trial was started.
   google.protobuf.Timestamp start_time = 3;
@@ -22,11 +23,5 @@ message Trial {
   // Trial hyperparameters.
   google.protobuf.Struct hparams = 6;
   // The current processed batches.
-  int32 batches_processed = 7;
-  // The best validation metric for trial.
-  /* double best_validation = 7; */
-  // Best checkpoint for trial.
-  /* determined.checkpoint.v1.Checkpoint best_checkpoint = 8; */
-  // Latest trial validation.
-  /* double latest_validation = 10; */
+  int32 total_batches_processed = 7;
 }
