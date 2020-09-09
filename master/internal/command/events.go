@@ -2,7 +2,6 @@ package command
 
 import (
 	"container/ring"
-	"fmt"
 	"net/http"
 	"strconv"
 	"time"
@@ -16,7 +15,6 @@ import (
 	"github.com/determined-ai/determined/master/pkg/actor"
 	"github.com/determined-ai/determined/master/pkg/actor/api"
 	"github.com/determined-ai/determined/master/pkg/check"
-	"github.com/determined-ai/determined/master/pkg/logger"
 )
 
 const defaultEventBufferSize = 200
@@ -45,9 +43,6 @@ type event struct {
 	// LogEvent is triggered when a new log message is available.
 	LogEvent *string `json:"log_event"`
 }
-
-// GetEventCount is an actor message used to get the number of events in buffer.
-type GetEventCount struct{}
 
 type eventManager struct {
 	bufferSize int
@@ -93,21 +88,6 @@ func (e *eventManager) Receive(ctx *actor.Context) error {
 				child.Stop()
 			}
 		}
-
-	case GetEventCount:
-		// OPT we could use log_buffer here instead of a plain ring buffer.
-		count := 0
-		e.buffer.Do(func(val interface{}) {
-			if val != nil {
-				count++
-			}
-		})
-
-		ctx.Respond(count)
-
-	case webAPI.LogsRequest:
-		logEntries := e.getLogEntries(msg)
-		ctx.Respond(logEntries)
 
 	case api.WebSocketConnected:
 		follow, err := strconv.ParseBool(msg.Ctx.QueryParam("follow"))
@@ -170,52 +150,6 @@ func validEvent(e event, greaterThanSeq, lessThanSeq *int) bool {
 	return true
 }
 
-func eventToLogEntry(ev *event) *logger.Entry {
-	description := ev.Snapshot.Config.Description
-	var message string
-	switch {
-	case ev.ScheduledEvent != nil:
-		message = fmt.Sprintf("Scheduling %s (id: %s)", ev.ParentID, description)
-	case ev.ContainerStartedEvent != nil:
-		message = fmt.Sprintf("Container of %s has started", description)
-	case ev.TerminateRequestEvent != nil:
-		message = fmt.Sprintf("%s was requested to terminate", description)
-	case ev.ExitedEvent != nil:
-		message = fmt.Sprintf("%s was terminated: %s", description, *ev.ExitedEvent)
-	case ev.LogEvent != nil:
-		message = fmt.Sprintf(*ev.LogEvent)
-	default:
-		// We rely on log entry IDs to provide pagination and since some of these events aren't actually
-		// log events we'd need to notify of them about these non existing logs either by adding a new
-		// attribute to our response or a sentient log entry or we could keep it simple and normalize
-		// command events as log struct by setting a special message.
-		// return nil, errors.New(fmt.Sprintf("event %v has no supported log message", ev))
-		message = ""
-	}
-	return &logger.Entry{
-		ID:      ev.Seq,
-		Message: message,
-		Time:    ev.Time,
-	}
-}
-
-func (e *eventManager) getLogEntries(req webAPI.LogsRequest) []*logger.Entry {
-	events := e.buffer
-	var logs []*logger.Entry
-
-	for i := 0; i < e.bufferSize; i++ {
-		if events.Value != nil {
-			event := events.Value.(event)
-			if event.Seq >= req.Offset && (req.Limit < 1 || len(logs) < req.Limit) {
-				logEntry := eventToLogEntry(&event)
-				logs = append(logs, logEntry)
-			}
-		}
-		events = events.Next()
-	}
-	return logs
-}
-
 // handleAPIRequest handles HTTP API requests inbound to this actor.
 func (e *eventManager) handleAPIRequest(ctx *actor.Context, apiCtx echo.Context) {
 	switch apiCtx.Request().Method {
@@ -229,7 +163,6 @@ func (e *eventManager) handleAPIRequest(ctx *actor.Context, apiCtx echo.Context)
 			ctx.Respond(echo.NewHTTPError(http.StatusBadRequest))
 			return
 		}
-		// TODO maybe rewrite using clientEvents?
 		events := e.buffer
 		clientEvents := make([]event, 0)
 
