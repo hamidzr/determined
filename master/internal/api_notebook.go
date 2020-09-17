@@ -23,6 +23,12 @@ func (a *apiServer) GetNotebook(
 	return resp, a.actorRequest(fmt.Sprintf("/notebooks/%s", req.NotebookId), req, &resp)
 }
 
+func (a *apiServer) LaunchNotebook(
+	_ context.Context, req *apiv1.LaunchNotebookRequest) (resp *apiv1.LaunchNotebookResponse, err error) {
+	return nil, nil
+	// return resp, a.actorRequest(fmt.Sprintf("/notebooks/%s", req.NotebookId), req, &resp)
+}
+
 func (a *apiServer) KillNotebook(
 	_ context.Context, req *apiv1.KillNotebookRequest) (resp *apiv1.KillNotebookResponse, err error) {
 	return resp, a.actorRequest(fmt.Sprintf("/notebooks/%s", req.NotebookId), req, &resp)

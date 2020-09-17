@@ -63,3 +63,14 @@ message KillNotebookResponse {
     // The requested notebook.
     determined.notebook.v1.Notebook notebook = 1;
 }
+
+// Request to launch a Notebook.
+message LaunchNotebookRequest {
+    // The number of slots.
+    int32 slots = 1;
+}
+// Response to .
+message LaunchNotebookResponse {
+    // The requested notebook.
+    determined.notebook.v1.Notebook notebook = 1;
+}
