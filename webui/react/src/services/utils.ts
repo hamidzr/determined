@@ -3,6 +3,7 @@ import axios, { AxiosResponse, CancelToken } from 'axios';
 import handleError, { DaError, ErrorLevel, ErrorType, isDaError } from 'ErrorHandler';
 import { serverAddress } from 'routes/utils';
 import * as Api from 'services/api-ts-sdk';
+import { getCookie } from 'utils/browser';
 
 import { HttpApi } from './types';
 
@@ -92,7 +93,15 @@ export const consumeStream = async <T = unknown>(
   onEvent: (event: T) => void,
 ): Promise<void> => {
   try {
-    const response = await fetch(serverAddress(true, fetchArgs.url), fetchArgs.options);
+    console.log('head', `Bearer ${getCookie('auth')}`);
+    const response = await fetch(serverAddress(true, fetchArgs.url), {
+      ...fetchArgs.options,
+      // credentials: 'include'
+      headers: {
+        ...fetchArgs.options.headers,
+        Authorization: `Bearer ${getCookie('auth')}`,
+      },
+    });
     const reader = ndjsonStream(response.body).getReader();
     let result;
     while (!result || !result.done) {
