@@ -403,6 +403,8 @@ Resources:
               ssl_mode: verify-ca
               ssl_root_cert: /etc/determined/etc/db_ssl_root_cert.pem
 
+            enable_cors: true
+
             provisioner:
               iam_instance_profile_arn: ${AgentInstanceProfile.Arn}
               image_id: ${AgentAmi}
