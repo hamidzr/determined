@@ -53,8 +53,9 @@ test:
 
 .PHONY: test-update
 test-update:
-	npx loki update --skipStories ${SKIPPED_STORIES} --chromeConcurrency 4
+	npx loki update --skipStories ${SKIPPED_STORIES} --reactUri file:./build-storybook --chromeConcurrency 4
 
 .PHONY: test-visual
 test-visual:
-	npx loki test --skipStories ${SKIPPED_STORIES} --chromeConcurrency 4
+	# npx loki test --skipStories ${SKIPPED_STORIES} --chromeConcurrency 4
+	npx loki --skipStories ${SKIPPED_STORIES} --requireReference --reactUri file:./build-storybook
