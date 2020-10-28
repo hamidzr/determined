@@ -41,5 +41,7 @@ plugins: # https://docs.codeclimate.com/docs/list-of-engines
     enabled: false
   markdownlint:
     enabled: false
+  shellcheck:
+    enabled: false
 exclude_patterns:
 - "examples/"
