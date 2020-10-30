@@ -1,6 +1,7 @@
 import { CancelToken } from 'axios';
 
 import * as Api from 'services/api-ts-sdk';
+import apiTs from 'services/api-ts-sdk/api';
 import * as Config from 'services/apiConfig';
 import { ApiSorter, CreateNotebookParams, CreateTensorboardParams,
   EmptyParams, ExperimentDetailsParams, ExperimentsParams, ForkExperimentParams,
@@ -175,6 +176,9 @@ export const logout = async (): Promise<Api.V1LogoutResponse> => {
     throw processApiError('logout', e);
   }
 };
+
+window.dev = {};
+window.dev.test = Config.detApi.Experiments.determinedPatchExperiment(1, { description: Date.now } as Api.V1Experiment );
 
 export const getMasterLogs = generateApi<LogsParams, Log[]>(Config.getMasterLogs);
 

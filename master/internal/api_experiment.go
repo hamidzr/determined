@@ -391,11 +391,11 @@ func (a *apiServer) PatchExperiment(
 	ctx context.Context, req *apiv1.PatchExperimentRequest,
 ) (*apiv1.PatchExperimentResponse, error) {
 	var exp experimentv1.Experiment
-	switch err := a.m.db.QueryProto("get_experiment", &exp, req.Experiment.Id); {
+	switch err := a.m.db.QueryProto("get_experiment", &exp, req.Id); {
 	case err == db.ErrNotFound:
-		return nil, status.Errorf(codes.NotFound, "experiment not found: %d", req.Experiment.Id)
+		return nil, status.Errorf(codes.NotFound, "experiment not found: %d", req.Id)
 	case err != nil:
-		return nil, errors.Wrapf(err, "error fetching experiment from database: %d", req.Experiment.Id)
+		return nil, errors.Wrapf(err, "error fetching experiment from database: %d", req.Id)
 	}
 
 	paths := req.UpdateMask.GetPaths()

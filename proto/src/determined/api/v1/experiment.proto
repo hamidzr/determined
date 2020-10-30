@@ -6,6 +6,7 @@ option go_package = "github.com/determined-ai/determined/proto/pkg/apiv1";
 import "google/protobuf/wrappers.proto";
 import "google/protobuf/struct.proto";
 import "google/protobuf/field_mask.proto";
+import "protoc-gen-swagger/options/annotations.proto";
 
 import "determined/api/v1/pagination.proto";
 import "determined/checkpoint/v1/checkpoint.proto";
@@ -149,10 +150,15 @@ message UnarchiveExperimentResponse {}
 
 // Patch an experiment by providing the updated attributes.
 message PatchExperimentRequest {
-  // Patched experiment attributes.
-  determined.experiment.v1.Experiment experiment = 1;
-  // Update mask.
-  google.protobuf.FieldMask update_mask = 2;
+  option (grpc.gateway.protoc_gen_swagger.options.openapiv2_schema) = {
+    json_schema: { required: [ "id" ] }
+  };
+  // The id of the experiment.
+  int32 id = 1;
+  // The description of the experiment.
+  string description = 2;
+  // Labels attached to the experiment.
+  repeated string labels = 3;
 }
 
 // Response to PatchExperimentRequest.
