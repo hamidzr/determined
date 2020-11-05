@@ -6,6 +6,7 @@
     "postshrinkwrap": "npx npm-force-resolutions && npm install --ignore-scripts",
     "start": "react-app-rewired start",
     "build": "react-app-rewired build",
+    "postbuild": "./bin/replace-build.sh",
     "lint": "npm run lint:js && npm run lint:css",
     "lint:js": "eslint \"src/**/*.{js,jsx,ts,tsx}\"",
     "lint:css": "stylelint --config .stylelintrc.js \"src/**/*.{css,less,scss}\"",
