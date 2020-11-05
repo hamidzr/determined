@@ -10,6 +10,7 @@ export interface Props {
   disabled?: boolean;
   inherit?: boolean;
   isButton?: boolean;
+  // is this external to the assets hosted by React?
   external?: boolean;
   path?: string;
   popout?: boolean;
@@ -30,7 +31,7 @@ const Link: React.FC<Props> = ({
   if (props.inherit) classes.push(css.inherit);
   if (props.isButton) classes.push('ant-btn');
 
-  let path = '';
+  let path: string;
   if (external && props.path) {
     if (isAbsolutePath(props.path) && !isFullPath(props.path)) {
       path = serverAddress() + props.path;
