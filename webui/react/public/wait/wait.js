@@ -78,9 +78,7 @@ function waitForEvents(eventUrl,jumpDest) {
   });
 }
 
-(function() {
-  let eventUrl = decodeURIComponent(getUrlVars()['event']);
-  let jumpDest = decodeURIComponent(getUrlVars()['jump']);
+const waitAndOpen = (eventUrl, jumpDest) => {
   console.log(`eventUrl: ${eventUrl}`);
   console.log(`jumpDest: ${jumpDest}`);
   if (typeof eventUrl !== 'string' || eventUrl.length < 2) {
@@ -93,4 +91,10 @@ function waitForEvents(eventUrl,jumpDest) {
       typeof jumpDest === 'string' && jumpDest.length >= 2) {
     waitForEvents(eventUrl, jumpDest);
   }
+};
+
+(function() {
+  let eventUrl = decodeURIComponent(getUrlVars()['event']);
+  let jumpDest = decodeURIComponent(getUrlVars()['jump']);
+  waitAndOpen(eventUrl, jumpDest);
 })();
