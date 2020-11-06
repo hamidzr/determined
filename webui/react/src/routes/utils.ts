@@ -5,6 +5,8 @@ import { globalStorage } from 'globalStorage';
 import history from 'routes/history';
 import { Command, CommandTask, CommandType } from 'types';
 import { clone } from 'utils/data';
+import 'websocket';
+// import { connect } from 'wait';
 
 import routes from './routes';
 import { RouteConfig } from './types';
@@ -55,6 +57,7 @@ export const waitPageUrl = (command: Partial<Command>): string | undefined => {
   const eventUrl = commandToEventUrl(command);
   const proxyUrl = command.serviceAddress;
   if (!eventUrl || !proxyUrl) return;
+  // connect(serverAddress() + eventUrl);
   const event = encodeURIComponent(eventUrl);
   const jump = encodeURIComponent(proxyUrl);
   return `/wait/index.html?event=${event}&jump=${jump}`;
@@ -68,8 +71,8 @@ export const openBlank = (url: string): void => {
 
 export const openCommand = (command: Command | CommandTask): void => {
   const url = waitPageUrl(command);
-  if (!url) throw new Error('command cannot be opened');
-  openBlank(process.env.PUBLIC_URL + url);
+  // if (!url) throw new Error('command cannot be opened');
+  // openBlank(process.env.PUBLIC_URL + url);
 };
 
 export const handlePath = (

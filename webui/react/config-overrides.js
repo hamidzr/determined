@@ -48,6 +48,7 @@ const webpackConfig = override(
       publicPath: process.env.PUBLIC_URL,
     })
   ),
+  // TODO replace public_url?
 
   // Webapp version is hardcoded but handled by `bumpversion`
   addWebpackPlugin(
