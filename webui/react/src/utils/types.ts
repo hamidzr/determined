@@ -1,10 +1,12 @@
+import isEqual from 'deep-equal';
+
 import {
   AnyTask, Checkpoint, Command, CommandState, CommandTask, CommandType, ExperimentHyperParams,
   ExperimentItem, RawJson, RecentCommandTask, RecentExperimentTask, RecentTask, RunState, Step,
   TBSource, TBSourceType,
 } from 'types';
 
-import { deletePathList, getPathList, isEqual, isNumber, setPathList } from './data';
+import { deletePathList, getPathList, isNumber, setPathList } from './data';
 import { getDuration } from './time';
 
 /* Conversions to Tasks */

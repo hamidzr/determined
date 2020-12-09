@@ -144,10 +144,35 @@ export const applyMappers = <T>(data: unknown, mappers: Mapper | Mapper[]): T =>
   return currentData;
 };
 
-export const isEqual = (a: unknown, b: unknown): boolean => {
-  if (a === b) return true;
-  return JSON.stringify(a) === JSON.stringify(b);
-};
+// const isDeepEqual = (object1: any, object2: any): boolean => {
+//   // or we use https://github.com/inspect-js/node-deep-equal
+//   const keys1 = Object.keys(object1);
+//   const keys2 = Object.keys(object2);
+
+//   if (keys1.length !== keys2.length) {
+//     return false;
+//   }
+
+//   for (const key of keys1) {
+//     const val1 = object1[key];
+//     const val2 = object2[key];
+//     const areObjects = isObject(val1) && isObject(val2);
+//     if (
+//       areObjects && !isDeepEqual(val1, val2) ||
+//       !areObjects && val1 !== val2
+//     ) {
+//       return false;
+//     }
+//   }
+
+//   return true;
+// };
+
+// export const isEqual = (a: unknown, b: unknown): boolean => {
+//   if (a === b) return true;
+//   if (JSON.stringify(a) === JSON.stringify(b)) return true;
+//   return isDeepEqual(a, b);
+// };
 
 export const setPathList = (obj: RawJson, path: string[], value: unknown): void => {
   const lastIndex = path.length-1;

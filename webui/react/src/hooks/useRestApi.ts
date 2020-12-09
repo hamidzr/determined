@@ -1,8 +1,9 @@
 import axios from 'axios';
+import isEqual from 'deep-equal';
 import { Dispatch, Reducer, SetStateAction, useEffect, useReducer, useState } from 'react';
 
 import { ApiState } from 'services/types';
-import { clone, isEqual } from 'utils/data';
+import { clone } from 'utils/data';
 
 export enum ActionType {
   SetData,

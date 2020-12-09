@@ -1,6 +1,7 @@
 import { Button, Col, Form, Input, Modal, Row, Select, Tooltip } from 'antd';
 import { SelectValue } from 'antd/lib/select';
 import axios from 'axios';
+import isEqual from 'deep-equal';
 import yaml from 'js-yaml';
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import { useParams } from 'react-router';
@@ -33,7 +34,7 @@ import {
   CheckpointDetail, ExperimentDetails, MetricName, MetricType, RawJson, Step, TrialDetails,
   TrialHyperParameters,
 } from 'types';
-import { clone, isEqual, numericSorter } from 'utils/data';
+import { clone, numericSorter } from 'utils/data';
 import { hasCheckpoint } from 'utils/step';
 import { extractMetricNames, extractMetricValue } from 'utils/trial';
 import { terminalRunStates, trialHParamsToExperimentHParams, upgradeConfig } from 'utils/types';
