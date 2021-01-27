@@ -7,12 +7,14 @@ import "google/protobuf/struct.proto";
 import "google/protobuf/timestamp.proto";
 import "protoc-gen-swagger/options/annotations.proto";
 
+// TODO can we use MetricsWorkload here?
 // Metrics calculated during validation.
 message Metrics {
   // Number of inputs to the model.
   int32 num_inputs = 1;
   // Metrics calculated on the validation set.
-  map<string, float> validation_metrics = 2;
+  // TODO make sure clients filter out non-scalar metrics
+  google.protobuf.Struct validation_metrics = 2;
 }
 
 // The current state of the checkpoint.
