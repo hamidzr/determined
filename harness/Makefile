@@ -1,3 +1,5 @@
+PROJECT_ROOT := ..
+
 .PHONY: clean
 clean:
 	rm -rf .pytest_cache/
@@ -6,11 +8,21 @@ clean:
 	rm -rf pip-wheel-metadata/
 	rm -rf dist/
 	rm -rf build/
+	rm -rf determined/api_bindings/
 	find . \( -name __pycache__ -o -name \*.pyc \) -delete
 
 .PHONY: build
-build:
+build: get-deps-api
 	python setup.py -q bdist_wheel
+
+.PHONY: build-bindings
+build-bindings:
+	$(MAKE) -C ${PROJECT_ROOT}/bindings build
+.PHONY: get-deps-api
+get-deps-api:
+	# WARN this has a dependency on build-bindings which isn't link through make here
+	rm -rf determined/api-bindings
+	cp -r ${PROJECT_ROOT}/bindings/build/python determined/api_bindings
 
 .PHONY: publish
 publish:
