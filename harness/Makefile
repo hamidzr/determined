@@ -8,7 +8,7 @@ clean:
 	rm -rf pip-wheel-metadata/
 	rm -rf dist/
 	rm -rf build/
-	rm -rf determined/api_bindings/
+	rm -rf determined/api_bindings/swagger_client
 	find . \( -name __pycache__ -o -name \*.pyc \) -delete
 
 .PHONY: build
@@ -21,8 +21,8 @@ build-bindings:
 .PHONY: get-deps-api
 get-deps-api:
 	# WARN this has a dependency on build-bindings which isn't link through make here
-	rm -rf determined/api-bindings
-	cp -r ${PROJECT_ROOT}/bindings/build/python determined/api_bindings
+	rm -rf determined/api-bindings/swagger_client
+	cp -r ${PROJECT_ROOT}/bindings/build/python/swagger_client determined/api_bindings/swagger_client
 
 .PHONY: publish
 publish:

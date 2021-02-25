@@ -138,4 +138,4 @@ dmypy.json
 cython_debug/
 
 # generated api bindings
-determined/api_bindings
+determined/api_bindings/swagger_client
