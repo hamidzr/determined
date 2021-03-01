@@ -15,8 +15,15 @@ deps/${CODEGEN_BIN}:
 
 build/%: ${SWAGGER_SPEC} deps/${CODEGEN_BIN}
 	mkdir -p build/$*
-	java -jar deps/$(CODEGEN_BIN) generate -i ${SWAGGER_SPEC} \
+	java -jar deps/${CODEGEN_BIN} generate -i ${SWAGGER_SPEC} \
 		-l $* -o build/$*
+	touch build/$*
+
+build/python: ${SWAGGER_SPEC} deps/${CODEGEN_BIN}
+	$(eval lang := python)
+	mkdir -p build/${lang}
+	java -jar deps/${CODEGEN_BIN} generate -i ${SWAGGER_SPEC} \
+		-l ${lang} -o build/${lang} --config configs/${lang}.json
 	touch build/$*
 
 .PHONY: build

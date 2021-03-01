@@ -1,0 +1,7 @@
+{
+    "packageName": "determined_client",
+    "projectName": "determined-client",
+    "packageVersion": "0.14.3.dev0",
+    "packageUrl": "https://determined.ai",
+    "library": "urllib3"
+}
