@@ -1,6 +1,7 @@
 package searcher
 
 import (
+	"fmt"
 	"math"
 	"sort"
 
@@ -52,6 +53,7 @@ func newSyncHalvingSimpleSearch(config model.SyncHalvingConfig, trials int) Sear
 		} else {
 			expectedUnits += unitsNeeded * startTrials
 		}
+		fmt.Printf("start trials  %v \n", startTrials)
 		rungs = append(rungs,
 			&rung{
 				UnitsNeeded: model.NewLength(config.Unit(), unitsNeeded),

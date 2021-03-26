@@ -200,6 +200,7 @@ func (e *experiment) Receive(ctx *actor.Context) error {
 		ops, err := e.searcher.TrialCreated(msg.create, msg.trialID)
 		e.processOperations(ctx, ops, err)
 	case trialCompletedOperation:
+		fmt.Printf("hhhhh: received metrics %v\n\n", msg.metrics)
 		ops, err := e.searcher.OperationCompleted(msg.trialID, msg.op, msg.metrics)
 		e.processOperations(ctx, ops, err)
 	case trialCompletedWorkload:

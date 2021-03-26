@@ -2,6 +2,7 @@ package searcher
 
 import (
 	"encoding/json"
+	"fmt"
 	"math"
 
 	"github.com/determined-ai/determined/master/pkg/workload"
@@ -136,6 +137,7 @@ func (s *Searcher) OperationCompleted(
 	case Validate:
 		operations, err = s.method.validationCompleted(
 			s.context(), requestID, tOp, *metrics.(*workload.ValidationMetrics))
+		fmt.Printf("validation metrics received trial %d: %v \n\n", trialID, metrics)
 	default:
 		return nil, errors.Errorf("unexpected op: %s", tOp)
 	}

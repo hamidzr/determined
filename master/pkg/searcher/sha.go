@@ -2,6 +2,7 @@ package searcher
 
 import (
 	"encoding/json"
+	"fmt"
 	"math"
 	"sort"
 
@@ -152,6 +153,7 @@ func (s *syncHalvingSearch) validationCompleted(
 ) ([]Operation, error) {
 	// Extract the relevant metric as a float.
 	metric, err := metrics.Metric(s.Metric)
+	fmt.Printf("sha metric val %v \n", metric)
 	if err != nil {
 		return nil, err
 	}

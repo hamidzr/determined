@@ -4,6 +4,7 @@ import (
 	"testing"
 
 	"github.com/determined-ai/determined/master/pkg/model"
+	"gotest.tools/assert"
 )
 
 func TestAdaptiveSimpleConservativeCornerCase(t *testing.T) {
@@ -19,6 +20,15 @@ func TestAdaptiveSimpleConservativeCornerCase(t *testing.T) {
 	}
 	searchMethod := newAdaptiveSimpleSearch(actual)
 	checkSimulation(t, searchMethod, nil, ConstantValidation, expected)
+}
+
+func TestNanTrials(t *testing.T) {
+	// method := NewSearchMethod(tc.config)
+	// err := checkValueSimulation(t, method, tc.hparams, tc.expectedTrials)
+	// var x *string
+	// x = nil
+	// t.Error("failed test")
+	assert.Equal(t, 3, 3)
 }
 
 func TestAdaptiveSimpleAggressiveCornerCase(t *testing.T) {
