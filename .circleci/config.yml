@@ -23,7 +23,7 @@ executors:
 parameters:
   det-version:
     type: string
-    default: 0.14.7.dev0
+    default: 0.15.1.dev0
 
 release-and-rc-filters: &release-and-rc-filters
   branches:
@@ -292,6 +292,7 @@ commands:
       - run:
           name: Run e2e tests
           working_directory: ~/project/e2e_tests
+          no_output_timeout: 30m
           command: |
             DET_MASTER_CERT_FILE=<<parameters.master-cert>> DET_MASTER_CERT_NAME=<<parameters.master-cert-name>> \
             pytest -vv -s \
@@ -387,7 +388,7 @@ commands:
             echo "-----BEGIN ARGS-----"
             cat /tmp/det-deploy-extra-args
             echo "-----END ARGS-----"
-            det deploy --no-wait-for-master aws up \
+            det deploy aws up \
               $(< /tmp/det-deploy-extra-args) \
               --cluster-id <<parameters.cluster-id>> \
               --det-version <<parameters.det-version>> \
@@ -446,10 +447,6 @@ commands:
           cluster-id: ${CLUSTER_ID}
           master-tls-cert: <<parameters.master-tls-cert>>
           master-tls-key: <<parameters.master-tls-key>>
-      - wait-for-master:
-          scheme: ${MASTER_SCHEME:-http}
-          host: ${MASTER_HOST}
-          port: ${MASTER_PORT:-8080}
 
   terminate-gke-cluster:
     parameters:

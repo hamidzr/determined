@@ -1,8 +1,9 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 
 import { useStore } from 'contexts/Store';
 import { useFetchAgents } from 'hooks/useFetch';
 import usePolling from 'hooks/usePolling';
+import { importApiStorageRemote, setRRMode } from 'recordReplay';
 
 import css from './Navigation.module.scss';
 import NavigationSideBar from './NavigationSideBar';
@@ -15,12 +16,16 @@ interface Props {
 }
 
 const Navigation: React.FC<Props> = ({ children }) => {
-  const { ui } = useStore();
+  const { auth, ui } = useStore();
   const [ canceler ] = useState(new AbortController());
 
   const fetchAgents = useFetchAgents(canceler);
 
-  usePolling(fetchAgents);
+  const fetchAuthOnly = useCallback(() => {
+    if (auth.isAuthenticated) fetchAgents();
+  }, [ auth.isAuthenticated, fetchAgents ]);
+
+  usePolling(fetchAuthOnly);
 
   useEffect(() => {
     return () => canceler.abort();
