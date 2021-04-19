@@ -143,6 +143,7 @@ export const applyRRMiddleware = async <T>(
       response = rrStorage.get<T>(key);
       if (response === null) throw handleError({
         message: 'ran into an unrecorded request in replay mode.',
+        silent: true,
         type: ErrorType.Ui,
       });
       return response;
