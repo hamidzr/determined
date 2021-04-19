@@ -157,7 +157,7 @@ export const applyRRMiddleware = async <T>(
   }
 };
 
-export const checkForImport = async () => {
+export const checkForImport = async (): Promise<void> => {
   const queryParamKey = 'import';
   const searchParams = new URLSearchParams(window.location.search);
   const remoteImport = searchParams.get(queryParamKey);

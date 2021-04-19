@@ -1,6 +1,7 @@
 import Fuse from 'fuse.js';
 
 import { StoreAction } from 'contexts/Store';
+import handleError, { ErrorType } from 'ErrorHandler';
 import { BaseNode, Children, getNodeChildren, isLeafNode,
   isNLNode, isTreeNode, traverseTree, TreePath } from 'omnibar/AsyncTree';
 import { store } from 'omnibar/exposedStore';
@@ -51,17 +52,19 @@ const query = async (input: string): Promise<Children> => {
 };
 
 export const extension = async(input: string): Promise<Children> => {
-  console.debug('extension triggered');
   try {
     return await query(input);
   } catch (e) {
-    console.error(e);
+    handleError({
+      error: e,
+      message: 'failed to query omnibar',
+      type: ErrorType.Ui,
+    });
     return [];
   }
 };
 
 export const onAction = async (item: BaseNode): Promise<void> => {
-  console.debug('onaction called', item);
   if (!!item && isTreeNode(item)) {
     // TODO should be replaced, perhaps, with a update to the omnibar package's command decorator
     // TODO setup the omnibar with context and tree

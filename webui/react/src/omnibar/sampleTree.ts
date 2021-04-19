@@ -186,6 +186,7 @@ const root: NLNode = {
           .map(addr => addr.replace('root ', ''))
           .sort()
           .join('\n');
+        /* eslint-disable-next-line no-console */
         console.log(text);
         // this could be full suggestions when query is empty.
       },
