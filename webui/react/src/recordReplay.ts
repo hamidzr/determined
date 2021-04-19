@@ -1,5 +1,7 @@
 /* eslint-disable no-console */
 
+import { sha512 } from 'js-sha512';
+
 import { downloadText } from 'utils/browser';
 import { clone } from 'utils/data';
 import { Storage } from 'utils/storage';
@@ -93,20 +95,11 @@ export const requestTextFileUpload = (callback: (c: string | null) => void): voi
   document.body.insertBefore(el, document.body.firstChild);
 };
 
-async function hashText(text: string) {
-  const encoder = new TextEncoder();
-  const data = encoder.encode(text);
-  const hashBuffer = await crypto.subtle.digest('SHA-256', data);
-  const hashArray = Array.from(new Uint8Array(hashBuffer));
-  const hashHex = hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
-  return hashHex;
-}
-
 /*
   Generate a unique key used to represent a specific request given
   all the relevant parameters.
 */
-export const genRequestKey = (name: string, params: unknown): Promise<string> => {
+export const genRequestKey = (name: string, params: unknown): string => {
   // name = name.replace('/', '-');
   const p = clone(params);
   const ineffectiveKeys = [ 'cancelToken', 'password', 'signal', 'username' ];
@@ -114,8 +107,7 @@ export const genRequestKey = (name: string, params: unknown): Promise<string> =>
   // WARN TODO we are relying on JSON.stringify to serialize objects with the same exact way between
   // different machines. If the assumption is broken there won't be a match.
   const key = name + '' + JSON.stringify(p);
-  // return key;
-  return hashText(key);
+  return sha512(key);
 };
 
 /*
