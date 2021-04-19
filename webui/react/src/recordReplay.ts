@@ -2,6 +2,7 @@
 
 import { sha512 } from 'js-sha512';
 
+import handleError, { ErrorType } from 'ErrorHandler';
 import { downloadText } from 'utils/browser';
 import { clone } from 'utils/data';
 import { Storage } from 'utils/storage';
@@ -110,6 +111,13 @@ export const genRequestKey = (name: string, params: unknown): string => {
   return sha512(key);
 };
 
+const sanitizeResponse = <T = unknown>(resp: T): T => {
+  if (typeof resp === 'object' && 'token' in resp) {
+    return { ...resp, token: 'omitted' };
+  }
+  return resp;
+};
+
 /*
   Given a unique key identifying the request and a reuqest fn decide when to
   record, replay, or pass through.
@@ -124,23 +132,26 @@ export const applyRRMiddleware = async <T>(
       return request();
     case 'record':
       response = await request();
-      console.log(`recording response to ${key} as `, response);
-      rrStorage.set(key, response);
+      console.debug(`recording response to ${key} as `, response);
+      rrStorage.set(key, sanitizeResponse(response));
       return response;
     case 'replay':
-      console.log('replaying', key);
+      console.debug('replaying', key);
       response = rrStorage.get<T>(key);
-      if (response === null) throw new Error('missing response'); // TODO DaError
+      if (response === null) throw handleError({
+        message: 'ran into an unrecorded request in replay mode.',
+        type: ErrorType.Ui,
+      });
       return response;
     case 'mixed':
       response = rrStorage.get<T>(key);
       if (response !== null) {
-        console.log('replaying', key);
+        console.debug('replaying', key);
         return response;
       } else {
         response = await request();
-        console.log(`recording response to ${key} as `, response);
-        rrStorage.set(key, response);
+        console.debug(`recording response to ${key} as `, response);
+        rrStorage.set(key, sanitizeResponse(response));
         return response;
       }
     default:
