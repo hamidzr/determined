@@ -3,6 +3,7 @@
 import { sha512 } from 'js-sha512';
 
 import handleError, { ErrorType } from 'ErrorHandler';
+import { globalStorage } from 'globalStorage';
 import { downloadText } from 'utils/browser';
 import { clone } from 'utils/data';
 import { Storage } from 'utils/storage';
@@ -40,6 +41,8 @@ export const setRRMode = (mode: Mode): void => {
   // FIXME don't direclty work with local storage.
   if (!modes.has(mode)) throw new Error(`unrecognized mode: ${mode}`);
   window.localStorage.setItem(RR_MODE_KEY, mode);
+  // we set an auth token to the ui thinks it has already authenticated.
+  if (mode === 'replay' && !globalStorage.authToken) globalStorage.authToken = 'fake-token';
   rrState.mode = mode;
 };
 
@@ -111,8 +114,8 @@ export const genRequestKey = (name: string, params: unknown): string => {
   return sha512(key);
 };
 
-const sanitizeResponse = <T = unknown>(resp: T): T => {
-  if (typeof resp === 'object' && 'token' in resp) {
+const sanitizeResponse = (resp: any): any => {
+  if (resp instanceof Object && 'data' in resp && 'token' in resp.data) {
     return { ...resp, token: 'omitted' };
   }
   return resp;

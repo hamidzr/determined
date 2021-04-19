@@ -8,7 +8,7 @@ const dev: TreeNode[] = [
   {
     options: [
       {
-        onAction: alertAction(`address: ${globalStorage.serverAddress}`),
+        onAction: () => alertAction(`address: ${globalStorage.serverAddress}`)(),
         title: 'show',
       },
       {
