@@ -7,6 +7,8 @@ import { BaseNode, Children, getNodeChildren, isLeafNode,
 import { store } from 'omnibar/exposedStore';
 import root from 'omnibar/sampleTree';
 
+import { alertAction } from './actions';
+
 const SEPARATOR = ' ';
 
 interface TreeRequest {
@@ -78,13 +80,12 @@ export const onAction = async (item: BaseNode): Promise<void> => {
     // trigger the onchange
     input.onchange && input.onchange(undefined as unknown as Event);
     if (isLeafNode(item)) {
-      const actionRv = await item.onAction(item);
-      if (item.closeBar) store?.dispatch({ type: StoreAction.HideOmnibar });
-      // always close the bar for location modules.
-      if (path.find(n => n.title === 'goto')) {
+      await item.onAction(item);
+      if (item.closeBar || path.find(n => n.title === 'goto')) {
         store?.dispatch({ type: StoreAction.HideOmnibar });
+      } else {
+        alertAction('Action executed.')();
       }
-      return actionRv;
     }
   }
   // else meh
