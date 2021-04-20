@@ -50,6 +50,7 @@ ops:
 
 ## shareable
 
+- carry user pref to get the same request params.
 - strip auth keys
 - [p1] load from url with a sharable link pointing to a specific route in the ui.
   - [ ] import from url
