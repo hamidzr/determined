@@ -1,10 +1,15 @@
 import { Children, TreeNode } from 'omnibar/AsyncTree';
-import { Mode, devControls as rr } from 'recordReplay';
+import { Mode, requestTextFileUpload, devControls as rr,
+  setupRRStorageAndReplay, userPreferencesStorage } from 'recordReplay';
 
 const dev: TreeNode[] = [
   {
     onAction: () => window.localStorage.clear(),
     title: 'resetLocalStorage',
+  },
+  {
+    onAction: () => userPreferencesStorage.reset(),
+    title: 'resetUserPreferences',
   },
   {
     options: [
@@ -56,6 +61,14 @@ const dev: TreeNode[] = [
         },
         title: 'easyStopNExport',
       },
+      {
+        onAction: async (): Promise<void> => {
+          const contents = await requestTextFileUpload();
+          setupRRStorageAndReplay(contents);
+        },
+        title: 'easyImportNReplay',
+      },
+
     ],
     title: 'recordNReplay',
   },

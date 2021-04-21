@@ -17,6 +17,10 @@ const rrStorage = new Storage({
 const rrConfigStorage = rrStorage.fork('config');
 const rrResponseStorage = rrStorage.fork('responses');
 
+export const userPreferencesStorage = new Storage(
+  { basePath: 'u', delimiter: ':', store: window.localStorage },
+);
+
 export type Mode = 'record' | 'replay' | 'mixed' | 'disabled';
 const modes = new Set([ 'record', 'replay', 'mixed', 'disabled' ]);
 
@@ -29,7 +33,7 @@ export const rrState: State =
   { mode: rrConfigStorage.getWithDefault(RR_MODE_KEY, 'disabled') as Mode };
 
 export const exportApiStorage = (): void => {
-  // TODO gather and add on metadata.
+  rrConfigStorage.set('ui', userPreferencesStorage.toString());
   const fName = `det-export-${new Date().toLocaleString().replaceAll(' ', '')}.hal.json`;
   downloadText(
     fName,
@@ -42,6 +46,12 @@ export const setRRMode = (mode: Mode): void => {
   rrConfigStorage.set(RR_MODE_KEY, mode);
   // we set an auth token to the ui thinks it has already authenticated.
   if (mode === 'replay' && !globalStorage.authToken) globalStorage.authToken = 'fake-token';
+  if (mode === 'replay') {
+    const recordedUiConfig = rrConfigStorage.get<string>('ui');
+    if (recordedUiConfig) {
+      userPreferencesStorage.fromString(recordedUiConfig);
+    }
+  }
   rrState.mode = mode;
 };
 
@@ -58,12 +68,10 @@ export const importApiStorageRemote = async (url: string): Promise<void> => {
   rrStorage.fromString(marshalled);
 };
 
-export const importApiStorage = (): void => {
-  requestTextFileUpload((marshalled: string | null) => {
-    if (!marshalled) return;
-    console.log('loading from uploaded file');
-    rrStorage.fromString(marshalled);
-  });
+export const importApiStorage = async (): Promise<void> => {
+  const contents = await requestTextFileUpload();
+  console.log('loading from uploaded file');
+  rrStorage.fromString(contents);
 };
 
 export const resetApiStorage = (): void => {
@@ -74,28 +82,32 @@ export const resetApiStorage = (): void => {
 /*
   Provide a way to get file input from user.
 */
-export const requestTextFileUpload = (callback: (c: string | null) => void): void => {
+export const requestTextFileUpload = (): Promise<string> => {
 
-  // TODO use antd.Modal
   const el = document.createElement('input');
   el.setAttribute('type', 'file');
 
-  const readSingleFile = (e: Event) => {
-    if (e.target === null) return;
-    const files = (<HTMLInputElement>e.target).files;
-    if (files === null) return;
-    const file = files[0];
-    const reader = new FileReader();
-    reader.onload = function (e) {
-      const contents = e.target && e.target.result;
-      if (!(contents instanceof ArrayBuffer)) callback(contents);
-      document.body.removeChild(el);
-    };
-    reader.readAsText(file);
-  };
+  return new Promise((resolve, reject) => {
 
-  el.addEventListener('change', readSingleFile, false);
-  document.body.insertBefore(el, document.body.firstChild);
+    const readSingleFile = (e: Event) => {
+      if (e.target === null) return;
+      const files = (<HTMLInputElement>e.target).files;
+      if (files === null) return;
+      const file = files[0];
+      const reader = new FileReader();
+      reader.onload = function (e) {
+        const contents = e.target && e.target.result;
+        if (typeof contents === 'string') resolve(contents);
+        document.body.removeChild(el);
+        reject(contents);
+      };
+      reader.readAsText(file);
+    };
+
+    el.addEventListener('change', readSingleFile, false);
+    document.body.insertBefore(el, document.body.firstChild);
+
+  });
 };
 
 /*
@@ -162,14 +174,22 @@ export const applyRRMiddleware = async <T>(
   }
 };
 
+export const setupRRStorageAndReplay = (exportedContent: string): void => {
+  userPreferencesStorage.reset();
+  resetApiStorage();
+  rrStorage.fromString(exportedContent);
+  setRRMode('replay');
+};
+
 export const checkForImport = async (): Promise<void> => {
   const queryParamKey = 'import';
   const searchParams = new URLSearchParams(window.location.search);
   const remoteImport = searchParams.get(queryParamKey);
   if (!remoteImport) return;
   try {
-    await importApiStorageRemote(remoteImport);
-    setRRMode('replay');
+    const res = await window.fetch(remoteImport);
+    const marshalled = await res.text();
+    setupRRStorageAndReplay(marshalled);
   } catch (e) {
     handleError({
       error: e,
