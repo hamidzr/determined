@@ -1,3 +1,4 @@
+import { message } from 'antd';
 import Fuse from 'fuse.js';
 
 import { StoreAction } from 'contexts/Store';
@@ -84,7 +85,7 @@ export const onAction = async (item: BaseNode): Promise<void> => {
       if (item.closeBar || path.find(n => n.title === 'goto')) {
         store?.dispatch({ type: StoreAction.HideOmnibar });
       } else {
-        alertAction('Action executed.')();
+        message.info('Action executed.', 1);
       }
     }
   }
