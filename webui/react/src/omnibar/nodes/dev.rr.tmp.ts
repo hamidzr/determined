@@ -1,6 +1,7 @@
 import { Children, TreeNode } from 'omnibar/AsyncTree';
 import { Mode, requestTextFileUpload, devControls as rr,
   setupRRStorageAndReplay, userPreferencesStorage } from 'recordReplay';
+import { refreshPage } from 'utils/browser';
 
 const dev: TreeNode[] = [
   {
@@ -18,6 +19,8 @@ const dev: TreeNode[] = [
           rr.setRRMode('disabled');
           rr.resetApiStorage();
           rr.setRRMode('record');
+          // refresh the page to capture the requests that get triggered on initial page load.
+          refreshPage();
         },
         title: 'easyStartRecording',
       },

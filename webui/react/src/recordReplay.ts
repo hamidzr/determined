@@ -149,11 +149,11 @@ export const applyRRMiddleware = async <T>(
       rrResponseStorage.set(key, sanitizeResponse(response));
       return response;
     case 'replay':
-      console.debug('replaying', key);
       response = rrResponseStorage.get<T>(key);
+      console.debug('replaying', key);
       if (response === null) throw handleError({
-        message: 'ran into an unrecorded request in replay mode.',
-        silent: true,
+        message: 'Ran into an unrecorded request in replay mode.',
+        silent: false,
         type: ErrorType.Ui,
       });
       return response;
