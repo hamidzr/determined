@@ -14,6 +14,29 @@ const dev: TreeNode[] = [
   {
     options: [
       {
+        onAction: (): void => {
+          rr.setRRMode('disabled');
+          rr.resetApiStorage();
+          rr.setRRMode('record');
+        },
+        title: 'easyStartRecording',
+      },
+      {
+        onAction: (): void => {
+          rr.setRRMode('disabled');
+          rr.exportApiStorage();
+          rr.resetApiStorage();
+        },
+        title: 'easyStopNExport',
+      },
+      {
+        onAction: async (): Promise<void> => {
+          const contents = await requestTextFileUpload();
+          setupRRStorageAndReplay(contents);
+        },
+        title: 'easyImportNReplay',
+      },
+      {
         onAction: rr.importApiStorage,
         title: 'importFromFile',
       },
@@ -44,29 +67,6 @@ const dev: TreeNode[] = [
       {
         onAction: rr.resetApiStorage,
         title: 'resetStore',
-      },
-      {
-        onAction: (): void => {
-          rr.setRRMode('disabled');
-          rr.resetApiStorage();
-          rr.setRRMode('record');
-        },
-        title: 'easyStartRecording',
-      },
-      {
-        onAction: (): void => {
-          rr.setRRMode('disabled');
-          rr.exportApiStorage();
-          rr.resetApiStorage();
-        },
-        title: 'easyStopNExport',
-      },
-      {
-        onAction: async (): Promise<void> => {
-          const contents = await requestTextFileUpload();
-          setupRRStorageAndReplay(contents);
-        },
-        title: 'easyImportNReplay',
       },
 
     ],
