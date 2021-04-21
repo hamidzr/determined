@@ -9,28 +9,28 @@ import { clone } from 'utils/data';
 import { Storage } from 'utils/storage';
 import { Eventually } from 'utils/types';
 
-export const rrStorage = new Storage({
-  basePath: 'recs',
+const rrStorage = new Storage({
+  basePath: 'recordReplay',
   store: window.localStorage,
 });
+
+const rrConfigStorage = rrStorage.fork('config');
+const rrResponseStorage = rrStorage.fork('responses');
 
 export type Mode = 'record' | 'replay' | 'mixed' | 'disabled';
 const modes = new Set([ 'record', 'replay', 'mixed', 'disabled' ]);
 
-const RR_MODE_KEY = 'rrMode';
+const RR_MODE_KEY = 'mode';
 interface State {
   mode: Mode;
-  storage: Storage;
 }
 
-export const rrState: State = {
-  mode: window.localStorage.getItem(RR_MODE_KEY) as Mode || 'disabled',
-  storage: rrStorage,
-};
+export const rrState: State =
+  { mode: rrConfigStorage.getWithDefault(RR_MODE_KEY, 'disabled') as Mode };
 
 export const exportApiStorage = (): void => {
   // TODO gather and add on metadata.
-  const fName = `det-export${new Date().toLocaleString().replaceAll(' ', '')}.hal.json`;
+  const fName = `det-export-${new Date().toLocaleString().replaceAll(' ', '')}.hal.json`;
   downloadText(
     fName,
     [ rrStorage.toString() ],
@@ -38,9 +38,8 @@ export const exportApiStorage = (): void => {
 };
 
 export const setRRMode = (mode: Mode): void => {
-  // FIXME don't direclty work with local storage.
   if (!modes.has(mode)) throw new Error(`unrecognized mode: ${mode}`);
-  window.localStorage.setItem(RR_MODE_KEY, mode);
+  rrConfigStorage.set(RR_MODE_KEY, mode);
   // we set an auth token to the ui thinks it has already authenticated.
   if (mode === 'replay' && !globalStorage.authToken) globalStorage.authToken = 'fake-token';
   rrState.mode = mode;
@@ -110,8 +109,7 @@ export const genRequestKey = (name: string, params: unknown): string => {
   ineffectiveKeys.forEach(k => delete p[k]);
   // WARN TODO we are relying on JSON.stringify to serialize objects with the same exact way between
   // different machines. If the assumption is broken there won't be a match.
-  const key = name + '' + JSON.stringify(p);
-  return sha512(key);
+  return `${name}:${sha512(JSON.stringify(p))}`;
 };
 
 const sanitizeResponse = (resp: any): any => {
@@ -136,11 +134,11 @@ export const applyRRMiddleware = async <T>(
     case 'record':
       response = await request();
       console.debug(`recording response to ${key} as `, response);
-      rrStorage.set(key, sanitizeResponse(response));
+      rrResponseStorage.set(key, sanitizeResponse(response));
       return response;
     case 'replay':
       console.debug('replaying', key);
-      response = rrStorage.get<T>(key);
+      response = rrResponseStorage.get<T>(key);
       if (response === null) throw handleError({
         message: 'ran into an unrecorded request in replay mode.',
         silent: true,
@@ -148,14 +146,14 @@ export const applyRRMiddleware = async <T>(
       });
       return response;
     case 'mixed':
-      response = rrStorage.get<T>(key);
+      response = rrResponseStorage.get<T>(key);
       if (response !== null) {
         console.debug('replaying', key);
         return response;
       } else {
         response = await request();
         console.debug(`recording response to ${key} as `, response);
-        rrStorage.set(key, sanitizeResponse(response));
+        rrResponseStorage.set(key, sanitizeResponse(response));
         return response;
       }
     default:
@@ -173,7 +171,12 @@ export const checkForImport = async (): Promise<void> => {
     await importApiStorageRemote(remoteImport);
     setRRMode('replay');
   } catch (e) {
-    console.error('failed to load from remote', remoteImport);
+    handleError({
+      error: e,
+      message: `failed to load from remote: ${remoteImport}`,
+      silent: false,
+      type: ErrorType.Ui,
+    });
     console.error(e);
   }
 };
