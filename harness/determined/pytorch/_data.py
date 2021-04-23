@@ -228,6 +228,7 @@ class DataLoader:
         If you need to set any other arguments please consider directly instatiating
         determined.pytorch.DataLoader.
         """
+        # TODO check whether the dataset has not started iterating..
         props = [
             "dataset",
             "batch_size",
