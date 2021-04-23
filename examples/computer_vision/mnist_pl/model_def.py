@@ -29,10 +29,8 @@ class MNISTTrial(LightningAdapter):
 
     def build_training_data_loader(self) -> DataLoader:
         self.dm.setup()
-        dl = self.dm.train_dataloader()
-        return DataLoader(dl.dataset, batch_size=dl.batch_size, num_workers=dl.num_workers)
+        return DataLoader.from_torch_dataloader(self.dm.train_dataloader())
 
     def build_validation_data_loader(self) -> DataLoader:
         self.dm.setup()
-        dl = self.dm.val_dataloader()
-        return DataLoader(dl.dataset, batch_size=dl.batch_size, num_workers=dl.num_workers)
+        return DataLoader.from_torch_dataloader(self.dm.val_dataloader())
