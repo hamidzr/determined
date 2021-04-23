@@ -1,4 +1,5 @@
 import logging
+from functools import reduce
 from typing import (
     Any,
     Callable,
@@ -216,6 +217,28 @@ class DataLoader:
         #     return len(self.dataset)
         batch_sampler = cast(BatchSampler, self.batch_sampler)
         return len(batch_sampler)
+
+    @classmethod
+    def from_torch_dataloader(cls, dl: torch.utils.data.DataLoader):  # type: ignore
+        """
+        Create a Determined PyTorch DataLoader from a torch.utils.data.DataLoader.
+        The following arguments are automatically transferred over:
+            "dataset", "batch_size", "num_workers", "pin_memory", "drop_last",
+            "timeout", "sampler"
+        If you need to set any other arguments please consider directly instatiating
+        determined.pytorch.DataLoader.
+        """
+        props = [
+            "dataset",
+            "batch_size",
+            "num_workers",
+            "pin_memory",
+            "drop_last",
+            "timeout",
+            "sampler",
+        ]
+        kwargs = reduce(lambda a, b: {**a, b: getattr(dl, b)}, props, cast(Dict[str, Any], {}))
+        return cls(**kwargs)
 
 
 def adapt_batch_sampler(
