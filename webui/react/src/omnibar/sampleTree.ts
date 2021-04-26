@@ -20,7 +20,7 @@ const root: NLNode = {
         });
         const options: LeafNode[] = exps.map(exp => (
           {
-            onAction: (): unknown => pauseExperiment({ experimentId: exp.id }),
+            onAction: () => pauseExperiment({ experimentId: exp.id }),
             title: `${exp.id}`,
           }));
         return options;
@@ -36,7 +36,7 @@ const root: NLNode = {
         });
         const options: LeafNode[] = exps.map(exp => (
           {
-            onAction: (): unknown => activateExperiment({ experimentId: exp.id }),
+            onAction: () => activateExperiment({ experimentId: exp.id }),
             title: `${exp.id}`,
           }));
         return options;
@@ -77,7 +77,7 @@ const root: NLNode = {
               .filter(cmd => !terminalCommandStates.has(cmd.state))
               .map(cmd => (
                 {
-                  onAction: (): unknown => killNotebook({ commandId: cmd.id }),
+                  onAction: () => killNotebook({ commandId: cmd.id }),
                   title: `${cmd.name}`, // differentiate view only vs command text?
                 }));
             return options;
@@ -95,7 +95,7 @@ const root: NLNode = {
               .filter(cmd => !terminalCommandStates.has(cmd.state))
               .map(cmd => (
                 {
-                  onAction: (): unknown => killTensorboard({ commandId: cmd.id }),
+                  onAction: () => killTensorboard({ commandId: cmd.id }),
                   title: `${cmd.name}`,
                 }));
             return options;
@@ -112,7 +112,7 @@ const root: NLNode = {
             });
             const options: LeafNode[] = exps.map(exp => (
               {
-                onAction: (): unknown => killExperiment({ experimentId: exp.id }),
+                onAction: () => killExperiment({ experimentId: exp.id }),
                 title: `${exp.id}`,
               })); // is use of `this` discouraged?
             return options;

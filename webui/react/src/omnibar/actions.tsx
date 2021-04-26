@@ -5,7 +5,7 @@ import { routeAll } from 'routes/utils';
 
 import { dfsStaticRoutes } from './AsyncTree';
 import root from './sampleTree';
-export const alertAction = (msg: string) => ((): unknown => message.info(msg));
+export const alertAction = (msg: string) => (() => { message.info(msg); });
 export const visitAction = (url: string) => ((): void => routeAll(url));
 export const noOp = (): void => undefined;
 export const parseIds = (input: string): number[] => input.split(',').map(i => parseInt(i));
