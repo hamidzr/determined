@@ -58,6 +58,7 @@ const locations: TreeNode[] = [
     title: 'dashboard',
   },
   {
+    aliases: [ 'notebooks', 'tensorboards', 'commands', 'shells' ],
     onAction: visitAction(paths.taskList()),
     title: 'tasks',
   },
