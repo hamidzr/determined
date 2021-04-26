@@ -1,5 +1,5 @@
-import { alertAction, parseIds, visitAction } from 'omnibar/actions';
-import { Children, dfsStaticRoutes, LeafNode, NLNode } from 'omnibar/AsyncTree';
+import { displayHelp, parseIds, visitAction } from 'omnibar/actions';
+import { Children, LeafNode, NLNode } from 'omnibar/AsyncTree';
 import dev from 'omnibar/nodes/dev';
 import locations from 'omnibar/nodes/locations';
 import { paths } from 'routes/utils';
@@ -177,28 +177,16 @@ const root: NLNode = {
       title: 'launch',
     },
     {
-      onAction: (): void => {
-        // FIXME
-        alertAction('Dialing Hamid..')();
-        const paths = dfsStaticRoutes([], [], root);
-        const text = paths
-          .map(path => path.reduce((acc, cur) => `${acc} ${cur.title}`, ''))
-          .map(addr => addr.replace('root ', ''))
-          .sort()
-          .join('\n');
-        /* eslint-disable-next-line no-console */
-        console.log(text);
-        // this could be full suggestions when query is empty.
-      },
-      title: 'help',
-    },
-    {
       onAction: visitAction(paths.logout()),
       title: 'logout',
     },
     {
       options: dev,
       title: 'dev',
+    },
+    {
+      onAction: displayHelp,
+      title: 'help',
     },
   ],
   title: 'root',

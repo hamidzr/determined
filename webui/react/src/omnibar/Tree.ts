@@ -8,8 +8,6 @@ import { BaseNode, Children, getNodeChildren, isLeafNode,
 import { store } from 'omnibar/exposedStore';
 import root from 'omnibar/sampleTree';
 
-import { alertAction } from './actions';
-
 const SEPARATOR = ' ';
 
 interface TreeRequest {
