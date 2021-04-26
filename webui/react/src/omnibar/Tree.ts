@@ -9,8 +9,6 @@ import { store } from 'omnibar/exposedStore';
 import root from 'omnibar/sampleTree';
 import { noOp } from 'services/utils';
 
-import { alertAction } from './actions';
-
 const SEPARATOR = ' ';
 
 interface TreeRequest {

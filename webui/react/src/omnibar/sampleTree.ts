@@ -57,7 +57,7 @@ const root: NLNode = {
           })); // is use of `this` discouraged?
         return options;
       },
-      title: 'archiveExperiments',
+      title: 'archiveExperiment',
     },
     {
       options: locations,

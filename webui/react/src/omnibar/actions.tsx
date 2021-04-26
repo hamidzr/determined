@@ -28,6 +28,7 @@ export const displayHelp = () => {
   const keymap = [
     '"Enter" to select and auto complete an option.',
     '"Tab", "Up", or "Down" arrow keys to cycle through suggestions.',
+    '"Escape" to close the bar.',
   ];
   displayModal(
     'Help', (
