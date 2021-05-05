@@ -1,6 +1,12 @@
 {
-  "short_name": "Determined AI",
-  "name": "Determined AI",
+  "background_color": "#f7f7f7",
+  "display": "standalone",
+  "name": "Determined",
+  "orientation": "portrait-primary",
+  "scope": "/det/",
+  "short_name": "Det",
+  "start_url": "/det/",
+  "theme_color": "#f77b21",
   "icons": [
     {
       "src": "favicon.ico",
@@ -16,10 +22,12 @@
       "src": "favicons/favicon-512x512.png",
       "sizes": "512x512",
       "type": "image/png"
+    },
+    {
+      "src": "favicons/maskable-icon-682x682.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
     }
-  ],
-  "start_url": ".",
-  "display": "standalone",
-  "theme_color": "#000000",
-  "background_color": "#ffffff"
+  ]
 }

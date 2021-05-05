@@ -707,7 +707,7 @@ func (m *Master) Run(ctx context.Context) error {
 	m.echo.Static("/docs", filepath.Join(webuiRoot, "docs"))
 
 	webuiGroup := m.echo.Group(webuiBaseRoute)
-	webuiGroup.File("/", reactIndex)
+	webuiGroup.Static("/sw.js", filepath.Join(reactRoot, "sw.js"))
 	webuiGroup.GET("/*", func(c echo.Context) error {
 		groupPath := strings.TrimPrefix(c.Request().URL.Path, webuiBaseRoute+"/")
 		requestedFile := filepath.Join(reactRoot, groupPath)
