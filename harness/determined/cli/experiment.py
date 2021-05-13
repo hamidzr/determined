@@ -222,6 +222,7 @@ def describe(args: Namespace) -> None:
         "Start Time",
         "End Time",
         "Name",
+        "Description",
         "Archived",
         "Resource Pool",
         "Labels",
