@@ -27,6 +27,9 @@ func Setup(opts *Config) (*PgDB, error) {
 
 	db.sql.SetMaxOpenConns(maxOpenConns)
 
+	if opts.Migrations == "" {
+		return db, nil
+	}
 	log.Infof("running migrations from %v", opts.Migrations)
 	if err = db.Migrate(opts.Migrations); err != nil {
 		return nil, errors.Wrap(err, "running migrations")
