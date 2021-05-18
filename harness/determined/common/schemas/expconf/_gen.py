@@ -920,7 +920,7 @@ schemas = {
     "additionalProperties": false,
     "eventuallyRequired": [
         "checkpoint_storage",
-        "description",
+        "name",
         "hyperparameters",
         "reproducibility",
         "searcher"
@@ -1055,6 +1055,13 @@ schemas = {
                 "batches": 0
             },
             "optionalRef": "http://determined.ai/schemas/expconf/v0/length.json"
+        },
+        "name": {
+            "type": [
+                "string",
+                "null"
+            ],
+            "default": null
         },
         "optimizations": {
             "type": [
