@@ -69,7 +69,7 @@ export const importApiStorageRemote = async (url: string): Promise<void> => {
 };
 
 export const importApiStorage = async (): Promise<void> => {
-  const contents = await requestTextFileUpload();
+  const contents = await requestTextFileUpload([ '.json' ]);
   console.log('loading from uploaded file');
   rrStorage.fromString(contents);
 };
@@ -82,10 +82,13 @@ export const resetApiStorage = (): void => {
 /*
   Provide a way to get file input from user.
 */
-export const requestTextFileUpload = (): Promise<string> => {
+export const requestTextFileUpload = (
+  accept: string[] = [ '.txt', '.json', '.csv' ],
+): Promise<string> => {
 
   const el = document.createElement('input');
   el.setAttribute('type', 'file');
+  el.setAttribute('accept', accept.join(','));
 
   return new Promise((resolve, reject) => {
 
