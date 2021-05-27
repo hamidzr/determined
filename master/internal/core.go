@@ -700,7 +700,6 @@ func (m *Master) Run(ctx context.Context) error {
 	m.echo.Static("/docs", filepath.Join(webuiRoot, "docs"))
 
 	webuiGroup := m.echo.Group(webuiBaseRoute)
-	webuiGroup.File("/", reactIndex)
 	webuiGroup.GET("/*", func(c echo.Context) error {
 		groupPath := strings.TrimPrefix(c.Request().URL.Path, webuiBaseRoute+"/")
 		requestedFile := filepath.Join(reactRoot, groupPath)
@@ -708,7 +707,7 @@ func (m *Master) Run(ctx context.Context) error {
 		requestedFileAbs, fErr := filepath.Abs(requestedFile)
 		if fErr != nil {
 			log.WithError(fErr).Error("failed to get absolute path to requested file")
-			return c.File(reactIndex)
+			return api.RespondWithFile(c, reactIndex)
 		}
 		isInReactDir := strings.HasPrefix(requestedFileAbs, reactRootAbs)
 		if !isInReactDir {
@@ -727,10 +726,10 @@ func (m *Master) Run(ctx context.Context) error {
 			hasMatchingFile = !stat.IsDir()
 		}
 		if hasMatchingFile {
-			return c.File(requestedFile)
+			return api.RespondWithFile(c, requestedFile)
 		}
 
-		return c.File(reactIndex)
+		return api.RespondWithFile(c, reactIndex)
 	})
 
 	m.echo.Static("/api/v1/api.swagger.json",
