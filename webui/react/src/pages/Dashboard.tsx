@@ -1,3 +1,4 @@
+import { Button } from 'antd';
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
 
 import Grid, { GridMode } from 'components/Grid';
@@ -17,8 +18,9 @@ import {
   getCommands, getExperiments, getNotebooks, getShells, getTensorboards,
 } from 'services/api';
 import { Determinedexperimentv1State } from 'services/api-ts-sdk';
+import { detApi } from 'services/apiConfig';
 import { encodeExperimentState } from 'services/decoder';
-import { validateDetApiEnumList } from 'services/utils';
+import { consumeStream, validateDetApiEnumList } from 'services/utils';
 import { ShirtSize } from 'themes';
 import {
   ALL_VALUE, CommandTask, CommandType, ExperimentItem, RecentTask,
@@ -48,6 +50,7 @@ const Dashboard: React.FC = () => {
   const initFilters = storage.getWithDefault(STORAGE_FILTERS_KEY, { ...defaultFilters });
   const [ filters, setFilters ] = useState<TaskFilters>(initFilters);
   const [ canceler ] = useState(new AbortController());
+  const [ demoCanceler, setDemoCanceler ] = useState(new AbortController());
   const [ experiments, setExperiments ] = useState<ExperimentItem[]>();
   const [ tasks, setTasks ] = useState<CommandTask[]>();
   const [ activeTaskTally, setActiveTaskTally ] = useState({
@@ -160,6 +163,21 @@ const Dashboard: React.FC = () => {
     setExperiments(undefined);
   }, [ setExperiments, setFilters, storage ]);
 
+  const streamStart = useCallback(() => {
+    console.log('requested stream');
+    const newCanceler = new AbortController();
+    consumeStream(
+      detApi.StreamingExperiments.determinedTrialLogsFields(1, true, { signal: newCanceler.signal }),
+      console.log,
+    );
+    setDemoCanceler(newCanceler);
+  }, [ ]);
+
+  const streamAbort = useCallback(() => {
+    console.log('requested cancel');
+    demoCanceler.abort();
+  }, [ demoCanceler ]);
+
   return (
     <Page docTitle="Overview" id="dashboard">
       <Section title="Overview">
@@ -206,6 +224,14 @@ const Dashboard: React.FC = () => {
             title="No recent tasks matching the current filters"
             type={MessageType.Empty} />
         }
+      </Section>
+      <Section>
+        <Button onClick={streamStart}>
+          Start Stream
+        </Button>
+        <Button onClick={streamAbort}>
+          Abort
+        </Button>
       </Section>
     </Page>
   );

@@ -146,8 +146,9 @@ export const consumeStream = async <T = unknown>(
     if (options && options.signal) {
       const signal: AbortSignal = options.signal;
       const abortHandler = () => {
-        reader.cancel();
+        console.log('aborting', { url: fetchArgs.url });
         signal.removeEventListener('abort', abortHandler);
+        reader.cancel('received abort signal');
       };
       signal.addEventListener('abort', abortHandler);
     }
@@ -164,6 +165,7 @@ export const consumeStream = async <T = unknown>(
     }
   } catch (e) {
     if (!isAborted(e)) {
+      console.log('caught error', e);
       processApiError(fetchArgs.url, e);
       throw e;
     }
