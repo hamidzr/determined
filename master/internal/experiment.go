@@ -60,6 +60,9 @@ type (
 	}
 	getTrial       struct{ trialID int }
 	killExperiment struct{}
+
+	// Schedueling
+
 )
 
 type trialSnapshot struct {
