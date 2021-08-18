@@ -194,6 +194,19 @@ message PatchExperimentResponse {
   determined.experiment.v1.Experiment experiment = 1;
 }
 
+// Set the priority of the requested experiment.
+message SetExperimentPriorityRequest {
+  // The id of the experiment.
+  string experiment_id = 1;
+  // The new priority.
+  int32 priority = 2;
+}
+// Response to SetExperimentPriorityRequest.
+message SetExperimentPriorityResponse {
+  // The requested experiment.
+  determined.experiment.v1.Experiment experiment = 1;
+}
+
 // Get a list of checkpoints for an experiment.
 message GetExperimentCheckpointsRequest {
   // Sorts checkpoints by the given field.
