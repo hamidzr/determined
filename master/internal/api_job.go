@@ -14,16 +14,14 @@ import (
 
 var notImplementedError = status.Error(codes.Unimplemented, "API not implemented")
 
-// GetJobs TODO.
+// GetJobs fetchs a list of jobs for a resource pools.
 func (a *apiServer) GetJobs(
 	_ context.Context, req *apiv1.GetJobsRequest,
 ) (resp *apiv1.GetJobsResponse, err error) {
-	// TODO pagination and filtering
-	// a.sort(resp.Jobs, req.OrderBy, req.SortBy, apiv1.GetJobsRequest_SORT_BY_QUEUE_POSITION)
-	// resp, a.paginate(&resp.Pagination, &resp.Jobs, req.Pagination.Offset, req.Pagination.Limit)
 
-	var jobs []*jobv1.Job
-	resp = &apiv1.GetJobsResponse{}
+	resp = &apiv1.GetJobsResponse{
+		Jobs: make([]*jobv1.Job, 0),
+	}
 
 	if req.ResourcePool == "" {
 		return nil, status.Error(codes.InvalidArgument, "missing resource_pool parameter")
@@ -32,18 +30,26 @@ func (a *apiServer) GetJobs(
 	switch {
 	case sproto.UseAgentRM(a.m.system):
 		err = a.actorRequest(
-			sproto.AgentRMAddr.Child(req.ResourcePool), resourcemanagers.GetJobOrder{}, &jobs,
+			sproto.AgentRMAddr.Child(req.ResourcePool), resourcemanagers.GetJobOrder{}, &resp.Jobs,
 		)
 	case sproto.UseK8sRM(a.m.system):
-		err = a.actorRequest(sproto.K8sRMAddr, resourcemanagers.GetJobOrder{}, &jobs)
+		err = a.actorRequest(sproto.K8sRMAddr, resourcemanagers.GetJobOrder{}, &resp.Jobs)
 	default:
 		err = status.Error(codes.NotFound, "cannot find appropriate resource manager")
 	}
 	if err != nil {
 		return nil, err
 	}
-	resp.Jobs = jobs
-	return resp, nil
+
+	if req.OrderBy == apiv1.OrderBy_ORDER_BY_ASC {
+		// TODO reverese the list
+		return nil, notImplementedError
+	}
+
+	if req.Pagination == nil {
+		req.Pagination = &apiv1.PaginationRequest{}
+	}
+	return resp, a.paginate(&resp.Pagination, &resp.Jobs, req.Pagination.Offset, req.Pagination.Limit)
 }
 
 // GetJobQueueStats TODO.
