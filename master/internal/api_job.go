@@ -25,15 +25,14 @@ func (a *apiServer) GetJobs(
 	var jobs []*jobv1.Job
 	resp = &apiv1.GetJobsResponse{}
 
-	// TODO loop over all resource pools in the request
-	if len(req.ResourcePools) < 1 {
-		req.ResourcePools = append(req.ResourcePools, a.m.config.ResourcePools[0].PoolName)
+	if req.ResourcePool == "" {
+		return nil, status.Error(codes.InvalidArgument, "missing resource_pool parameter")
 	}
 
 	switch {
 	case sproto.UseAgentRM(a.m.system):
 		err = a.actorRequest(
-			sproto.AgentRMAddr.Child(req.ResourcePools[0]), resourcemanagers.GetJobOrder{}, &jobs,
+			sproto.AgentRMAddr.Child(req.ResourcePool), resourcemanagers.GetJobOrder{}, &jobs,
 		)
 	case sproto.UseK8sRM(a.m.system):
 		err = a.actorRequest(sproto.K8sRMAddr, resourcemanagers.GetJobOrder{}, &jobs)
@@ -43,19 +42,6 @@ func (a *apiServer) GetJobs(
 	if err != nil {
 		return nil, err
 	}
-	// for _, job := range jobs {
-	// 	if job == nil {
-	// 		panic("received an empty job summary") // this shouldn't happen
-	// 	}
-	// 	resp.Jobs = append(resp.Jobs, &jobv1.Job{
-	// 		Summary: &jobv1.JobSummary{
-	// 			JobId: string(job.JobID),
-	// 			State: job.State.Proto(), // look at AllocationState
-	// 		},
-	// 		EntityId: job.EntityID,
-	// 		Type:     job.JobType.Proto(),
-	// 	})
-	// }
 	resp.Jobs = jobs
 	return resp, nil
 }
