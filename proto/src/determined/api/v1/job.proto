@@ -12,7 +12,7 @@ message GetJobsRequest {
   // Request to paginate the resposne.
   PaginationRequest pagination = 1;
   // Filter the results based on a set of resource pools.
-  // If not provided this will be set to the "default" resource pool.
+  // If not provided this will be set to the first defined resource pool.
   repeated string resource_pools = 2;
   // Sort results by the given field.
   // enum SortBy {
@@ -61,7 +61,7 @@ message RPQueueStat {
 // Get job stats.
 message GetJobQueueStatsRequest {
   // Filter the results based on a set of resource pools.
-  // If not provided this will be set to the "default" resource pool.
+  // If not provided this will be set to the first defined resource pool.
   repeated string resource_pools = 1;
 }
 // Response to GetJobQueueStatsRequest.
