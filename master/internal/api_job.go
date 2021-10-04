@@ -18,7 +18,6 @@ var notImplementedError = status.Error(codes.Unimplemented, "API not implemented
 func (a *apiServer) GetJobs(
 	_ context.Context, req *apiv1.GetJobsRequest,
 ) (resp *apiv1.GetJobsResponse, err error) {
-
 	resp = &apiv1.GetJobsResponse{
 		Jobs: make([]*jobv1.Job, 0),
 	}
@@ -42,8 +41,10 @@ func (a *apiServer) GetJobs(
 	}
 
 	if req.OrderBy == apiv1.OrderBy_ORDER_BY_ASC {
-		// TODO reverese the list
-		return nil, notImplementedError
+		// Reverese the list.
+		for i, j := 0, len(resp.Jobs)-1; i < j; i, j = i+1, j-1 {
+			resp.Jobs[i], resp.Jobs[j] = resp.Jobs[j], resp.Jobs[i]
+		}
 	}
 
 	if req.Pagination == nil {
