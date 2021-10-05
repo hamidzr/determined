@@ -14,7 +14,7 @@ import (
 
 var notImplementedError = status.Error(codes.Unimplemented, "API not implemented")
 
-// GetJobs fetchs a list of jobs for a resource pools.
+// GetJobs retrieves a list of jobs for a resource pool.
 func (a *apiServer) GetJobs(
 	_ context.Context, req *apiv1.GetJobsRequest,
 ) (resp *apiv1.GetJobsResponse, err error) {
@@ -52,7 +52,8 @@ func (a *apiServer) GetJobs(
 	}
 	/* TODO user information
 	2. persist use with job info. not all jobs are persisted.
-	3. allocateReq.taskActor => a msg to get the task user/owner. would need to bubble up incase of eg trial actor to experiment
+	3. allocateReq.taskActor => a msg to get the task user/owner.
+	would need to bubble up incase of eg trial actor to experiment
 	*/
 	return resp, a.paginate(&resp.Pagination, &resp.Jobs, req.Pagination.Offset, req.Pagination.Limit)
 }
