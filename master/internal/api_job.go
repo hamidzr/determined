@@ -50,6 +50,10 @@ func (a *apiServer) GetJobs(
 	if req.Pagination == nil {
 		req.Pagination = &apiv1.PaginationRequest{}
 	}
+	/* TODO user information
+	2. persist use with job info. not all jobs are persisted.
+	3. allocateReq.taskActor => a msg to get the task user/owner. would need to bubble up incase of eg trial actor to experiment
+	*/
 	return resp, a.paginate(&resp.Pagination, &resp.Jobs, req.Pagination.Offset, req.Pagination.Limit)
 }
 
