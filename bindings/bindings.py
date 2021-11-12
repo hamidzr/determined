@@ -211,10 +211,10 @@ class Class(TypeDef):
         self.members = members
 
     def load(self, val: Code) -> Code:
-        return f"{val}.to_json()"
+        return f"{self.name}.from_json({val})"
 
     def dump(self, val: Code) -> Code:
-        return f"{self.name}.from_json({val})"
+        return f"{val}.to_json()"
 
     def gen_def(self) -> Code:
         out = [f"class {self.name}:"]
@@ -222,7 +222,7 @@ class Class(TypeDef):
         out += ["        self,"]
         out += [f"        {k}: {v.annotation()}," for k, v in self.members.items()]
         out += ["    ):"]
-        out += [f"        {k} = {k}" for k in self.members]
+        out += [f"        self.{k} = {k}" for k in self.members]
         out += [""]
         out += ["    @classmethod"]
         out += ["    def from_json(cls, obj):"]
