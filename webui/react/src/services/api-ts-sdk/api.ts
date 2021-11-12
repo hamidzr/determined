@@ -1504,6 +1504,12 @@ export interface V1Experiment {
      * @memberof V1Experiment
      */
     jobId?: string;
+    /**
+     * Associated job summary.
+     * @type {V1JobSummary}
+     * @memberof V1Experiment
+     */
+    jobSummary?: V1JobSummary;
 }
 
 /**
@@ -1808,12 +1814,6 @@ export interface V1GetExperimentResponse {
      * @memberof V1GetExperimentResponse
      */
     config: any;
-    /**
-     * Associated job summary.
-     * @type {V1JobSummary}
-     * @memberof V1GetExperimentResponse
-     */
-    jobSummary?: V1JobSummary;
 }
 
 /**
