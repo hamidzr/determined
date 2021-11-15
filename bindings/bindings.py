@@ -262,7 +262,7 @@ class Class(TypeDef):
         out += [f"        self.{k} = {k}" for k in self.params]
         out += [""]
         out += ["    @classmethod"]
-        out += ["    def from_json(cls, obj):"]
+        out += [f'    def from_json(cls, obj: Json) -> "{self.name}":']
         out += ["        return cls("]
         for k, v in self.params.items():
             if v.type.need_parse():
@@ -274,7 +274,7 @@ class Class(TypeDef):
             out.append(f"""             {k}={parsed},""")
         out += ["        )"]
         out += [""]
-        out += ["    def to_json(self):"]
+        out += ["    def to_json(self) -> typing.Any:"]
         out += ["        return {"]
         for k, v in self.params.items():
             if v.type.need_parse():
@@ -541,7 +541,10 @@ def pybindings(swagger: dict) -> str:
     out += ["if typing.TYPE_CHECKING:"]
     out += ["    from determined.experimental import client"]
     out += [""]
-    out += ["def dump_float(val):"]
+    out += ["# flake8: noqa"]
+    out += ["Json = typing.Any"]
+    out += [""]
+    out += ["def dump_float(val: typing.Any) -> typing.Any:"]
     out += ["    if math.isnan(val):"]
     out += ['        return "Nan"']
     out += ["    if math.isinf(val):"]
