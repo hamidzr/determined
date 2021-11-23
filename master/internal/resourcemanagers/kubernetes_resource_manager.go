@@ -428,7 +428,6 @@ func (k *kubernetesResourceManager) getOrCreateGroup(
 		return g
 	}
 
-	// TODO: remove magic number
 	newPriority := KubernetesDefaultPriority
 	g := &group{handler: handler, weight: 1, priority: &newPriority, qPosition: -1}
 	k.groups[handler] = g

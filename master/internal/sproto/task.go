@@ -21,7 +21,7 @@ type (
 		State        job.SchedulingState
 		Name         string
 		TaskActor    *actor.Ref
-		Group        *actor.Ref // CHECK aka the job actor
+		Group        *actor.Ref
 
 		// Resource configuration.
 		SlotsNeeded         int

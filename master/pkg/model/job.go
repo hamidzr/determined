@@ -11,7 +11,7 @@ type JobID string
 
 // String represents the job ID as a string.
 func (id JobID) String() string {
-	return string(id) // FIXME does this add any value? is this a common interface in go?
+	return string(id)
 }
 
 // JobType is the type of a job.

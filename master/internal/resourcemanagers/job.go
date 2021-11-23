@@ -7,11 +7,6 @@ import (
 	"github.com/determined-ai/determined/proto/pkg/jobv1"
 )
 
-// FIXME haven't decided if resource manager actor should be responsible for this or not
-// we don't want a separate actor do we? could be useful for streaming job endpoints.
-// CHECK do we define the following messages in sproto package?
-// QUESTION should we use proto defined messages more often internally or keep them at api level
-
 func mergeToJobQInfo(reqs AllocReqs) (map[model.JobID]*job.RMJobInfo, map[model.JobID]*actor.Ref) {
 	isAdded := make(map[model.JobID]*job.RMJobInfo)
 	jobActors := make(map[model.JobID]*actor.Ref)

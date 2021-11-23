@@ -281,12 +281,6 @@ func (rp *ResourcePool) Receive(ctx *actor.Context) error {
 			}
 			rp.sendScalingInfo(ctx)
 		}
-		// jobQ := rp.scheduler.JobQInfo(rp) // OPTIMIZE: integrate into Schedule() call
-		// // FIXME why can't we TellAt on Context?
-		// ctx.Self().System().TellAt(job.JobsActorAddr, job.SetJobQ{
-		// 	Identifier: rp.config.PoolName,
-		// 	Queue:      jobQ,
-		// })
 		rp.reschedule = false
 		reschedule = false
 		actors.NotifyAfter(ctx, actionCoolDown, schedulerTick{})
@@ -357,30 +351,30 @@ func (rp *ResourcePool) receiveJobQueueMsg(ctx *actor.Context) error {
 	case job.SetJobOrder:
 		for it := rp.taskList.iterator(); it.next(); {
 			req := it.value()
-			// TODO nit: early break instead nesting?
-			if req.JobID != nil && *req.JobID == msg.JobID {
-				group := rp.getOrCreateGroup(ctx, req.Group)
-				if msg.QPosition > 0 {
-					group.qPosition = msg.QPosition
-					ctx.Tell(req.Group, sproto.SetGroupOrder{
-						QPosition: msg.QPosition,
-						Handler:   ctx.Self(),
-					})
-				}
-				if *msg.Priority > 0 {
-					group.priority = msg.Priority
-					ctx.Tell(req.Group, sproto.SetGroupPriority{
-						Priority: msg.Priority,
-						Handler:  ctx.Self(),
-					})
-				}
-				if msg.Weight > 0 {
-					group.weight = msg.Weight
-					ctx.Tell(req.Group, sproto.SetGroupWeight{
-						Weight:  msg.Weight,
-						Handler: ctx.Self(),
-					})
-				}
+			if req.JobID == nil || *req.JobID != msg.JobID {
+				continue
+			}
+			group := rp.getOrCreateGroup(ctx, req.Group)
+			if msg.QPosition > 0 {
+				group.qPosition = msg.QPosition
+				ctx.Tell(req.Group, sproto.SetGroupOrder{
+					QPosition: msg.QPosition,
+					Handler:   ctx.Self(),
+				})
+			}
+			if *msg.Priority > 0 {
+				group.priority = msg.Priority
+				ctx.Tell(req.Group, sproto.SetGroupPriority{
+					Priority: msg.Priority,
+					Handler:  ctx.Self(),
+				})
+			}
+			if msg.Weight > 0 {
+				group.weight = msg.Weight
+				ctx.Tell(req.Group, sproto.SetGroupWeight{
+					Weight:  msg.Weight,
+					Handler: ctx.Self(),
+				})
 			}
 		}
 		// TODO: add a ctx.Respond so that the API doesn't return an error to the user
