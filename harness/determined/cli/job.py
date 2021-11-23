@@ -7,7 +7,7 @@ import yaml
 from determined.cli import render
 from determined.cli.session import setup_session
 from determined.common.api import authentication
-from determined.common.api.b import get_GetJobs
+from determined.common.api.b import get_GetJobs, post_UpdateJobQueue, v1UpdateJobQueueRequest
 from determined.common.declarative_argparse import Arg, Cmd, Group
 
 
@@ -58,6 +58,11 @@ def ls(args: Namespace) -> None:
     else:
         raise ValueError(f"Bad output format: {args.output}")
 
+@authentication.required
+def update_queue(args: Namespace) -> None:
+    updates = []
+    post_UpdateJobQueue(setup_session(args), body=v1UpdateJobQueueRequest(updates))
+
 
 pagination_args = [
     Arg(
@@ -88,11 +93,26 @@ output_format = Group(
     Arg("--table", action="store_true", default=True, help="Print in a tabular format."),
 )
 
+update_opts = Group(
+    Arg(
+        "--rp", "--resource-pool", type=str, help="Target resource pool to move the job to."
+    ),
+    Arg(
+        "--priority", type=int, help="New priority for the job."
+    ),
+    Arg(
+        "--weight", type=float, help="New weight for the job."
+    ),
+    # Arg(
+    #     "--queue-position", type=float, help="New queue position for the job."
+    # ),
+)
+
 args_description = [
     Cmd(
         "j|ob",
         None,
-        "manage job",
+        "manage job queues.",
         [
             Cmd(
                 "list ls",
@@ -100,11 +120,25 @@ args_description = [
                 "list jobs",
                 [
                     Arg(
-                        "-rp", "--resource-pool", type=str, help="The target resource pool, if any."
+                        "--rp", "--resource-pool", type=str, help="The target resource pool, if any."
                     ),
                     *pagination_args,
                     output_format,
                 ],
+            ),
+            Cmd(
+                "update",
+                update_queue,
+                "update the job queue",
+                [
+                    Arg(
+                        "--jobId", type=str, help="The job to update."
+                    ),
+                    Arg(
+                        "--source-resource-pool", type=str, help="The job's source resource pool."
+                    ), # TODO this should become unnecessary.
+                    update_opts,
+                ]
             ),
         ],
     )

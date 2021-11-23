@@ -209,3 +209,77 @@ def get_GetJobs(
     if _req.status_code == 200:
         return v1GetJobsResponse.from_json(_req.json())
     raise ValueError(_req.status_code)
+
+class v1QueueControl:
+    def __init__(
+        self,
+            jobId: str,
+            priority: "typing.Optional[int]" = None,
+            queuePosition: "typing.Optional[float]" = None,
+            resourcePool: "typing.Optional[str]" = None,
+            sourceResourcePool: "typing.Optional[str]" = None,
+            weight: "typing.Optional[float]" = None,
+    ):
+        self.jobId = jobId
+        self.sourceResourcePool = sourceResourcePool
+        self.resourcePool = resourcePool
+        self.queuePosition = queuePosition
+        self.priority = priority
+        self.weight = weight
+
+    @classmethod
+    def from_json(cls, obj: Json) -> "v1QueueControl":
+        return cls(
+             jobId=obj["jobId"],
+             sourceResourcePool=obj["sourceResourcePool"] if obj.get("sourceResourcePool", None) is not None else None,
+             resourcePool=obj["resourcePool"] if obj.get("resourcePool", None) is not None else None,
+             queuePosition=float(obj["queuePosition"]) if obj.get("queuePosition", None) is not None else None,
+             priority=obj["priority"] if obj.get("priority", None) is not None else None,
+             weight=float(obj["weight"]) if obj.get("weight", None) is not None else None,
+        )
+
+    def to_json(self) -> typing.Any:
+        return {
+             "jobId": self.jobId,
+             "sourceResourcePool": self.sourceResourcePool if self.sourceResourcePool is not None else None,
+             "resourcePool": self.resourcePool if self.resourcePool is not None else None,
+             "queuePosition": dump_float(self.queuePosition) if self.queuePosition is not None else None,
+             "priority": self.priority if self.priority is not None else None,
+             "weight": dump_float(self.weight) if self.weight is not None else None,
+        }
+class v1UpdateJobQueueRequest:
+    def __init__(
+        self,
+            updates: "typing.Sequence[v1QueueControl]",
+    ):
+        self.updates = updates
+
+    @classmethod
+    def from_json(cls, obj: Json) -> "v1UpdateJobQueueRequest":
+        return cls(
+             updates=[v1QueueControl.from_json(x) for x in obj["updates"]],
+        )
+
+    def to_json(self) -> typing.Any:
+        return {
+             "updates": [x.to_json() for x in self.updates],
+        }
+
+def post_UpdateJobQueue(
+    session: "client.Session",
+    *,
+    body: "v1UpdateJobQueueRequest",
+) -> None:
+    _params = None
+    _req = session._do_request(
+        method="POST",
+        path="/api/v1/resource-pools/queues",
+        params=_params,
+        json=body.to_json(),
+        data=None,
+        headers=None,
+        timeout=None,
+    )
+    if _req.status_code == 200:
+        return
+    raise ValueError(_req.status_code)
