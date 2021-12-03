@@ -1,7 +1,5 @@
 import React from 'react';
 
-import { generateAlphaNumeric, generateLetters } from 'utils/string';
-
 import ResponsiveTable from './ResponsiveTable';
 
 export default {
@@ -11,7 +9,7 @@ export default {
 };
 
 const columns = new Array(20).fill(null).map(() => {
-  const str = generateLetters();
+  const str = 'lorem';
   return {
     dataIndex: str,
     sorter: true,
@@ -22,7 +20,7 @@ const columns = new Array(20).fill(null).map(() => {
 const data = new Array(100).fill(null).map(() => {
   const row: Record<string, string> = {};
   columns.forEach(column => {
-    row[column.dataIndex] = generateAlphaNumeric();
+    row[column.dataIndex] = 'test';
   });
   return row;
 });
