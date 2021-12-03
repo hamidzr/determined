@@ -15,7 +15,7 @@ export default {
 export const Default = (): React.ReactNode => {
   return <ResourcePoolCard
     computeContainerStates={[]}
-    resourcePool={rps.random()}
+    resourcePool={rps[0]}
     resourceType={ResourceType.GPU}
     totalComputeSlots={3}
   />;
@@ -24,7 +24,7 @@ export const Default = (): React.ReactNode => {
 export const CPU = (): React.ReactNode => {
   return <ResourcePoolCard
     computeContainerStates={[]}
-    resourcePool={rps.random()}
+    resourcePool={rps[0]}
     resourceType={ResourceType.CPU}
     totalComputeSlots={3}
   />;
@@ -33,7 +33,7 @@ export const CPU = (): React.ReactNode => {
 export const Aux = (): React.ReactNode => {
   return <ResourcePoolCard
     computeContainerStates={[]}
-    resourcePool={rps.random()}
+    resourcePool={rps[0]}
     resourceType={ResourceType.UNSPECIFIED}
     totalComputeSlots={0}
   />;
