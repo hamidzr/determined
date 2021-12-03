@@ -43,7 +43,7 @@ build/done.stamp: $(source_files) node_modules/done.stamp tsconfig.json craco.co
 	touch $@
 
 .PHONY: build-storybook
-build-storybook:
+build-storybook: # TODO remove the PHONY modifier
 	npm run storybook:build
 
 .PHONY: clean
@@ -83,9 +83,9 @@ test:
 	npm run test -- --watchAll=false
 
 .PHONY: test-update
-test-update:
+test-update: # build-storybook
 	npx loki update --skipStories ${SKIPPED_STORIES} --reactUri file:./build-storybook --chromeConcurrency 4
 
 .PHONY: test-visual
-test-visual:
+test-visual: # build-storybook
 	npx loki --skipStories ${SKIPPED_STORIES} --requireReference --reactUri file:./build-storybook --chromeConcurrency 4
