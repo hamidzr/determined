@@ -1,10 +1,13 @@
 import React from 'react';
 
+import StoreDecorator from 'storybook/StoreDecorator';
+
 import Page from './Page';
 import Spinner from './Spinner';
 
 export default {
   component: Spinner,
+  decorators: [ StoreDecorator ],
   title: 'Spinner',
 };
 
