@@ -6,7 +6,7 @@ source_files := $(shell find src public -type f)
 ts_bindings_src := ../../bindings/build/typescript-fetch
 ts_bindings_dest := src/services/api-ts-sdk
 PROJECT_ROOT := "../../"
-SKIPPED_STORIES = "^(Experiment|Table|TaskCard|Nav).*"
+SKIPPED_STORIES = "^(Experiment|Table|TaskCard|Nav|HumanRead|Icon).*|.*(Modal|Details)" # can't add a $ to the end of  regex
 
 .PHONY: default
 default: get-deps
@@ -88,5 +88,4 @@ test-update:
 
 .PHONY: test-visual
 test-visual:
-	# npx loki test --skipStories ${SKIPPED_STORIES} --chromeConcurrency 4
-	npx loki --skipStories ${SKIPPED_STORIES} --requireReference --reactUri file:./build-storybook
+	npx loki --skipStories ${SKIPPED_STORIES} --requireReference --reactUri file:./build-storybook --chromeConcurrency 4
