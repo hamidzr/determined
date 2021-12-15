@@ -163,7 +163,7 @@ func (rp *ResourcePool) getOrCreateGroup(
 	if g, ok := rp.groups[handler]; ok {
 		return g
 	}
-	g := &group{handler: handler, weight: 1}
+	g := &group{handler: handler, weight: 1, qPosition: -1}
 
 	if rp.config.Scheduler.Priority != nil {
 		if rp.config.Scheduler.Priority.DefaultPriority == nil {
@@ -235,8 +235,6 @@ func (rp *ResourcePool) Receive(ctx *actor.Context) error {
 	case
 		groupActorStopped,
 		sproto.SetGroupMaxSlots,
-		job.SetGroupWeight,
-		job.SetGroupPriority,
 		sproto.SetTaskName,
 		sproto.AllocateRequest,
 		sproto.ResourcesReleased:
@@ -244,7 +242,10 @@ func (rp *ResourcePool) Receive(ctx *actor.Context) error {
 
 	case
 		job.GetJobQ,
-		job.GetJobQStats:
+		job.GetJobQStats,
+		job.SetGroupWeight,
+		job.SetGroupPriority,
+		job.SetGroupOrder:
 		return rp.receiveJobQueueMsg(ctx)
 
 	case sproto.GetTaskHandler:
@@ -350,25 +351,11 @@ func (rp *ResourcePool) receiveAgentMsg(ctx *actor.Context) error {
 }
 
 func (rp *ResourcePool) receiveJobQueueMsg(ctx *actor.Context) error {
-	switch ctx.Message().(type) {
+	switch msg := ctx.Message().(type) {
 	case job.GetJobQStats:
 		ctx.Respond(*jobStats(rp.taskList))
 	case job.GetJobQ:
 		ctx.Respond(rp.scheduler.JobQInfo(rp))
-	default:
-		return actor.ErrUnexpectedMessage(ctx)
-	}
-	return nil
-}
-
-func (rp *ResourcePool) receiveRequestMsg(ctx *actor.Context) error {
-	switch msg := ctx.Message().(type) {
-	case groupActorStopped:
-		delete(rp.groups, msg.Ref)
-
-	case sproto.SetGroupMaxSlots:
-		rp.getOrCreateGroup(ctx, msg.Handler).maxSlots = msg.MaxSlots
-
 	case job.SetGroupWeight:
 		rp.getOrCreateGroup(ctx, msg.Handler).weight = msg.Weight
 
@@ -382,6 +369,25 @@ func (rp *ResourcePool) receiveRequestMsg(ctx *actor.Context) error {
 			ctx.Log().Infof("setting priority for group of %s to %d",
 				msg.Handler.Address().String(), *g.priority)
 		}
+
+	case job.SetGroupOrder:
+		group := rp.getOrCreateGroup(ctx, msg.Handler)
+		if msg.QPosition != 0 {
+			group.qPosition = msg.QPosition
+		}
+	default:
+		return actor.ErrUnexpectedMessage(ctx)
+	}
+	return nil
+}
+
+func (rp *ResourcePool) receiveRequestMsg(ctx *actor.Context) error {
+	switch msg := ctx.Message().(type) {
+	case groupActorStopped:
+		delete(rp.groups, msg.Ref)
+
+	case sproto.SetGroupMaxSlots:
+		rp.getOrCreateGroup(ctx, msg.Handler).maxSlots = msg.MaxSlots
 
 	case sproto.SetTaskName:
 		rp.receiveSetTaskName(ctx, msg)
