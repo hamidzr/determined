@@ -167,6 +167,7 @@ func (j *Jobs) Receive(ctx *actor.Context) error {
 		ctx.Respond(jobsInRM)
 
 	case *apiv1.UpdateJobQueueRequest:
+		errors := make([]error, 0)
 		for _, update := range msg.Updates {
 			jobID := model.JobID(update.JobId)
 			jobActor := j.actorByID[jobID]
@@ -178,13 +179,25 @@ func (j *Jobs) Receive(ctx *actor.Context) error {
 			case *jobv1.QueueControl_Priority:
 				priority := int(action.Priority)
 				// TODO switch to Ask and check for errors
-				ctx.Tell(jobActor, SetGroupPriority{
+				resp := ctx.Ask(jobActor, SetGroupPriority{
 					Priority: &priority,
 				})
+				if resp.Get() != nil {
+					err, ok := resp.Get().(error)
+					if ok {
+						errors = append(errors, err)
+					}
+				}
 			case *jobv1.QueueControl_Weight:
-				ctx.Tell(jobActor, SetGroupWeight{
+				resp := ctx.Ask(jobActor, SetGroupWeight{
 					Weight: float64(action.Weight),
 				})
+				if resp.Get() != nil {
+					err, ok := resp.Get().(error)
+					if ok {
+						errors = append(errors, err)
+					}
+				}
 			case *jobv1.QueueControl_ResourcePool:
 				ctx.Respond(api.ErrNotImplemented)
 				return nil
@@ -200,6 +213,7 @@ func (j *Jobs) Receive(ctx *actor.Context) error {
 				return nil
 			}
 		}
+		ctx.Respond(errors)
 	default:
 		return actor.ErrUnexpectedMessage(ctx)
 	}
