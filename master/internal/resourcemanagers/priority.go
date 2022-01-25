@@ -296,10 +296,12 @@ func sortTasksByPriorityAndPositionAndTimestamp(
 func comparePositions(a, b *sproto.AllocateRequest, jobPositions jobSortState) int {
 	aPosition, aOk := jobPositions[a.JobID]
 	bPosition, bOk := jobPositions[b.JobID]
-	if !aOk || !bOk {
-		// we shouldn't run into this situation once k8 support is implemented other than
-		// when testing.
-		return aReqComparator(a, b) * -1 // CHECK
+	if !aOk || aPosition == 0 {
+		jobPositions[a.JobID] = a.InitialQueuePosition()
+		// TODO persist
+	}
+	if !bOk || bPosition == 0 {
+		jobPositions[b.JobID] = b.InitialQueuePosition()
 	}
 	switch {
 	case aPosition == bPosition:

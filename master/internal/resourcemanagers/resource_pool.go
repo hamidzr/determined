@@ -411,7 +411,15 @@ func (rp *ResourcePool) receiveJobQueueMsg(ctx *actor.Context) error {
 	case job.SetGroupPriority:
 		g := rp.getOrCreateGroup(ctx, msg.Handler)
 		if msg.Priority != nil {
-			g.priority = msg.Priority
+			if g.priority != msg.Priority {
+				g.priority = msg.Priority
+				jobID, ok := rp.groupActorToID[msg.Handler]
+				if !ok {
+					ctx.Log().Errorf("group %s not found", msg.Handler)
+					return nil
+				}
+				rp.queuePositions[jobID] = 0
+			}
 		}
 
 		if rp.config.Scheduler.Priority != nil {

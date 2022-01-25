@@ -113,6 +113,8 @@ func adjustPriorities(positions *jobSortState) {
 	// }
 }
 
+// could be swapped for another job order representation
+// 0 or nonexisting keys mean that it needs to initialize
 type jobSortState = map[model.JobID]float64
 
 func computeNewJobPos(msg job.MoveJob, jobQ job.AQueue, qPositions jobSortState) (float64, error) {

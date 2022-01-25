@@ -209,6 +209,7 @@ func (j *Jobs) Receive(ctx *actor.Context) error {
 			case *jobv1.QueueControl_ResourcePool:
 				ctx.Respond(api.ErrNotImplemented)
 			case *jobv1.QueueControl_AheadOf:
+				// option a: detect and send SetGroupPriority here if needed.
 				resp := ctx.Ask(j.RMRef, MoveJob{
 					ID:      jobID,
 					Anchor:  model.JobID(action.AheadOf),
