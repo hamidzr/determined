@@ -310,16 +310,12 @@ func (c *command) Receive(ctx *actor.Context) error {
 
 	case job.SetGroupWeight:
 		err := c.setWeight(ctx, msg.Weight)
-		if err != nil {
-			ctx.Respond(err)
-		}
+		ctx.Respond(err)
 
 	case job.SetGroupPriority:
 		if msg.Priority != nil {
 			err := c.setPriority(ctx, *msg.Priority)
-			if err != nil {
-				ctx.Respond(err)
-			}
+			ctx.Respond(err)
 		}
 
 	default:
@@ -334,11 +330,11 @@ func (c *command) setPriority(ctx *actor.Context, priority int) error {
 			c.jobType)
 	}
 	c.Config.Resources.Priority = &priority
-	ctx.Tell(sproto.GetRM(ctx.Self().System()), job.SetGroupPriority{
+	resp := ctx.Ask(sproto.GetRM(ctx.Self().System()), job.SetGroupPriority{
 		Priority: &priority,
 		Handler:  ctx.Self(),
 	})
-	return nil
+	return resp.Error()
 }
 
 func (c *command) setWeight(ctx *actor.Context, weight float64) error {
@@ -347,11 +343,11 @@ func (c *command) setWeight(ctx *actor.Context, weight float64) error {
 			c.jobType)
 	}
 	c.Config.Resources.Weight = weight
-	ctx.Tell(sproto.GetRM(ctx.Self().System()), job.SetGroupWeight{
+	resp := ctx.Ask(sproto.GetRM(ctx.Self().System()), job.SetGroupWeight{
 		Weight:  weight,
 		Handler: ctx.Self(),
 	})
-	return nil
+	return resp.Error()
 }
 
 func (c *command) toNotebook(ctx *actor.Context) *notebookv1.Notebook {

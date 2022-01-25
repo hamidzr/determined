@@ -589,11 +589,11 @@ func (e *experiment) setPriority(ctx *actor.Context, priority *int) error {
 		e.Config.SetResources(resources)
 		return errors.Wrapf(err, "setting experiment %d priority", e.ID)
 	}
-	ctx.Tell(sproto.GetRM(ctx.Self().System()), job.SetGroupPriority{
+	resp := ctx.Ask(sproto.GetRM(ctx.Self().System()), job.SetGroupPriority{
 		Priority: priority,
 		Handler:  ctx.Self(),
 	})
-	return nil
+	return resp.Error()
 }
 
 func (e *experiment) setWeight(ctx *actor.Context, weight float64) error {
@@ -606,11 +606,11 @@ func (e *experiment) setWeight(ctx *actor.Context, weight float64) error {
 		e.Config.SetResources(resources)
 		return errors.Wrapf(err, "setting experiment %d weight", e.ID)
 	}
-	ctx.Tell(sproto.GetRM(ctx.Self().System()), job.SetGroupWeight{
+	resp := ctx.Ask(sproto.GetRM(ctx.Self().System()), job.SetGroupWeight{
 		Weight:  weight,
 		Handler: ctx.Self(),
 	})
-	return nil
+	return resp.Error()
 }
 
 func (e *experiment) toV1Job() *jobv1.Job {
