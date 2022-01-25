@@ -379,6 +379,9 @@ func (rp *ResourcePool) moveJob(msg job.MoveJob) error {
 	// find out what is the job before or after the anchor
 	queueInfo := rp.scheduler.JobQInfo(rp)
 
+	// TODO determine if we need to move to the same priority lane
+	// potentially send a message to the job to do so
+
 	newPos, err := computeNewJobPos(msg, queueInfo, rp.queuePositions)
 	if err != nil {
 		return err
