@@ -398,10 +398,12 @@ func (rp *ResourcePool) receiveJobQueueMsg(ctx *actor.Context) error {
 	switch msg := ctx.Message().(type) {
 	case job.GetJobQStats:
 		ctx.Respond(*jobStats(rp.taskList))
+
 	case job.GetJobQ:
 		ctx.Respond(rp.scheduler.JobQInfo(rp))
 	case job.MoveJob:
 		ctx.Respond(rp.moveJob(msg))
+
 	case job.SetGroupWeight:
 		rp.getOrCreateGroup(ctx, msg.Handler).weight = msg.Weight
 

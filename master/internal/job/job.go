@@ -4,7 +4,6 @@ import (
 	"fmt"
 	"strings"
 
-	"github.com/determined-ai/determined/master/internal/api"
 	"github.com/determined-ai/determined/master/pkg/actor"
 	"github.com/determined-ai/determined/master/pkg/model"
 	"github.com/determined-ai/determined/proto/pkg/apiv1"
@@ -59,6 +58,11 @@ type (
 		ID      model.JobID
 		Anchor  model.JobID
 		AheadOf bool
+	}
+	// SetResourcePool switches the resource pool that the job belongs to.
+	SetResourcePool struct {
+		ResourcePool string
+		Handler      *actor.Ref
 	}
 )
 
@@ -207,7 +211,15 @@ func (j *Jobs) Receive(ctx *actor.Context) error {
 					errors = append(errors, err.Error())
 				}
 			case *jobv1.QueueControl_ResourcePool:
-				ctx.Respond(api.ErrNotImplemented)
+				if action.ResourcePool == "" {
+					errors = append(errors, "resource pool must be set")
+				}
+				resp := ctx.Ask(jobActor, SetResourcePool{
+					ResourcePool: action.ResourcePool,
+				})
+				if err := resp.Error(); err != nil {
+					errors = append(errors, err.Error())
+				}
 			case *jobv1.QueueControl_AheadOf:
 				resp := ctx.Ask(j.RMRef, MoveJob{
 					ID:      jobID,
