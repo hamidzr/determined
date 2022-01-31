@@ -1,7 +1,7 @@
 import { notification as antdNotification } from 'antd';
 import { ArgsProps, NotificationApi } from 'antd/lib/notification';
 
-import { DetError, DetErrorOptions, ErrorLevel, isDetError } from '../../shared/utils/error';
+import { DetError, DetErrorOptions, ErrorLevel } from '../../shared/utils/error';
 import { LoggerInterface } from '../../shared/utils/Logger';
 import { isAborted } from '../../shared/utils/service';
 import { listToStr } from '../../shared/utils/string';
@@ -11,15 +11,17 @@ const errorLevelMap = {
   [ErrorLevel.Fatal]: 'error',
   [ErrorLevel.Warn]: 'warn',
 };
+
 const openNotification = (e: DetError) => {
   const key = errorLevelMap[e.level] as keyof NotificationApi;
   const notification = antdNotification[key] as (args: ArgsProps) => void;
 
   notification?.({
     description: e.publicMessage || '',
-    message: e.publicSubject || listToStr([ e.type, e.level ]),
+    message: e.publicSubject || e.message || listToStr([ e.type, e.level ]),
   });
 };
+
 const log = (e: DetError) => {
   const key = errorLevelMap[e.level] as keyof LoggerInterface;
   const message = listToStr([ `${e.type}:`, e.publicMessage, e.message ]);
@@ -34,17 +36,13 @@ export const sharedHandleError = (
   options?: DetErrorOptions,
   callback?: (e: DetError) => void,
 ): void => {
+  // Wrap existing error with more info via `options`.
+  const e: DetError = new DetError(error, options);
+
   // Ignore request cancellation errors.
-  if (isAborted(error)) return;
+  if (isAborted(e)) return;
 
-  let e: DetError | undefined;
-  if (isDetError(error)) {
-    e = error;
-    if (options) e.loadOptions(options);
-  } else {
-    e = new DetError(error, options);
-  }
-
+  // Ensure `handleError` doesn't handle the same exact error more than once.
   if (e.isHandled) {
     if (process.env.IS_DEV) {
       console.warn(`Error "${e.message}" is handled twice.`);
@@ -55,8 +53,7 @@ export const sharedHandleError = (
 
   // TODO add support for checking, saving, and dismissing class of errors as a user preference
   // using id.
-  const skipNotification = e.silent || (e.level === ErrorLevel.Warn && !e.publicMessage);
-  if (!skipNotification) openNotification(e);
+  if (!e.silent) openNotification(e);
 
   // TODO generate stack trace if error is missing? http://www.stacktracejs.com/
 

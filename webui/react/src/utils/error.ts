@@ -1,10 +1,11 @@
 import { telemetryInstance } from 'hooks/useTelemetry';
 import { paths } from 'routes/utils';
 import history from 'shared/routes/history';
+import { sharedHandleError } from 'tmp-shared/utils/error';
 
-import { DetError, DetErrorOptions, ERROR_NAMESPACE, ErrorType } from '../shared/utils/error';
+import { DetError, DetErrorOptions, ERROR_NAMESPACE,
+  ErrorType } from '../shared/utils/error';
 import { filterOutLoginLocation } from '../shared/utils/routes';
-import { sharedHandleError } from '../tmp-shared/utils/error';
 
 const coreErrorHandlerCB = (e: DetError): void => {
   // Redirect to logout if Auth failure detected (auth token is no longer valid).`

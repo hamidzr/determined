@@ -10,6 +10,7 @@ import PageMessage from 'components/PageMessage';
 import Router from 'components/Router';
 import Spinner from 'components/Spinner';
 import StoreProvider, { StoreAction, useStore, useStoreDispatch } from 'contexts/Store';
+import useErrorBoundary from 'hooks/useErrorBoundary';
 import { useFetchInfo } from 'hooks/useFetch';
 import useKeyTracker, { KeyCode, keyEmitter, KeyEvent } from 'hooks/useKeyTracker';
 import usePageVisibility from 'hooks/usePageVisibility';
@@ -20,7 +21,6 @@ import useTelemetry from 'hooks/useTelemetry';
 import useTheme from 'hooks/useTheme';
 import Omnibar from 'omnibar/Omnibar';
 import appRoutes from 'routes';
-import { DetError } from 'shared/utils/error';
 import ErrorBoundary from 'tmp-shared/components/ErrorBoundary/ErrorBoundary';
 import { correctViewportHeight, refreshPage } from 'utils/browser';
 import handleError from 'utils/error';
@@ -43,6 +43,7 @@ const AppView: React.FC = () => {
   useKeyTracker();
   usePageVisibility();
   useRouteTracker();
+  useErrorBoundary();
 
   // Poll every 10 minutes
   usePolling(fetchInfo, { interval: 600000 });
