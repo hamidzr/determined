@@ -7,8 +7,8 @@ import history from 'shared/routes/history';
 import { LoggerInterface } from 'shared/utils/Logger';
 import { listToStr } from 'shared/utils/string';
 
-import { DetError, DetErrorOptions, ERROR_NAMESPACE, ErrorLevel, ErrorType,
-  isDetError } from '../shared/utils/error';
+import { DetError, DetErrorOptions, ERROR_NAMESPACE, ErrorLevel,
+  ErrorType } from '../shared/utils/error';
 import { filterOutLoginLocation } from '../shared/utils/routes';
 import { isAborted } from '../shared/utils/service';
 
@@ -24,7 +24,7 @@ const openNotification = (e: DetError) => {
 
   notification?.({
     description: e.publicMessage || '',
-    message: e.publicSubject || listToStr([ e.type, e.level ]),
+    message: e.publicSubject || e.message || listToStr([ e.type, e.level ]),
   });
 };
 
@@ -38,17 +38,13 @@ const log = (e: DetError) => {
 // Handle an error at the point that you'd want to stop bubbling it up. Avoid handling
 // and re-throwing.
 const handleError = (error: DetError | unknown, options?: DetErrorOptions): void => {
+  // Wrap existing error with more info via `options`.
+  const e: DetError = new DetError(error, options);
+
   // Ignore request cancellation errors.
-  if (isAborted(error)) return;
+  if (isAborted(e)) return;
 
-  let e: DetError | undefined;
-  if (isDetError(error)) {
-    e = error;
-    if (options) e.loadOptions(options);
-  } else {
-    e = new DetError(error, options);
-  }
-
+  // Ensure `handleError` doesn't handle the same exact error more than once.
   if (e.isHandled) {
     if (process.env.IS_DEV) {
       console.warn(`Error "${e.message}" is handled twice.`);
@@ -69,14 +65,12 @@ const handleError = (error: DetError | unknown, options?: DetErrorOptions): void
 
   // TODO add support for checking, saving, and dismissing class of errors as a user preference
   // using id.
-  const skipNotification = e.silent || (e.level === ErrorLevel.Warn && !e.publicMessage);
-  if (!skipNotification) openNotification(e);
+  if (!e.silent) openNotification(e);
+
+  // Log the error.
+  log(e);
 
   // TODO generate stack trace if error is missing? http://www.stacktracejs.com/
-
-  // Log the error if needed.
-  if (!e.silent) log(e);
-
   // TODO SEP handle transient failures? eg only take action IF.. (requires keeping state)
 
   // Report to segment.
