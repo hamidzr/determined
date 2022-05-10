@@ -9,6 +9,7 @@ import Spinner from 'components/Spinner';
 import useJupyterLab from 'hooks/useJupyterLab';
 import usePrevious from 'hooks/usePrevious';
 import useStorage from 'hooks/useStorage';
+import { maxPoolSlotCapacity } from 'pages/Cluster/ClusterOverview';
 import { getResourcePools, getTaskTemplates } from 'services/api';
 import { JupyterLabConfig, RawJson, ResourcePool, Template } from 'types';
 import handleError from 'utils/error';
@@ -240,23 +241,19 @@ const JupyterLabForm: React.FC<FormProps> = (
 
   const resourceInfo = useMemo(() => {
     const selectedPool = resourcePools.find(pool => pool.name === fields.pool);
-    if (!selectedPool) return { hasAux: false, hasCompute: false, maxSlots: 0 };
+    if (!selectedPool) return { hasAux: false, hasCompute: false };
 
     /*
      * For static resource pools, the slots-per-agent comes through as -1,
      * meaning it is unknown how many we may have.
      */
     const hasAuxCapacity = selectedPool.auxContainerCapacityPerAgent > 0;
-    const hasSlots = selectedPool.slotsAvailable > 0;
-    const maxSlots = selectedPool.slotsPerAgent ?? 0;
-    const hasSlotsPerAgent = maxSlots !== 0;
-    const hasComputeCapacity = hasSlots || hasSlotsPerAgent;
+    const hasComputeCapacity = maxPoolSlotCapacity(selectedPool) > 0;
     if (hasAuxCapacity && !hasComputeCapacity) onChange?.({ key: 'slots', value: 0 });
 
     return {
       hasAux: hasAuxCapacity,
       hasCompute: hasComputeCapacity,
-      maxSlots: maxSlots,
     };
   }, [ fields.pool, onChange, resourcePools ]);
 
@@ -326,7 +323,6 @@ const JupyterLabForm: React.FC<FormProps> = (
           content: (
             <InputNumber
               defaultValue={fields.slots !== undefined ? fields.slots : DEFAULT_SLOT_COUNT}
-              max={resourceInfo.maxSlots === -1 ? Number.MAX_SAFE_INTEGER : resourceInfo.maxSlots}
               min={resourceInfo.hasAux ? 0 : 1}
               value={fields.slots}
               onChange={(value) => onChange?.({ key: 'slots', value: value })}
