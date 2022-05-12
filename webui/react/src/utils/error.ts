@@ -35,9 +35,14 @@ const log = (e: DetError) => {
   e.logger[key](e);
 };
 
-// Handle an error at the point that you'd want to stop bubbling it up. Avoid handling
-// and re-throwing.
-const handleError = (error: DetError | unknown, options?: DetErrorOptions): void => {
+/** usage: handle an error at the point that you'd want to stop bubbling it up. Avoid handling
+* and re-throwing.
+*/
+const sharedHandleError = (
+  error: DetError | unknown,
+  options?: DetErrorOptions,
+  callback?: (e: DetError) => void,
+): void => {
   // Ignore request cancellation errors.
   if (isAborted(error)) return;
 
@@ -57,16 +62,6 @@ const handleError = (error: DetError | unknown, options?: DetErrorOptions): void
   }
   e.isHandled = true;
 
-  // Redirect to logout if Auth failure detected (auth token is no longer valid).`
-  if (e.type === ErrorType.Auth) {
-    // This check accounts for requestes that had not been aborted properly prior
-    // to the page dismount and end up throwing after the user is logged out.
-    const path = window.location.pathname;
-    if (!path.includes(paths.login()) && !path.includes(paths.logout())) {
-      history.push(paths.logout(), { loginRedirect: filterOutLoginLocation(window.location) });
-    }
-  }
-
   // TODO add support for checking, saving, and dismissing class of errors as a user preference
   // using id.
   const skipNotification = e.silent || (e.level === ErrorLevel.Warn && !e.publicMessage);
@@ -79,11 +74,29 @@ const handleError = (error: DetError | unknown, options?: DetErrorOptions): void
 
   // TODO SEP handle transient failures? eg only take action IF.. (requires keeping state)
 
-  // Report to segment.
-  telemetryInstance.track(`${ERROR_NAMESPACE}: ${e.level}`, e);
-
   // TODO SEP capture a screenshot or more context (generate a call stack)?
   // https://stackblitz.com/edit/react-screen-capture?file=index.js
+
+  if (callback) callback(e);
+};
+
+const coreErrorHandlerCB = (e: DetError): void => {
+  // Redirect to logout if Auth failure detected (auth token is no longer valid).`
+  if (e.type === ErrorType.Auth) {
+    // This check accounts for requestes that had not been aborted properly prior
+    // to the page dismount and end up throwing after the user is logged out.
+    const path = window.location.pathname;
+    if (!path.includes(paths.login()) && !path.includes(paths.logout())) {
+      history.push(paths.logout(), { loginRedirect: filterOutLoginLocation(window.location) });
+    }
+  }
+
+  // Report to segment.
+  telemetryInstance.track(`${ERROR_NAMESPACE}: ${e.level}`, e);
+};
+
+const handleError = (error: DetError | unknown, options?: DetErrorOptions): void => {
+  sharedHandleError(error, options, coreErrorHandlerCB);
 };
 
 export default handleError;
