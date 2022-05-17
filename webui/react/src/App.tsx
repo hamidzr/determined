@@ -20,7 +20,10 @@ import useTelemetry from 'hooks/useTelemetry';
 import useTheme from 'hooks/useTheme';
 import Omnibar from 'omnibar/Omnibar';
 import appRoutes from 'routes';
+import { DetError } from 'shared/utils/error';
+import ErrorBoundary from 'tmp-shared/components/ErrorBoundary/ErrorBoundary';
 import { correctViewportHeight, refreshPage } from 'utils/browser';
+import handleError from 'utils/error';
 
 import css from './App.module.scss';
 import { paths, serverAddress } from './routes/utils';
@@ -145,7 +148,9 @@ const App: React.FC = () => {
     <HelmetProvider>
       <StoreProvider>
         <DndProvider backend={HTML5Backend}>
-          <AppView />
+          <ErrorBoundary onError={handleError}>
+            <AppView />
+          </ErrorBoundary>
         </DndProvider>
       </StoreProvider>
     </HelmetProvider>
