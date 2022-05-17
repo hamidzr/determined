@@ -23,7 +23,7 @@ import Omnibar from 'omnibar/Omnibar';
 import appRoutes from 'routes';
 import ErrorBoundary from 'tmp-shared/components/ErrorBoundary/ErrorBoundary';
 import { correctViewportHeight, refreshPage } from 'utils/browser';
-import handleError from 'utils/error';
+import handleError, { globalErrorHandler } from 'utils/error';
 
 import css from './App.module.scss';
 import { paths, serverAddress } from './routes/utils';
@@ -43,7 +43,7 @@ const AppView: React.FC = () => {
   useKeyTracker();
   usePageVisibility();
   useRouteTracker();
-  useErrorBoundary();
+  useErrorBoundary(globalErrorHandler);
 
   // Poll every 10 minutes
   usePolling(fetchInfo, { interval: 600000 });

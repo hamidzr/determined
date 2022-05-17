@@ -110,7 +110,7 @@ export const queryParamToType = (type: BaseType, param: string | null): Primitiv
   return undefined;
 };
 
-export const queryToSettings = <T>(config: SettingsConfig, query: string): T => {
+const queryToSettings = <T>(config: SettingsConfig, query: string): T => {
   const params = queryString.parse(query);
   return config.settings.reduce((acc, prop) => {
     /*

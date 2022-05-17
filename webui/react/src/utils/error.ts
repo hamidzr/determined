@@ -4,9 +4,14 @@ import history from 'shared/routes/history';
 import { sharedHandleError } from 'tmp-shared/utils/error';
 
 import { DetError, DetErrorOptions, ERROR_NAMESPACE,
-  ErrorType } from '../shared/utils/error';
+  ErrorType, isDetError } from '../shared/utils/error';
 import { filterOutLoginLocation } from '../shared/utils/routes';
 
+/**
+ * handles follow up actions to be taken after an error has been handled that's specific
+ * to the core product.
+ * @param e error
+ */
 const coreErrorHandlerCB = (e: DetError): void => {
   // Redirect to logout if Auth failure detected (auth token is no longer valid).`
   if (e.type === ErrorType.Auth) {
@@ -24,6 +29,15 @@ const coreErrorHandlerCB = (e: DetError): void => {
 
 const handleError = (error: DetError | unknown, options?: DetErrorOptions): void => {
   sharedHandleError(error, options, coreErrorHandlerCB);
+};
+
+/**
+ * @param e error
+ * @returns a boolean indicating whether the to prevent the default error handler from firing.
+ */
+export const globalErrorHandler = (e: unknown): boolean => {
+  handleError(e);
+  return isDetError(e);
 };
 
 export default handleError;
