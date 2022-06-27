@@ -48,6 +48,7 @@ export const handleTableChange = (
 const ResponsiveTable: ResponsiveTable = ({
   loading,
   scroll,
+  pagination,
   ...props
 }) => {
   const [ hasScrollBeenEnabled, setHasScrollBeenEnabled ] = useState<boolean>(false);
@@ -89,6 +90,7 @@ const ResponsiveTable: ResponsiveTable = ({
       <Spinner spinning={spinning}>
         <Table
           bordered
+          pagination={{ hideOnSinglePage: true, ...pagination }}
           scroll={tableScroll}
           tableLayout="auto"
           {...props}
