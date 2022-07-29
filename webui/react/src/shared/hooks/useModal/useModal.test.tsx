@@ -1,4 +1,4 @@
-import { act, render, screen } from '@testing-library/react';
+import { render, screen, act, waitForElementToBeRemoved } from '@testing-library/react';
 import React, { useCallback, useEffect, useState } from 'react';
 
 import { Eventually } from 'shared/types';
@@ -43,9 +43,9 @@ const TestComp: React.FC<TestProps> = ({ onClose, onOk }) => {
 
   return (
     <div>
-      <p>hi</p>
-      <button onClick={() => modalOpen({ context: { id: 'openByButton' } })}>{OPEN_BTN}</button>
-      {modalHooks.contextHolder}
+    <p>hi</p>
+    <button onClick={() => modalOpen({ context: { id: 'openByButton' } })}>{OPEN_BTN}</button>
+    {modalHooks.contextHolder}
     </div>
   );
 };
@@ -56,13 +56,16 @@ const setup = (props: TestProps) => {
   return { handleOnChange, view };
 };
 
+// sleep function promise based
+const sleep = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
+
 describe('hooks/useModal', () => {
   it('ensure onOk and onClose get called', async () => {
     const onClose = jest.fn();
     const onOk = jest.fn();
     act(() => {
       setup({ onClose, onOk });
-    });
+    })
     expect(screen.getByText('hi')).toBeInTheDocument();
 
     // click on the button to open the modal
@@ -76,10 +79,10 @@ describe('hooks/useModal', () => {
     expect(screen.getByText('openByButton')).toBeInTheDocument();
 
     // close the modal
-    act(() => {
+    await act(async () => {
       screen.getByText('Cancel').click();
+      await waitForElementToBeRemoved(() => screen.getByText('openByButton'));
     });
-    // expect(screen.getByText('openByButton')).not.toBeInTheDocument();
 
     expect(onClose).toHaveBeenCalledTimes(1);
     expect(onOk).toHaveBeenCalledTimes(0);
@@ -96,6 +99,48 @@ describe('hooks/useModal', () => {
     });
     expect(onOk).toHaveBeenCalledTimes(1);
     expect(onClose).toHaveBeenCalledTimes(2);
+  });
+
+
+  it('ensure modal does not call onClose before onOk is resolved', async () => {
+    let okSettled = false;
+    const onOk = async () => {
+      await sleep(1000);
+      okSettled = true;
+    };
+
+    const onClose = async () => {
+      await sleep(100);
+      expect(false).toBe(true);
+      throw new Error('onClose should not be called');
+      expect(okSettled).toBe(true);
+    };
+    const p = {
+      onClose,
+      onOk,
+    }
+
+    // const onCloseSpy = jest.spyOn(p, 'onClose').mockReturnValue();
+
+    act(() => {
+      // setup({onOk, onClose: p.});
+      setup(p);
+    })
+    expect(screen.getByText('hi')).toBeInTheDocument();
+
+    // click on the button to open the modal
+    act(() => {
+      screen.getByText(OPEN_BTN).click();
+    });
+    await act(async () => {
+      // confirm the modal
+      // await screen.findByText('OK');
+      screen.getByText('Cancel').click();
+      screen.getByText(/ok/i).click();
+    });
+    // expect(onCloseSpy).toHaveBeenCalledTimes(0);
+    waitForElementToBeRemoved(() => screen.getByText('openByButton'));
+    // expect(onCloseSpy).toHaveBeenCalledTimes(1);
   });
 
 });
