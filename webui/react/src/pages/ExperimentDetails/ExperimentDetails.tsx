@@ -22,6 +22,18 @@ interface Params {
   experimentId: string;
 }
 
+// I'm duplicated.
+export const createUniqueStr = (
+  length = 10,
+  chars: string[],
+): string => {
+  let result = '';
+  for (let i = length; i > 0; --i) {
+    result += chars[ Math.floor(Math.random() * chars.length) ];
+  }
+  return result;
+};
+
 export const INVALID_ID_MESSAGE = 'Invalid Experiment ID';
 export const MISSING_MESSAGE = 'Unable to find Experiment ';
 export const ERROR_MESSAGE = 'Unable to fetch Experiment';
