@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useRef } from 'react';
-import ReactMonacoEditor, { MonacoEditorProps } from 'react-monaco-editor';
+import ReactMonacoEditor, { EditorDidMount, EditorWillMount, MonacoEditorProps } from 'react-monaco-editor';
 
 import useResize from 'hooks/useResize';
 import useUI from 'shared/contexts/stores/UI';
@@ -20,16 +20,34 @@ const MonacoEditor: React.FC<MonacoEditorProps> = ({
   const resize = useResize(containerRef);
   const { ui } = useUI();
 
-  const handleEditorDidMount = useCallback((editor: any) => editor.focus(), []);
+  const handleEditorDidMount: EditorDidMount = useCallback((editor) => editor.focus(), []);
+  const handleEditorWillMount: EditorWillMount = useCallback((monaco) => {
+    const opts = {
+      enableSchemaRequest: true,
+      schemas: [
+        // TODO based on config type
+        {
+          // id of the first schema
+fileMatch: ['*'],
+          uri:
+            'https://hzdl.netlify.app/dai/schemas/expconf/v0/experiment.json', // associate with our model
+        },
+      ],
+      validate: true,
+    };
+    monaco.languages.setLanguageConfiguration('yaml', opts);
+  }, []);
 
   useEffect(() => {
+    if (!editorRef.current) return;
     editorRef.current?.editor?.layout();
-  }, [resize]);
+      }, [resize]);
 
   return (
     <div className={css.base} ref={containerRef}>
       <ReactMonacoEditor
-        editorDidMount={handleEditorDidMount}
+      editorDidMount={handleEditorDidMount}
+        editorWillMount={handleEditorWillMount}
         height={height}
         language={language}
         options={{
