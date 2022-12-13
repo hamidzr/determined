@@ -177,6 +177,11 @@ require (
 )
 
 require (
+	github.com/iancoleman/orderedmap v0.0.0-20190318233801-ac98e3ecb4b0 // indirect
+	github.com/invopop/jsonschema v0.7.0 // indirect
+)
+
+require (
 	github.com/fatih/color v1.13.0 // indirect
 	github.com/kr/pretty v0.3.0 // indirect
 	golang.org/x/sync v0.1.0
