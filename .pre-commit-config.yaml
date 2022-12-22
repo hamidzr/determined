@@ -59,6 +59,12 @@ repos:
         additional_dependencies: ['click==8.0.4']
         exclude: ^(harness/determined/common/api/bindings.py)
 
+  - repo: https://github.com/pycqa/isort
+    rev: 5.9.3
+    hooks:
+      - id: isort
+        name: isort (python)
+
   # - repo: https://github.com/jumanjihouse/pre-commit-hooks
   #   rev: 3.0.0
   #   hooks:
