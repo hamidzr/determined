@@ -3,7 +3,7 @@ from typing import List
 
 import pytest
 
-from tests import command as cmd
+from tests import ntsc as cmd
 
 
 @pytest.mark.slow
