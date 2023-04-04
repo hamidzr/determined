@@ -324,7 +324,10 @@ def gen_class(klass: swagger_parser.Class) -> Code:
 
 def gen_enum(enum: swagger_parser.Enum) -> Code:
     out = [f"class {enum.name}(enum.Enum):"]
-    out += [f'    {v} = "{v}"' for v in enum.members]
+    prefix = os.path.commonprefix(enum.members)
+    if not prefix.endswith("_"):
+        prefix = ""
+    out += [f'    {v[len(prefix):]} = "{v}"' for v in enum.members]
     return "\n".join(out)
 
 
