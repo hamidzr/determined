@@ -11767,6 +11767,7 @@ class v1TrialLogsResponse:
         return out
 
 class v1TrialMetrics:
+    batchesCompleted: "typing.Optional[int]" = None
 
     def __init__(
         self,
@@ -11775,11 +11776,14 @@ class v1TrialMetrics:
         stepsCompleted: int,
         trialId: int,
         trialRunId: int,
+        batchesCompleted: "typing.Union[int, None, Unset]" = _unset,
     ):
         self.metrics = metrics
         self.stepsCompleted = stepsCompleted
         self.trialId = trialId
         self.trialRunId = trialRunId
+        if not isinstance(batchesCompleted, Unset):
+            self.batchesCompleted = batchesCompleted
 
     @classmethod
     def from_json(cls, obj: Json) -> "v1TrialMetrics":
@@ -11789,6 +11793,8 @@ class v1TrialMetrics:
             "trialId": obj["trialId"],
             "trialRunId": obj["trialRunId"],
         }
+        if "batchesCompleted" in obj:
+            kwargs["batchesCompleted"] = obj["batchesCompleted"]
         return cls(**kwargs)
 
     def to_json(self, omit_unset: bool = False) -> typing.Dict[str, typing.Any]:
@@ -11798,6 +11804,8 @@ class v1TrialMetrics:
             "trialId": self.trialId,
             "trialRunId": self.trialRunId,
         }
+        if not omit_unset or "batchesCompleted" in vars(self):
+            out["batchesCompleted"] = self.batchesCompleted
         return out
 
 class v1TrialOperation:

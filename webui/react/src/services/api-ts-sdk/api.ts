@@ -9182,11 +9182,17 @@ export interface V1TrialMetrics {
      */
     trialRunId: number;
     /**
-     * The number of batches trained on when these metrics were reported.
+     * This field is deprecated and will be overwritten by batches_completed. The number of batches trained on when these metrics were reported.
      * @type {number}
      * @memberof V1TrialMetrics
      */
     stepsCompleted: number;
+    /**
+     * The number of batches trained on when these metrics were reported.
+     * @type {number}
+     * @memberof V1TrialMetrics
+     */
+    batchesCompleted?: number;
     /**
      * The metrics for this bit of training, including: - avg_metrics: metrics reduced over the reporting period). - batch_metrics: (optional) per-batch metrics.
      * @type {V1Metrics}
