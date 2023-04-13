@@ -203,8 +203,11 @@ message TrialMetrics {
   int32 trial_id = 1;
   // The trial run associated with these metrics.
   int32 trial_run_id = 2;
+  // This field is deprecated and will be overwritten by batches_completed.
   // The number of batches trained on when these metrics were reported.
-  int32 batches_completed = 3; // CHECK: I think we keep the field number the same?
+  int32 steps_completed = 3 [deprecated = true];
+  // The number of batches trained on when these metrics were reported.
+  int32 batches_completed = 4;
   // The metrics for this bit of training, including:
   // - avg_metrics: metrics reduced over the reporting period).
   // - batch_metrics: (optional) per-batch metrics.
