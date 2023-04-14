@@ -55,9 +55,63 @@ def mark_props_required(_schema: dict) -> dict:
     return schema
 
 
+def get_def_name(ref: str) -> str:
+    """get def name from ref"""
+    return ref.split("/")[-1]
+
+
+def mark_def_required(spec: dict, def_name: str) -> None:
+    """in place"""
+    spec["definitions"][def_name] = mark_props_required(spec["definitions"][def_name])
+    # follow the refs
+    if "properties" in spec["definitions"][def_name]:
+        for prop_name, prop in spec["definitions"][def_name]["properties"].items():
+            if "$ref" in prop:
+                # assumes no cycles
+                mark_def_required(spec, get_def_name(prop["$ref"]))
+
+
+def mark_response_props_required(spec: Any) -> dict:
+    for path, value in spec["paths"].items():
+        for method, api in value.items():
+            for status_code, response in api["responses"].items():
+                body = response.get("schema", None)
+                if not body:
+                    continue
+                if "$ref" in body:
+                    print(
+                        f"marking {path} {method} {status_code} {get_def_name(body['$ref'])} as required"
+                    )
+                    mark_def_required(spec, get_def_name(body["$ref"]))
+                else:
+                    print(f"marking {path} {method} {status_code} as required")
+                    updated_body = mark_props_required(body)
+                    response["schema"] = updated_body
+                    # find and mark all the refs
+                    for prop_name, prop in updated_body["properties"].items():
+                        if "$ref" in prop:
+                            print(f"marking {prop_name} as required")
+                            mark_def_required(spec, get_def_name(prop["$ref"]))
+    return spec
+
+    # response_objects.add(response["schema"]["$ref"].split("/")[-1])
+    # for api in value.values():
+    #     if "responses" in api:
+    #         for response in api["responses"].values():
+    #             if "schema" in response:
+    #                 if "$ref" not in response["schema"]:
+    #                     print("WTF", url)
+    #                     return
+    #                 response_objects.add(response["schema"]["$ref"].split("/")[-1])
+    # print(value)
+
+
 def clean(path: str, patch: str) -> None:
     with open(path, "r") as f:
         spec = json.load(f)
+
+    # FIXME: updates some properties in place
+    spec = mark_response_props_required(spec)
 
     keys_to_rename: List[str] = []
     for key, value in spec["definitions"].items():
@@ -84,7 +138,7 @@ def clean(path: str, patch: str) -> None:
         # required annotation since we default all the fields through grpc-gateway (`EmitDefaults`).
         # CHECK: we might want to skip objects and proprities that are defined for use in requests.
         # these might end with `Request`.
-        spec["definitions"][key] = mark_props_required(value)
+        # spec["definitions"][key] = mark_props_required(value)
         # if "properties" in value:
         #     cur_required_annots: Optional[List] = value.get("required", None)
         #     if cur_required_annots is None:
