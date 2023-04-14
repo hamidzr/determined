@@ -202,7 +202,7 @@ export interface ProtobufAny {
      */
     typeUrl?: string;
     /**
-     * Must be a valid serialized protocol buffer of the above specified type.
+     * 
      * @type {string}
      * @memberof ProtobufAny
      */
