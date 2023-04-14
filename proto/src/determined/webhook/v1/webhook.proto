@@ -2,7 +2,7 @@ syntax = "proto3";
 
 package determined.webhook.v1;
 option go_package = "github.com/determined-ai/determined/proto/pkg/webhookv1";
-import "github.com/grpc-ecosystem/grpc-gateway/v2/protoc-gen-openapiv2/options/annotations.proto";
+import "protoc-gen-openapiv2/options/annotations.proto";
 import "google/protobuf/struct.proto";
 
 // Enum values for expected webhook types.
