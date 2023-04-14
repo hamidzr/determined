@@ -72,6 +72,10 @@ def mark_def_required(spec: dict, def_name: str) -> None:
 
 
 def mark_response_props_required(spec: Any) -> dict:
+    """
+    mark all properites in any object that can show up in a response
+    without any annotations as required.
+    """
     for path, value in spec["paths"].items():
         for method, api in value.items():
             for status_code, response in api["responses"].items():
