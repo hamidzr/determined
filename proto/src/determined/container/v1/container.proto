@@ -4,7 +4,7 @@ package determined.container.v1;
 option go_package = "github.com/determined-ai/determined/proto/pkg/containerv1";
 
 import "determined/device/v1/device.proto";
-import "protoc-gen-swagger/options/annotations.proto";
+import "protoc-gen-openapiv2/options/annotations.proto";
 
 // The current state of the container.
 enum State {

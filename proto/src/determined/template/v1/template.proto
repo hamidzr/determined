@@ -4,7 +4,7 @@ package determined.template.v1;
 option go_package = "github.com/determined-ai/determined/proto/pkg/templatev1";
 
 import "google/protobuf/struct.proto";
-import "protoc-gen-swagger/options/annotations.proto";
+import "protoc-gen-openapiv2/options/annotations.proto";
 
 // Templates move settings that are shared by many experiments into a single
 // YAML file.

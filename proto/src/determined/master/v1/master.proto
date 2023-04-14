@@ -4,7 +4,7 @@ package determined.master.v1;
 option go_package = "github.com/determined-ai/determined/proto/pkg/masterv1";
 
 import "google/protobuf/timestamp.proto";
-import "protoc-gen-swagger/options/annotations.proto";
+import "protoc-gen-openapiv2/options/annotations.proto";
 
 // The period over which to perform aggregation.
 enum ResourceAllocationAggregationPeriod {

@@ -9,7 +9,7 @@ import "determined/api/v1/command.proto";
 import "determined/api/v1/pagination.proto";
 import "determined/notebook/v1/notebook.proto";
 import "determined/util/v1/util.proto";
-import "protoc-gen-swagger/options/annotations.proto";
+import "protoc-gen-openapiv2/options/annotations.proto";
 
 // Get a list of notebooks.
 message GetNotebooksRequest {

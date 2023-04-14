@@ -4,7 +4,7 @@ package determined.tensorboard.v1;
 option go_package = "github.com/determined-ai/determined/proto/pkg/tensorboardv1";
 
 import "google/protobuf/timestamp.proto";
-import "protoc-gen-swagger/options/annotations.proto";
+import "protoc-gen-openapiv2/options/annotations.proto";
 
 import "determined/container/v1/container.proto";
 import "determined/task/v1/task.proto";

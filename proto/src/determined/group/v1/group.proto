@@ -4,7 +4,7 @@ package determined.group.v1;
 option go_package = "github.com/determined-ai/determined/proto/pkg/groupv1";
 
 import "determined/user/v1/user.proto";
-import "protoc-gen-swagger/options/annotations.proto";
+import "protoc-gen-openapiv2/options/annotations.proto";
 
 // Group contains information about a specific Group
 message Group {

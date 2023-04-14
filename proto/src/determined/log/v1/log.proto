@@ -3,7 +3,7 @@ syntax = "proto3";
 package determined.log.v1;
 option go_package = "github.com/determined-ai/determined/proto/pkg/logv1";
 
-import "protoc-gen-swagger/options/annotations.proto";
+import "protoc-gen-openapiv2/options/annotations.proto";
 import "google/protobuf/timestamp.proto";
 
 // LogLevel specifies the level for a log.

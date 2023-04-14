@@ -8,7 +8,7 @@ import "google/protobuf/struct.proto";
 import "determined/api/v1/pagination.proto";
 import "determined/command/v1/command.proto";
 import "determined/util/v1/util.proto";
-import "protoc-gen-swagger/options/annotations.proto";
+import "protoc-gen-openapiv2/options/annotations.proto";
 
 // Get a list of commands.
 message GetCommandsRequest {

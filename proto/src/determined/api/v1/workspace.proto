@@ -8,7 +8,7 @@ import "google/protobuf/wrappers.proto";
 import "determined/api/v1/pagination.proto";
 import "determined/project/v1/project.proto";
 import "determined/workspace/v1/workspace.proto";
-import "protoc-gen-swagger/options/annotations.proto";
+import "protoc-gen-openapiv2/options/annotations.proto";
 import "determined/user/v1/user.proto";
 
 // Get the requested workspace.

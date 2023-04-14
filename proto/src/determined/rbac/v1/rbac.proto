@@ -3,7 +3,7 @@ syntax = "proto3";
 package determined.rbac.v1;
 option go_package = "github.com/determined-ai/determined/proto/pkg/rbacv1";
 
-import "protoc-gen-swagger/options/annotations.proto";
+import "protoc-gen-openapiv2/options/annotations.proto";
 
 // ScopeTypeMask lists which scope types are allowed for the given Permission or
 // Role. Scope type mask is a different way to represent `is_global` flag.

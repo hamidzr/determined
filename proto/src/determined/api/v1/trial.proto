@@ -14,7 +14,7 @@ import "determined/trial/v1/trial.proto";
 import "determined/api/v1/experiment.proto";
 import "determined/api/v1/pagination.proto";
 import "determined/checkpoint/v1/checkpoint.proto";
-import "protoc-gen-swagger/options/annotations.proto";
+import "protoc-gen-openapiv2/options/annotations.proto";
 
 // Summarized Metric captures a metric's name and downsampled data points.
 message SummarizedMetric {

@@ -4,7 +4,7 @@ package determined.experiment.v1;
 option go_package = "github.com/determined-ai/determined/proto/pkg/experimentv1";
 
 import "google/protobuf/struct.proto";
-import "protoc-gen-swagger/options/annotations.proto";
+import "protoc-gen-openapiv2/options/annotations.proto";
 import "determined/experiment/v1/experiment.proto";
 
 // InitialOperations is a searcher event signaling the creation of an
