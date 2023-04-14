@@ -68,6 +68,12 @@ def clean(path: str, patch: str) -> None:
         if key.startswith(SERVICE_NAME.lower()):
             keys_to_rename.append(key)
 
+        # mark all properties as required unless it's a request object
+        # we default all the fields through grpc-gateway
+        if "properties" in value and not key.endswith("Request"):
+            properties_names = list(value["properties"].keys())
+            spec["definitions"][key]["required"] = properties_names
+
     for key in keys_to_rename:
         spec["definitions"][key[len(SERVICE_NAME) :]] = spec["definitions"].pop(key)
 
