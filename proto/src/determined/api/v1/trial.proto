@@ -93,6 +93,9 @@ message TrialSorter {
 // Filters to be applied to trials. Can be used to query, patch, and create
 // dynamic collections of trials.
 message TrialFilters {
+  option (grpc.gateway.protoc_gen_swagger.options.openapiv2_schema) = {
+    json_schema: { required: [ "NONE" ] }
+  };
   // Filter trials by their corresponding experiment ids.
   repeated int32 experiment_ids = 1;
   // Filter trials by their corresponding project ids.

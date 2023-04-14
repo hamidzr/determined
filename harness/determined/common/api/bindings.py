@@ -66,25 +66,29 @@ class GetTrialWorkloadsRequestFilterOption(enum.Enum):
     CHECKPOINT_OR_VALIDATION = "FILTER_OPTION_CHECKPOINT_OR_VALIDATION"
 
 class ResourcesSummaryDevices:
+    devices: "typing.Optional[typing.Sequence[v1Device]]" = None
 
     def __init__(
         self,
         *,
-        devices: "typing.Sequence[v1Device]",
+        devices: "typing.Union[typing.Sequence[v1Device], None, Unset]" = _unset,
     ):
-        self.devices = devices
+        if not isinstance(devices, Unset):
+            self.devices = devices
 
     @classmethod
     def from_json(cls, obj: Json) -> "ResourcesSummaryDevices":
         kwargs: "typing.Dict[str, typing.Any]" = {
-            "devices": [v1Device.from_json(x) for x in obj["devices"]],
         }
+        if "devices" in obj:
+            kwargs["devices"] = [v1Device.from_json(x) for x in obj["devices"]] if obj["devices"] is not None else None
         return cls(**kwargs)
 
     def to_json(self, omit_unset: bool = False) -> typing.Dict[str, typing.Any]:
         out: "typing.Dict[str, typing.Any]" = {
-            "devices": [x.to_json(omit_unset) for x in self.devices],
         }
+        if not omit_unset or "devices" in vars(self):
+            out["devices"] = None if self.devices is None else [x.to_json(omit_unset) for x in self.devices]
         return out
 
 class TrialFiltersRankWithinExp:
@@ -126,25 +130,29 @@ class TrialSorterNamespace(enum.Enum):
     VALIDATION_METRICS = "NAMESPACE_VALIDATION_METRICS"
 
 class UpdateTrialTagsRequestIds:
+    ids: "typing.Optional[typing.Sequence[int]]" = None
 
     def __init__(
         self,
         *,
-        ids: "typing.Sequence[int]",
+        ids: "typing.Union[typing.Sequence[int], None, Unset]" = _unset,
     ):
-        self.ids = ids
+        if not isinstance(ids, Unset):
+            self.ids = ids
 
     @classmethod
     def from_json(cls, obj: Json) -> "UpdateTrialTagsRequestIds":
         kwargs: "typing.Dict[str, typing.Any]" = {
-            "ids": obj["ids"],
         }
+        if "ids" in obj:
+            kwargs["ids"] = obj["ids"]
         return cls(**kwargs)
 
     def to_json(self, omit_unset: bool = False) -> typing.Dict[str, typing.Any]:
         out: "typing.Dict[str, typing.Any]" = {
-            "ids": self.ids,
         }
+        if not omit_unset or "ids" in vars(self):
+            out["ids"] = self.ids
         return out
 
 class checkpointv1State(enum.Enum):
@@ -203,29 +211,37 @@ class jobv1Type(enum.Enum):
     CHECKPOINT_GC = "TYPE_CHECKPOINT_GC"
 
 class protobufAny:
+    typeUrl: "typing.Optional[str]" = None
+    value: "typing.Optional[str]" = None
 
     def __init__(
         self,
         *,
-        typeUrl: str,
-        value: str,
+        typeUrl: "typing.Union[str, None, Unset]" = _unset,
+        value: "typing.Union[str, None, Unset]" = _unset,
     ):
-        self.typeUrl = typeUrl
-        self.value = value
+        if not isinstance(typeUrl, Unset):
+            self.typeUrl = typeUrl
+        if not isinstance(value, Unset):
+            self.value = value
 
     @classmethod
     def from_json(cls, obj: Json) -> "protobufAny":
         kwargs: "typing.Dict[str, typing.Any]" = {
-            "typeUrl": obj["typeUrl"],
-            "value": obj["value"],
         }
+        if "typeUrl" in obj:
+            kwargs["typeUrl"] = obj["typeUrl"]
+        if "value" in obj:
+            kwargs["value"] = obj["value"]
         return cls(**kwargs)
 
     def to_json(self, omit_unset: bool = False) -> typing.Dict[str, typing.Any]:
         out: "typing.Dict[str, typing.Any]" = {
-            "typeUrl": self.typeUrl,
-            "value": self.value,
         }
+        if not omit_unset or "typeUrl" in vars(self):
+            out["typeUrl"] = self.typeUrl
+        if not omit_unset or "value" in vars(self):
+            out["value"] = self.value
         return out
 
 class protobufNullValue(enum.Enum):
@@ -552,37 +568,53 @@ class v1AddProjectNoteResponse:
         return out
 
 class v1Address:
+    containerIp: "typing.Optional[str]" = None
+    containerPort: "typing.Optional[int]" = None
+    hostIp: "typing.Optional[str]" = None
+    hostPort: "typing.Optional[int]" = None
 
     def __init__(
         self,
         *,
-        containerIp: str,
-        containerPort: int,
-        hostIp: str,
-        hostPort: int,
+        containerIp: "typing.Union[str, None, Unset]" = _unset,
+        containerPort: "typing.Union[int, None, Unset]" = _unset,
+        hostIp: "typing.Union[str, None, Unset]" = _unset,
+        hostPort: "typing.Union[int, None, Unset]" = _unset,
     ):
-        self.containerIp = containerIp
-        self.containerPort = containerPort
-        self.hostIp = hostIp
-        self.hostPort = hostPort
+        if not isinstance(containerIp, Unset):
+            self.containerIp = containerIp
+        if not isinstance(containerPort, Unset):
+            self.containerPort = containerPort
+        if not isinstance(hostIp, Unset):
+            self.hostIp = hostIp
+        if not isinstance(hostPort, Unset):
+            self.hostPort = hostPort
 
     @classmethod
     def from_json(cls, obj: Json) -> "v1Address":
         kwargs: "typing.Dict[str, typing.Any]" = {
-            "containerIp": obj["containerIp"],
-            "containerPort": obj["containerPort"],
-            "hostIp": obj["hostIp"],
-            "hostPort": obj["hostPort"],
         }
+        if "containerIp" in obj:
+            kwargs["containerIp"] = obj["containerIp"]
+        if "containerPort" in obj:
+            kwargs["containerPort"] = obj["containerPort"]
+        if "hostIp" in obj:
+            kwargs["hostIp"] = obj["hostIp"]
+        if "hostPort" in obj:
+            kwargs["hostPort"] = obj["hostPort"]
         return cls(**kwargs)
 
     def to_json(self, omit_unset: bool = False) -> typing.Dict[str, typing.Any]:
         out: "typing.Dict[str, typing.Any]" = {
-            "containerIp": self.containerIp,
-            "containerPort": self.containerPort,
-            "hostIp": self.hostIp,
-            "hostPort": self.hostPort,
         }
+        if not omit_unset or "containerIp" in vars(self):
+            out["containerIp"] = self.containerIp
+        if not omit_unset or "containerPort" in vars(self):
+            out["containerPort"] = self.containerPort
+        if not omit_unset or "hostIp" in vars(self):
+            out["hostIp"] = self.hostIp
+        if not omit_unset or "hostPort" in vars(self):
+            out["hostPort"] = self.hostPort
         return out
 
 class v1Agent:
@@ -740,45 +772,69 @@ class v1AggregateQueueStats:
         return out
 
 class v1Allocation:
+    allocationId: "typing.Optional[str]" = None
+    endTime: "typing.Optional[str]" = None
+    isReady: "typing.Optional[bool]" = None
+    startTime: "typing.Optional[str]" = None
+    state: "typing.Optional[taskv1State]" = None
+    taskId: "typing.Optional[str]" = None
 
     def __init__(
         self,
         *,
-        allocationId: str,
-        endTime: str,
-        isReady: bool,
-        startTime: str,
-        state: "taskv1State",
-        taskId: str,
+        allocationId: "typing.Union[str, None, Unset]" = _unset,
+        endTime: "typing.Union[str, None, Unset]" = _unset,
+        isReady: "typing.Union[bool, None, Unset]" = _unset,
+        startTime: "typing.Union[str, None, Unset]" = _unset,
+        state: "typing.Union[taskv1State, None, Unset]" = _unset,
+        taskId: "typing.Union[str, None, Unset]" = _unset,
     ):
-        self.allocationId = allocationId
-        self.endTime = endTime
-        self.isReady = isReady
-        self.startTime = startTime
-        self.state = state
-        self.taskId = taskId
+        if not isinstance(allocationId, Unset):
+            self.allocationId = allocationId
+        if not isinstance(endTime, Unset):
+            self.endTime = endTime
+        if not isinstance(isReady, Unset):
+            self.isReady = isReady
+        if not isinstance(startTime, Unset):
+            self.startTime = startTime
+        if not isinstance(state, Unset):
+            self.state = state
+        if not isinstance(taskId, Unset):
+            self.taskId = taskId
 
     @classmethod
     def from_json(cls, obj: Json) -> "v1Allocation":
         kwargs: "typing.Dict[str, typing.Any]" = {
-            "allocationId": obj["allocationId"],
-            "endTime": obj["endTime"],
-            "isReady": obj["isReady"],
-            "startTime": obj["startTime"],
-            "state": taskv1State(obj["state"]),
-            "taskId": obj["taskId"],
         }
+        if "allocationId" in obj:
+            kwargs["allocationId"] = obj["allocationId"]
+        if "endTime" in obj:
+            kwargs["endTime"] = obj["endTime"]
+        if "isReady" in obj:
+            kwargs["isReady"] = obj["isReady"]
+        if "startTime" in obj:
+            kwargs["startTime"] = obj["startTime"]
+        if "state" in obj:
+            kwargs["state"] = taskv1State(obj["state"]) if obj["state"] is not None else None
+        if "taskId" in obj:
+            kwargs["taskId"] = obj["taskId"]
         return cls(**kwargs)
 
     def to_json(self, omit_unset: bool = False) -> typing.Dict[str, typing.Any]:
         out: "typing.Dict[str, typing.Any]" = {
-            "allocationId": self.allocationId,
-            "endTime": self.endTime,
-            "isReady": self.isReady,
-            "startTime": self.startTime,
-            "state": self.state.value,
-            "taskId": self.taskId,
         }
+        if not omit_unset or "allocationId" in vars(self):
+            out["allocationId"] = self.allocationId
+        if not omit_unset or "endTime" in vars(self):
+            out["endTime"] = self.endTime
+        if not omit_unset or "isReady" in vars(self):
+            out["isReady"] = self.isReady
+        if not omit_unset or "startTime" in vars(self):
+            out["startTime"] = self.startTime
+        if not omit_unset or "state" in vars(self):
+            out["state"] = None if self.state is None else self.state.value
+        if not omit_unset or "taskId" in vars(self):
+            out["taskId"] = self.taskId
         return out
 
 class v1AllocationAllGatherRequest:
@@ -890,25 +946,29 @@ class v1AllocationPreemptionSignalResponse:
         return out
 
 class v1AllocationReadyRequest:
+    allocationId: "typing.Optional[str]" = None
 
     def __init__(
         self,
         *,
-        allocationId: str,
+        allocationId: "typing.Union[str, None, Unset]" = _unset,
     ):
-        self.allocationId = allocationId
+        if not isinstance(allocationId, Unset):
+            self.allocationId = allocationId
 
     @classmethod
     def from_json(cls, obj: Json) -> "v1AllocationReadyRequest":
         kwargs: "typing.Dict[str, typing.Any]" = {
-            "allocationId": obj["allocationId"],
         }
+        if "allocationId" in obj:
+            kwargs["allocationId"] = obj["allocationId"]
         return cls(**kwargs)
 
     def to_json(self, omit_unset: bool = False) -> typing.Dict[str, typing.Any]:
         out: "typing.Dict[str, typing.Any]" = {
-            "allocationId": self.allocationId,
         }
+        if not omit_unset or "allocationId" in vars(self):
+            out["allocationId"] = self.allocationId
         return out
 
 class v1AllocationRendezvousInfoResponse:
@@ -934,83 +994,127 @@ class v1AllocationRendezvousInfoResponse:
         return out
 
 class v1AllocationSummary:
+    allocationId: "typing.Optional[str]" = None
+    name: "typing.Optional[str]" = None
+    priority: "typing.Optional[int]" = None
+    proxyPorts: "typing.Optional[typing.Sequence[v1ProxyPortConfig]]" = None
+    registeredTime: "typing.Optional[str]" = None
+    resourcePool: "typing.Optional[str]" = None
+    resources: "typing.Optional[typing.Sequence[v1ResourcesSummary]]" = None
+    schedulerType: "typing.Optional[str]" = None
+    slotsNeeded: "typing.Optional[int]" = None
+    taskId: "typing.Optional[str]" = None
 
     def __init__(
         self,
         *,
-        allocationId: str,
-        name: str,
-        priority: int,
-        proxyPorts: "typing.Sequence[v1ProxyPortConfig]",
-        registeredTime: str,
-        resourcePool: str,
-        resources: "typing.Sequence[v1ResourcesSummary]",
-        schedulerType: str,
-        slotsNeeded: int,
-        taskId: str,
+        allocationId: "typing.Union[str, None, Unset]" = _unset,
+        name: "typing.Union[str, None, Unset]" = _unset,
+        priority: "typing.Union[int, None, Unset]" = _unset,
+        proxyPorts: "typing.Union[typing.Sequence[v1ProxyPortConfig], None, Unset]" = _unset,
+        registeredTime: "typing.Union[str, None, Unset]" = _unset,
+        resourcePool: "typing.Union[str, None, Unset]" = _unset,
+        resources: "typing.Union[typing.Sequence[v1ResourcesSummary], None, Unset]" = _unset,
+        schedulerType: "typing.Union[str, None, Unset]" = _unset,
+        slotsNeeded: "typing.Union[int, None, Unset]" = _unset,
+        taskId: "typing.Union[str, None, Unset]" = _unset,
     ):
-        self.allocationId = allocationId
-        self.name = name
-        self.priority = priority
-        self.proxyPorts = proxyPorts
-        self.registeredTime = registeredTime
-        self.resourcePool = resourcePool
-        self.resources = resources
-        self.schedulerType = schedulerType
-        self.slotsNeeded = slotsNeeded
-        self.taskId = taskId
+        if not isinstance(allocationId, Unset):
+            self.allocationId = allocationId
+        if not isinstance(name, Unset):
+            self.name = name
+        if not isinstance(priority, Unset):
+            self.priority = priority
+        if not isinstance(proxyPorts, Unset):
+            self.proxyPorts = proxyPorts
+        if not isinstance(registeredTime, Unset):
+            self.registeredTime = registeredTime
+        if not isinstance(resourcePool, Unset):
+            self.resourcePool = resourcePool
+        if not isinstance(resources, Unset):
+            self.resources = resources
+        if not isinstance(schedulerType, Unset):
+            self.schedulerType = schedulerType
+        if not isinstance(slotsNeeded, Unset):
+            self.slotsNeeded = slotsNeeded
+        if not isinstance(taskId, Unset):
+            self.taskId = taskId
 
     @classmethod
     def from_json(cls, obj: Json) -> "v1AllocationSummary":
         kwargs: "typing.Dict[str, typing.Any]" = {
-            "allocationId": obj["allocationId"],
-            "name": obj["name"],
-            "priority": obj["priority"],
-            "proxyPorts": [v1ProxyPortConfig.from_json(x) for x in obj["proxyPorts"]],
-            "registeredTime": obj["registeredTime"],
-            "resourcePool": obj["resourcePool"],
-            "resources": [v1ResourcesSummary.from_json(x) for x in obj["resources"]],
-            "schedulerType": obj["schedulerType"],
-            "slotsNeeded": obj["slotsNeeded"],
-            "taskId": obj["taskId"],
         }
+        if "allocationId" in obj:
+            kwargs["allocationId"] = obj["allocationId"]
+        if "name" in obj:
+            kwargs["name"] = obj["name"]
+        if "priority" in obj:
+            kwargs["priority"] = obj["priority"]
+        if "proxyPorts" in obj:
+            kwargs["proxyPorts"] = [v1ProxyPortConfig.from_json(x) for x in obj["proxyPorts"]] if obj["proxyPorts"] is not None else None
+        if "registeredTime" in obj:
+            kwargs["registeredTime"] = obj["registeredTime"]
+        if "resourcePool" in obj:
+            kwargs["resourcePool"] = obj["resourcePool"]
+        if "resources" in obj:
+            kwargs["resources"] = [v1ResourcesSummary.from_json(x) for x in obj["resources"]] if obj["resources"] is not None else None
+        if "schedulerType" in obj:
+            kwargs["schedulerType"] = obj["schedulerType"]
+        if "slotsNeeded" in obj:
+            kwargs["slotsNeeded"] = obj["slotsNeeded"]
+        if "taskId" in obj:
+            kwargs["taskId"] = obj["taskId"]
         return cls(**kwargs)
 
     def to_json(self, omit_unset: bool = False) -> typing.Dict[str, typing.Any]:
         out: "typing.Dict[str, typing.Any]" = {
-            "allocationId": self.allocationId,
-            "name": self.name,
-            "priority": self.priority,
-            "proxyPorts": [x.to_json(omit_unset) for x in self.proxyPorts],
-            "registeredTime": self.registeredTime,
-            "resourcePool": self.resourcePool,
-            "resources": [x.to_json(omit_unset) for x in self.resources],
-            "schedulerType": self.schedulerType,
-            "slotsNeeded": self.slotsNeeded,
-            "taskId": self.taskId,
         }
+        if not omit_unset or "allocationId" in vars(self):
+            out["allocationId"] = self.allocationId
+        if not omit_unset or "name" in vars(self):
+            out["name"] = self.name
+        if not omit_unset or "priority" in vars(self):
+            out["priority"] = self.priority
+        if not omit_unset or "proxyPorts" in vars(self):
+            out["proxyPorts"] = None if self.proxyPorts is None else [x.to_json(omit_unset) for x in self.proxyPorts]
+        if not omit_unset or "registeredTime" in vars(self):
+            out["registeredTime"] = self.registeredTime
+        if not omit_unset or "resourcePool" in vars(self):
+            out["resourcePool"] = self.resourcePool
+        if not omit_unset or "resources" in vars(self):
+            out["resources"] = None if self.resources is None else [x.to_json(omit_unset) for x in self.resources]
+        if not omit_unset or "schedulerType" in vars(self):
+            out["schedulerType"] = self.schedulerType
+        if not omit_unset or "slotsNeeded" in vars(self):
+            out["slotsNeeded"] = self.slotsNeeded
+        if not omit_unset or "taskId" in vars(self):
+            out["taskId"] = self.taskId
         return out
 
 class v1AllocationWaitingRequest:
+    allocationId: "typing.Optional[str]" = None
 
     def __init__(
         self,
         *,
-        allocationId: str,
+        allocationId: "typing.Union[str, None, Unset]" = _unset,
     ):
-        self.allocationId = allocationId
+        if not isinstance(allocationId, Unset):
+            self.allocationId = allocationId
 
     @classmethod
     def from_json(cls, obj: Json) -> "v1AllocationWaitingRequest":
         kwargs: "typing.Dict[str, typing.Any]" = {
-            "allocationId": obj["allocationId"],
         }
+        if "allocationId" in obj:
+            kwargs["allocationId"] = obj["allocationId"]
         return cls(**kwargs)
 
     def to_json(self, omit_unset: bool = False) -> typing.Dict[str, typing.Any]:
         out: "typing.Dict[str, typing.Any]" = {
-            "allocationId": self.allocationId,
         }
+        if not omit_unset or "allocationId" in vars(self):
+            out["allocationId"] = self.allocationId
         return out
 
 class v1ArchiveExperimentsRequest:
@@ -1066,29 +1170,37 @@ class v1ArchiveExperimentsResponse:
         return out
 
 class v1AssignRolesRequest:
+    groupRoleAssignments: "typing.Optional[typing.Sequence[v1GroupRoleAssignment]]" = None
+    userRoleAssignments: "typing.Optional[typing.Sequence[v1UserRoleAssignment]]" = None
 
     def __init__(
         self,
         *,
-        groupRoleAssignments: "typing.Sequence[v1GroupRoleAssignment]",
-        userRoleAssignments: "typing.Sequence[v1UserRoleAssignment]",
+        groupRoleAssignments: "typing.Union[typing.Sequence[v1GroupRoleAssignment], None, Unset]" = _unset,
+        userRoleAssignments: "typing.Union[typing.Sequence[v1UserRoleAssignment], None, Unset]" = _unset,
     ):
-        self.groupRoleAssignments = groupRoleAssignments
-        self.userRoleAssignments = userRoleAssignments
+        if not isinstance(groupRoleAssignments, Unset):
+            self.groupRoleAssignments = groupRoleAssignments
+        if not isinstance(userRoleAssignments, Unset):
+            self.userRoleAssignments = userRoleAssignments
 
     @classmethod
     def from_json(cls, obj: Json) -> "v1AssignRolesRequest":
         kwargs: "typing.Dict[str, typing.Any]" = {
-            "groupRoleAssignments": [v1GroupRoleAssignment.from_json(x) for x in obj["groupRoleAssignments"]],
-            "userRoleAssignments": [v1UserRoleAssignment.from_json(x) for x in obj["userRoleAssignments"]],
         }
+        if "groupRoleAssignments" in obj:
+            kwargs["groupRoleAssignments"] = [v1GroupRoleAssignment.from_json(x) for x in obj["groupRoleAssignments"]] if obj["groupRoleAssignments"] is not None else None
+        if "userRoleAssignments" in obj:
+            kwargs["userRoleAssignments"] = [v1UserRoleAssignment.from_json(x) for x in obj["userRoleAssignments"]] if obj["userRoleAssignments"] is not None else None
         return cls(**kwargs)
 
     def to_json(self, omit_unset: bool = False) -> typing.Dict[str, typing.Any]:
         out: "typing.Dict[str, typing.Any]" = {
-            "groupRoleAssignments": [x.to_json(omit_unset) for x in self.groupRoleAssignments],
-            "userRoleAssignments": [x.to_json(omit_unset) for x in self.userRoleAssignments],
         }
+        if not omit_unset or "groupRoleAssignments" in vars(self):
+            out["groupRoleAssignments"] = None if self.groupRoleAssignments is None else [x.to_json(omit_unset) for x in self.groupRoleAssignments]
+        if not omit_unset or "userRoleAssignments" in vars(self):
+            out["userRoleAssignments"] = None if self.userRoleAssignments is None else [x.to_json(omit_unset) for x in self.userRoleAssignments]
         return out
 
 class v1AugmentedTrial:
@@ -1236,49 +1348,77 @@ class v1AwsCustomTag:
         return out
 
 class v1BulkExperimentFilters:
+    archived: "typing.Optional[bool]" = None
+    description: "typing.Optional[str]" = None
+    labels: "typing.Optional[typing.Sequence[str]]" = None
+    name: "typing.Optional[str]" = None
+    projectId: "typing.Optional[int]" = None
+    states: "typing.Optional[typing.Sequence[experimentv1State]]" = None
+    userIds: "typing.Optional[typing.Sequence[int]]" = None
 
     def __init__(
         self,
         *,
-        archived: bool,
-        description: str,
-        labels: "typing.Sequence[str]",
-        name: str,
-        projectId: int,
-        states: "typing.Sequence[experimentv1State]",
-        userIds: "typing.Sequence[int]",
+        archived: "typing.Union[bool, None, Unset]" = _unset,
+        description: "typing.Union[str, None, Unset]" = _unset,
+        labels: "typing.Union[typing.Sequence[str], None, Unset]" = _unset,
+        name: "typing.Union[str, None, Unset]" = _unset,
+        projectId: "typing.Union[int, None, Unset]" = _unset,
+        states: "typing.Union[typing.Sequence[experimentv1State], None, Unset]" = _unset,
+        userIds: "typing.Union[typing.Sequence[int], None, Unset]" = _unset,
     ):
-        self.archived = archived
-        self.description = description
-        self.labels = labels
-        self.name = name
-        self.projectId = projectId
-        self.states = states
-        self.userIds = userIds
+        if not isinstance(archived, Unset):
+            self.archived = archived
+        if not isinstance(description, Unset):
+            self.description = description
+        if not isinstance(labels, Unset):
+            self.labels = labels
+        if not isinstance(name, Unset):
+            self.name = name
+        if not isinstance(projectId, Unset):
+            self.projectId = projectId
+        if not isinstance(states, Unset):
+            self.states = states
+        if not isinstance(userIds, Unset):
+            self.userIds = userIds
 
     @classmethod
     def from_json(cls, obj: Json) -> "v1BulkExperimentFilters":
         kwargs: "typing.Dict[str, typing.Any]" = {
-            "archived": obj["archived"],
-            "description": obj["description"],
-            "labels": obj["labels"],
-            "name": obj["name"],
-            "projectId": obj["projectId"],
-            "states": [experimentv1State(x) for x in obj["states"]],
-            "userIds": obj["userIds"],
         }
+        if "archived" in obj:
+            kwargs["archived"] = obj["archived"]
+        if "description" in obj:
+            kwargs["description"] = obj["description"]
+        if "labels" in obj:
+            kwargs["labels"] = obj["labels"]
+        if "name" in obj:
+            kwargs["name"] = obj["name"]
+        if "projectId" in obj:
+            kwargs["projectId"] = obj["projectId"]
+        if "states" in obj:
+            kwargs["states"] = [experimentv1State(x) for x in obj["states"]] if obj["states"] is not None else None
+        if "userIds" in obj:
+            kwargs["userIds"] = obj["userIds"]
         return cls(**kwargs)
 
     def to_json(self, omit_unset: bool = False) -> typing.Dict[str, typing.Any]:
         out: "typing.Dict[str, typing.Any]" = {
-            "archived": self.archived,
-            "description": self.description,
-            "labels": self.labels,
-            "name": self.name,
-            "projectId": self.projectId,
-            "states": [x.value for x in self.states],
-            "userIds": self.userIds,
         }
+        if not omit_unset or "archived" in vars(self):
+            out["archived"] = self.archived
+        if not omit_unset or "description" in vars(self):
+            out["description"] = self.description
+        if not omit_unset or "labels" in vars(self):
+            out["labels"] = self.labels
+        if not omit_unset or "name" in vars(self):
+            out["name"] = self.name
+        if not omit_unset or "projectId" in vars(self):
+            out["projectId"] = self.projectId
+        if not omit_unset or "states" in vars(self):
+            out["states"] = None if self.states is None else [x.value for x in self.states]
+        if not omit_unset or "userIds" in vars(self):
+            out["userIds"] = self.userIds
         return out
 
 class v1CancelExperimentsRequest:
@@ -1500,51 +1640,63 @@ class v1CheckpointWorkload:
         return out
 
 class v1CloseTrialOperation:
+    requestId: "typing.Optional[str]" = None
 
     def __init__(
         self,
         *,
-        requestId: str,
+        requestId: "typing.Union[str, None, Unset]" = _unset,
     ):
-        self.requestId = requestId
+        if not isinstance(requestId, Unset):
+            self.requestId = requestId
 
     @classmethod
     def from_json(cls, obj: Json) -> "v1CloseTrialOperation":
         kwargs: "typing.Dict[str, typing.Any]" = {
-            "requestId": obj["requestId"],
         }
+        if "requestId" in obj:
+            kwargs["requestId"] = obj["requestId"]
         return cls(**kwargs)
 
     def to_json(self, omit_unset: bool = False) -> typing.Dict[str, typing.Any]:
         out: "typing.Dict[str, typing.Any]" = {
-            "requestId": self.requestId,
         }
+        if not omit_unset or "requestId" in vars(self):
+            out["requestId"] = self.requestId
         return out
 
 class v1ColumnFilter:
+    filter: "typing.Optional[v1DoubleFieldFilter]" = None
+    name: "typing.Optional[str]" = None
 
     def __init__(
         self,
         *,
-        filter: "v1DoubleFieldFilter",
-        name: str,
+        filter: "typing.Union[v1DoubleFieldFilter, None, Unset]" = _unset,
+        name: "typing.Union[str, None, Unset]" = _unset,
     ):
-        self.filter = filter
-        self.name = name
+        if not isinstance(filter, Unset):
+            self.filter = filter
+        if not isinstance(name, Unset):
+            self.name = name
 
     @classmethod
     def from_json(cls, obj: Json) -> "v1ColumnFilter":
         kwargs: "typing.Dict[str, typing.Any]" = {
-            "filter": v1DoubleFieldFilter.from_json(obj["filter"]),
-            "name": obj["name"],
         }
+        if "filter" in obj:
+            kwargs["filter"] = v1DoubleFieldFilter.from_json(obj["filter"]) if obj["filter"] is not None else None
+        if "name" in obj:
+            kwargs["name"] = obj["name"]
         return cls(**kwargs)
 
     def to_json(self, omit_unset: bool = False) -> typing.Dict[str, typing.Any]:
         out: "typing.Dict[str, typing.Any]" = {
-            "filter": self.filter.to_json(omit_unset),
-            "name": self.name,
         }
+        if not omit_unset or "filter" in vars(self):
+            out["filter"] = None if self.filter is None else self.filter.to_json(omit_unset)
+        if not omit_unset or "name" in vars(self):
+            out["name"] = self.name
         return out
 
 class v1Command:
@@ -1678,29 +1830,37 @@ class v1CompareTrialsResponse:
         return out
 
 class v1CompleteValidateAfterOperation:
+    op: "typing.Optional[v1ValidateAfterOperation]" = None
+    searcherMetric: "typing.Optional[typing.Any]" = None
 
     def __init__(
         self,
         *,
-        op: "v1ValidateAfterOperation",
-        searcherMetric: typing.Any,
+        op: "typing.Union[v1ValidateAfterOperation, None, Unset]" = _unset,
+        searcherMetric: "typing.Union[typing.Any, None, Unset]" = _unset,
     ):
-        self.op = op
-        self.searcherMetric = searcherMetric
+        if not isinstance(op, Unset):
+            self.op = op
+        if not isinstance(searcherMetric, Unset):
+            self.searcherMetric = searcherMetric
 
     @classmethod
     def from_json(cls, obj: Json) -> "v1CompleteValidateAfterOperation":
         kwargs: "typing.Dict[str, typing.Any]" = {
-            "op": v1ValidateAfterOperation.from_json(obj["op"]),
-            "searcherMetric": obj["searcherMetric"],
         }
+        if "op" in obj:
+            kwargs["op"] = v1ValidateAfterOperation.from_json(obj["op"]) if obj["op"] is not None else None
+        if "searcherMetric" in obj:
+            kwargs["searcherMetric"] = obj["searcherMetric"]
         return cls(**kwargs)
 
     def to_json(self, omit_unset: bool = False) -> typing.Dict[str, typing.Any]:
         out: "typing.Dict[str, typing.Any]" = {
-            "op": self.op.to_json(omit_unset),
-            "searcherMetric": self.searcherMetric,
         }
+        if not omit_unset or "op" in vars(self):
+            out["op"] = None if self.op is None else self.op.to_json(omit_unset)
+        if not omit_unset or "searcherMetric" in vars(self):
+            out["searcherMetric"] = self.searcherMetric
         return out
 
 class v1Container:
@@ -1746,65 +1906,109 @@ class v1Container:
         return out
 
 class v1CreateExperimentRequest:
+    activate: "typing.Optional[bool]" = None
+    config: "typing.Optional[str]" = None
+    gitCommit: "typing.Optional[str]" = None
+    gitCommitDate: "typing.Optional[str]" = None
+    gitCommitter: "typing.Optional[str]" = None
+    gitRemote: "typing.Optional[str]" = None
+    modelDefinition: "typing.Optional[typing.Sequence[v1File]]" = None
+    parentId: "typing.Optional[int]" = None
+    projectId: "typing.Optional[int]" = None
+    template: "typing.Optional[str]" = None
+    validateOnly: "typing.Optional[bool]" = None
 
     def __init__(
         self,
         *,
-        activate: bool,
-        config: str,
-        gitCommit: str,
-        gitCommitDate: str,
-        gitCommitter: str,
-        gitRemote: str,
-        modelDefinition: "typing.Sequence[v1File]",
-        parentId: int,
-        projectId: int,
-        template: str,
-        validateOnly: bool,
+        activate: "typing.Union[bool, None, Unset]" = _unset,
+        config: "typing.Union[str, None, Unset]" = _unset,
+        gitCommit: "typing.Union[str, None, Unset]" = _unset,
+        gitCommitDate: "typing.Union[str, None, Unset]" = _unset,
+        gitCommitter: "typing.Union[str, None, Unset]" = _unset,
+        gitRemote: "typing.Union[str, None, Unset]" = _unset,
+        modelDefinition: "typing.Union[typing.Sequence[v1File], None, Unset]" = _unset,
+        parentId: "typing.Union[int, None, Unset]" = _unset,
+        projectId: "typing.Union[int, None, Unset]" = _unset,
+        template: "typing.Union[str, None, Unset]" = _unset,
+        validateOnly: "typing.Union[bool, None, Unset]" = _unset,
     ):
-        self.activate = activate
-        self.config = config
-        self.gitCommit = gitCommit
-        self.gitCommitDate = gitCommitDate
-        self.gitCommitter = gitCommitter
-        self.gitRemote = gitRemote
-        self.modelDefinition = modelDefinition
-        self.parentId = parentId
-        self.projectId = projectId
-        self.template = template
-        self.validateOnly = validateOnly
+        if not isinstance(activate, Unset):
+            self.activate = activate
+        if not isinstance(config, Unset):
+            self.config = config
+        if not isinstance(gitCommit, Unset):
+            self.gitCommit = gitCommit
+        if not isinstance(gitCommitDate, Unset):
+            self.gitCommitDate = gitCommitDate
+        if not isinstance(gitCommitter, Unset):
+            self.gitCommitter = gitCommitter
+        if not isinstance(gitRemote, Unset):
+            self.gitRemote = gitRemote
+        if not isinstance(modelDefinition, Unset):
+            self.modelDefinition = modelDefinition
+        if not isinstance(parentId, Unset):
+            self.parentId = parentId
+        if not isinstance(projectId, Unset):
+            self.projectId = projectId
+        if not isinstance(template, Unset):
+            self.template = template
+        if not isinstance(validateOnly, Unset):
+            self.validateOnly = validateOnly
 
     @classmethod
     def from_json(cls, obj: Json) -> "v1CreateExperimentRequest":
         kwargs: "typing.Dict[str, typing.Any]" = {
-            "activate": obj["activate"],
-            "config": obj["config"],
-            "gitCommit": obj["gitCommit"],
-            "gitCommitDate": obj["gitCommitDate"],
-            "gitCommitter": obj["gitCommitter"],
-            "gitRemote": obj["gitRemote"],
-            "modelDefinition": [v1File.from_json(x) for x in obj["modelDefinition"]],
-            "parentId": obj["parentId"],
-            "projectId": obj["projectId"],
-            "template": obj["template"],
-            "validateOnly": obj["validateOnly"],
         }
+        if "activate" in obj:
+            kwargs["activate"] = obj["activate"]
+        if "config" in obj:
+            kwargs["config"] = obj["config"]
+        if "gitCommit" in obj:
+            kwargs["gitCommit"] = obj["gitCommit"]
+        if "gitCommitDate" in obj:
+            kwargs["gitCommitDate"] = obj["gitCommitDate"]
+        if "gitCommitter" in obj:
+            kwargs["gitCommitter"] = obj["gitCommitter"]
+        if "gitRemote" in obj:
+            kwargs["gitRemote"] = obj["gitRemote"]
+        if "modelDefinition" in obj:
+            kwargs["modelDefinition"] = [v1File.from_json(x) for x in obj["modelDefinition"]] if obj["modelDefinition"] is not None else None
+        if "parentId" in obj:
+            kwargs["parentId"] = obj["parentId"]
+        if "projectId" in obj:
+            kwargs["projectId"] = obj["projectId"]
+        if "template" in obj:
+            kwargs["template"] = obj["template"]
+        if "validateOnly" in obj:
+            kwargs["validateOnly"] = obj["validateOnly"]
         return cls(**kwargs)
 
     def to_json(self, omit_unset: bool = False) -> typing.Dict[str, typing.Any]:
         out: "typing.Dict[str, typing.Any]" = {
-            "activate": self.activate,
-            "config": self.config,
-            "gitCommit": self.gitCommit,
-            "gitCommitDate": self.gitCommitDate,
-            "gitCommitter": self.gitCommitter,
-            "gitRemote": self.gitRemote,
-            "modelDefinition": [x.to_json(omit_unset) for x in self.modelDefinition],
-            "parentId": self.parentId,
-            "projectId": self.projectId,
-            "template": self.template,
-            "validateOnly": self.validateOnly,
         }
+        if not omit_unset or "activate" in vars(self):
+            out["activate"] = self.activate
+        if not omit_unset or "config" in vars(self):
+            out["config"] = self.config
+        if not omit_unset or "gitCommit" in vars(self):
+            out["gitCommit"] = self.gitCommit
+        if not omit_unset or "gitCommitDate" in vars(self):
+            out["gitCommitDate"] = self.gitCommitDate
+        if not omit_unset or "gitCommitter" in vars(self):
+            out["gitCommitter"] = self.gitCommitter
+        if not omit_unset or "gitRemote" in vars(self):
+            out["gitRemote"] = self.gitRemote
+        if not omit_unset or "modelDefinition" in vars(self):
+            out["modelDefinition"] = None if self.modelDefinition is None else [x.to_json(omit_unset) for x in self.modelDefinition]
+        if not omit_unset or "parentId" in vars(self):
+            out["parentId"] = self.parentId
+        if not omit_unset or "projectId" in vars(self):
+            out["projectId"] = self.projectId
+        if not omit_unset or "template" in vars(self):
+            out["template"] = self.template
+        if not omit_unset or "validateOnly" in vars(self):
+            out["validateOnly"] = self.validateOnly
         return out
 
 class v1CreateExperimentResponse:
@@ -1894,29 +2098,37 @@ class v1CreateGroupResponse:
         return out
 
 class v1CreateTrialOperation:
+    hyperparams: "typing.Optional[str]" = None
+    requestId: "typing.Optional[str]" = None
 
     def __init__(
         self,
         *,
-        hyperparams: str,
-        requestId: str,
+        hyperparams: "typing.Union[str, None, Unset]" = _unset,
+        requestId: "typing.Union[str, None, Unset]" = _unset,
     ):
-        self.hyperparams = hyperparams
-        self.requestId = requestId
+        if not isinstance(hyperparams, Unset):
+            self.hyperparams = hyperparams
+        if not isinstance(requestId, Unset):
+            self.requestId = requestId
 
     @classmethod
     def from_json(cls, obj: Json) -> "v1CreateTrialOperation":
         kwargs: "typing.Dict[str, typing.Any]" = {
-            "hyperparams": obj["hyperparams"],
-            "requestId": obj["requestId"],
         }
+        if "hyperparams" in obj:
+            kwargs["hyperparams"] = obj["hyperparams"]
+        if "requestId" in obj:
+            kwargs["requestId"] = obj["requestId"]
         return cls(**kwargs)
 
     def to_json(self, omit_unset: bool = False) -> typing.Dict[str, typing.Any]:
         out: "typing.Dict[str, typing.Any]" = {
-            "hyperparams": self.hyperparams,
-            "requestId": self.requestId,
         }
+        if not omit_unset or "hyperparams" in vars(self):
+            out["hyperparams"] = self.hyperparams
+        if not omit_unset or "requestId" in vars(self):
+            out["requestId"] = self.requestId
         return out
 
 class v1CreateTrialsCollectionRequest:
@@ -2188,29 +2400,37 @@ class v1Device:
         return out
 
 class v1DisableAgentRequest:
+    agentId: "typing.Optional[str]" = None
+    drain: "typing.Optional[bool]" = None
 
     def __init__(
         self,
         *,
-        agentId: str,
-        drain: bool,
+        agentId: "typing.Union[str, None, Unset]" = _unset,
+        drain: "typing.Union[bool, None, Unset]" = _unset,
     ):
-        self.agentId = agentId
-        self.drain = drain
+        if not isinstance(agentId, Unset):
+            self.agentId = agentId
+        if not isinstance(drain, Unset):
+            self.drain = drain
 
     @classmethod
     def from_json(cls, obj: Json) -> "v1DisableAgentRequest":
         kwargs: "typing.Dict[str, typing.Any]" = {
-            "agentId": obj["agentId"],
-            "drain": obj["drain"],
         }
+        if "agentId" in obj:
+            kwargs["agentId"] = obj["agentId"]
+        if "drain" in obj:
+            kwargs["drain"] = obj["drain"]
         return cls(**kwargs)
 
     def to_json(self, omit_unset: bool = False) -> typing.Dict[str, typing.Any]:
         out: "typing.Dict[str, typing.Any]" = {
-            "agentId": self.agentId,
-            "drain": self.drain,
         }
+        if not omit_unset or "agentId" in vars(self):
+            out["agentId"] = self.agentId
+        if not omit_unset or "drain" in vars(self):
+            out["drain"] = self.drain
         return out
 
 class v1DisableAgentResponse:
@@ -2236,33 +2456,45 @@ class v1DisableAgentResponse:
         return out
 
 class v1DisableSlotRequest:
+    agentId: "typing.Optional[str]" = None
+    drain: "typing.Optional[bool]" = None
+    slotId: "typing.Optional[str]" = None
 
     def __init__(
         self,
         *,
-        agentId: str,
-        drain: bool,
-        slotId: str,
+        agentId: "typing.Union[str, None, Unset]" = _unset,
+        drain: "typing.Union[bool, None, Unset]" = _unset,
+        slotId: "typing.Union[str, None, Unset]" = _unset,
     ):
-        self.agentId = agentId
-        self.drain = drain
-        self.slotId = slotId
+        if not isinstance(agentId, Unset):
+            self.agentId = agentId
+        if not isinstance(drain, Unset):
+            self.drain = drain
+        if not isinstance(slotId, Unset):
+            self.slotId = slotId
 
     @classmethod
     def from_json(cls, obj: Json) -> "v1DisableSlotRequest":
         kwargs: "typing.Dict[str, typing.Any]" = {
-            "agentId": obj["agentId"],
-            "drain": obj["drain"],
-            "slotId": obj["slotId"],
         }
+        if "agentId" in obj:
+            kwargs["agentId"] = obj["agentId"]
+        if "drain" in obj:
+            kwargs["drain"] = obj["drain"]
+        if "slotId" in obj:
+            kwargs["slotId"] = obj["slotId"]
         return cls(**kwargs)
 
     def to_json(self, omit_unset: bool = False) -> typing.Dict[str, typing.Any]:
         out: "typing.Dict[str, typing.Any]" = {
-            "agentId": self.agentId,
-            "drain": self.drain,
-            "slotId": self.slotId,
         }
+        if not omit_unset or "agentId" in vars(self):
+            out["agentId"] = self.agentId
+        if not omit_unset or "drain" in vars(self):
+            out["drain"] = self.drain
+        if not omit_unset or "slotId" in vars(self):
+            out["slotId"] = self.slotId
         return out
 
 class v1DisableSlotResponse:
@@ -2712,49 +2944,77 @@ class v1File:
         return out
 
 class v1FileNode:
+    contentLength: "typing.Optional[int]" = None
+    contentType: "typing.Optional[str]" = None
+    files: "typing.Optional[typing.Sequence[v1FileNode]]" = None
+    isDir: "typing.Optional[bool]" = None
+    modifiedTime: "typing.Optional[str]" = None
+    name: "typing.Optional[str]" = None
+    path: "typing.Optional[str]" = None
 
     def __init__(
         self,
         *,
-        contentLength: int,
-        contentType: str,
-        files: "typing.Sequence[v1FileNode]",
-        isDir: bool,
-        modifiedTime: str,
-        name: str,
-        path: str,
+        contentLength: "typing.Union[int, None, Unset]" = _unset,
+        contentType: "typing.Union[str, None, Unset]" = _unset,
+        files: "typing.Union[typing.Sequence[v1FileNode], None, Unset]" = _unset,
+        isDir: "typing.Union[bool, None, Unset]" = _unset,
+        modifiedTime: "typing.Union[str, None, Unset]" = _unset,
+        name: "typing.Union[str, None, Unset]" = _unset,
+        path: "typing.Union[str, None, Unset]" = _unset,
     ):
-        self.contentLength = contentLength
-        self.contentType = contentType
-        self.files = files
-        self.isDir = isDir
-        self.modifiedTime = modifiedTime
-        self.name = name
-        self.path = path
+        if not isinstance(contentLength, Unset):
+            self.contentLength = contentLength
+        if not isinstance(contentType, Unset):
+            self.contentType = contentType
+        if not isinstance(files, Unset):
+            self.files = files
+        if not isinstance(isDir, Unset):
+            self.isDir = isDir
+        if not isinstance(modifiedTime, Unset):
+            self.modifiedTime = modifiedTime
+        if not isinstance(name, Unset):
+            self.name = name
+        if not isinstance(path, Unset):
+            self.path = path
 
     @classmethod
     def from_json(cls, obj: Json) -> "v1FileNode":
         kwargs: "typing.Dict[str, typing.Any]" = {
-            "contentLength": obj["contentLength"],
-            "contentType": obj["contentType"],
-            "files": [v1FileNode.from_json(x) for x in obj["files"]],
-            "isDir": obj["isDir"],
-            "modifiedTime": obj["modifiedTime"],
-            "name": obj["name"],
-            "path": obj["path"],
         }
+        if "contentLength" in obj:
+            kwargs["contentLength"] = obj["contentLength"]
+        if "contentType" in obj:
+            kwargs["contentType"] = obj["contentType"]
+        if "files" in obj:
+            kwargs["files"] = [v1FileNode.from_json(x) for x in obj["files"]] if obj["files"] is not None else None
+        if "isDir" in obj:
+            kwargs["isDir"] = obj["isDir"]
+        if "modifiedTime" in obj:
+            kwargs["modifiedTime"] = obj["modifiedTime"]
+        if "name" in obj:
+            kwargs["name"] = obj["name"]
+        if "path" in obj:
+            kwargs["path"] = obj["path"]
         return cls(**kwargs)
 
     def to_json(self, omit_unset: bool = False) -> typing.Dict[str, typing.Any]:
         out: "typing.Dict[str, typing.Any]" = {
-            "contentLength": self.contentLength,
-            "contentType": self.contentType,
-            "files": [x.to_json(omit_unset) for x in self.files],
-            "isDir": self.isDir,
-            "modifiedTime": self.modifiedTime,
-            "name": self.name,
-            "path": self.path,
         }
+        if not omit_unset or "contentLength" in vars(self):
+            out["contentLength"] = self.contentLength
+        if not omit_unset or "contentType" in vars(self):
+            out["contentType"] = self.contentType
+        if not omit_unset or "files" in vars(self):
+            out["files"] = None if self.files is None else [x.to_json(omit_unset) for x in self.files]
+        if not omit_unset or "isDir" in vars(self):
+            out["isDir"] = self.isDir
+        if not omit_unset or "modifiedTime" in vars(self):
+            out["modifiedTime"] = self.modifiedTime
+        if not omit_unset or "name" in vars(self):
+            out["name"] = self.name
+        if not omit_unset or "path" in vars(self):
+            out["path"] = self.path
         return out
 
 class v1FittingPolicy(enum.Enum):
@@ -3522,29 +3782,37 @@ class v1GetMeResponse:
         return out
 
 class v1GetModelDefFileRequest:
+    experimentId: "typing.Optional[int]" = None
+    path: "typing.Optional[str]" = None
 
     def __init__(
         self,
         *,
-        experimentId: int,
-        path: str,
+        experimentId: "typing.Union[int, None, Unset]" = _unset,
+        path: "typing.Union[str, None, Unset]" = _unset,
     ):
-        self.experimentId = experimentId
-        self.path = path
+        if not isinstance(experimentId, Unset):
+            self.experimentId = experimentId
+        if not isinstance(path, Unset):
+            self.path = path
 
     @classmethod
     def from_json(cls, obj: Json) -> "v1GetModelDefFileRequest":
         kwargs: "typing.Dict[str, typing.Any]" = {
-            "experimentId": obj["experimentId"],
-            "path": obj["path"],
         }
+        if "experimentId" in obj:
+            kwargs["experimentId"] = obj["experimentId"]
+        if "path" in obj:
+            kwargs["path"] = obj["path"]
         return cls(**kwargs)
 
     def to_json(self, omit_unset: bool = False) -> typing.Dict[str, typing.Any]:
         out: "typing.Dict[str, typing.Any]" = {
-            "experimentId": self.experimentId,
-            "path": self.path,
         }
+        if not omit_unset or "experimentId" in vars(self):
+            out["experimentId"] = self.experimentId
+        if not omit_unset or "path" in vars(self):
+            out["path"] = self.path
         return out
 
 class v1GetModelDefFileResponse:
@@ -3987,25 +4255,29 @@ class v1GetRolesAssignedToUserResponse:
         return out
 
 class v1GetRolesByIDRequest:
+    roleIds: "typing.Optional[typing.Sequence[int]]" = None
 
     def __init__(
         self,
         *,
-        roleIds: "typing.Sequence[int]",
+        roleIds: "typing.Union[typing.Sequence[int], None, Unset]" = _unset,
     ):
-        self.roleIds = roleIds
+        if not isinstance(roleIds, Unset):
+            self.roleIds = roleIds
 
     @classmethod
     def from_json(cls, obj: Json) -> "v1GetRolesByIDRequest":
         kwargs: "typing.Dict[str, typing.Any]" = {
-            "roleIds": obj["roleIds"],
         }
+        if "roleIds" in obj:
+            kwargs["roleIds"] = obj["roleIds"]
         return cls(**kwargs)
 
     def to_json(self, omit_unset: bool = False) -> typing.Dict[str, typing.Any]:
         out: "typing.Dict[str, typing.Any]" = {
-            "roleIds": self.roleIds,
         }
+        if not omit_unset or "roleIds" in vars(self):
+            out["roleIds"] = self.roleIds
         return out
 
 class v1GetRolesByIDResponse:
@@ -4750,29 +5022,37 @@ class v1GetWorkspacesResponse:
         return out
 
 class v1Group:
+    groupId: "typing.Optional[int]" = None
+    name: "typing.Optional[str]" = None
 
     def __init__(
         self,
         *,
-        groupId: int,
-        name: str,
+        groupId: "typing.Union[int, None, Unset]" = _unset,
+        name: "typing.Union[str, None, Unset]" = _unset,
     ):
-        self.groupId = groupId
-        self.name = name
+        if not isinstance(groupId, Unset):
+            self.groupId = groupId
+        if not isinstance(name, Unset):
+            self.name = name
 
     @classmethod
     def from_json(cls, obj: Json) -> "v1Group":
         kwargs: "typing.Dict[str, typing.Any]" = {
-            "groupId": obj["groupId"],
-            "name": obj["name"],
         }
+        if "groupId" in obj:
+            kwargs["groupId"] = obj["groupId"]
+        if "name" in obj:
+            kwargs["name"] = obj["name"]
         return cls(**kwargs)
 
     def to_json(self, omit_unset: bool = False) -> typing.Dict[str, typing.Any]:
         out: "typing.Dict[str, typing.Any]" = {
-            "groupId": self.groupId,
-            "name": self.name,
         }
+        if not omit_unset or "groupId" in vars(self):
+            out["groupId"] = self.groupId
+        if not omit_unset or "name" in vars(self):
+            out["name"] = self.name
         return out
 
 class v1GroupDetails:
@@ -4858,93 +5138,129 @@ class v1GroupSearchResult:
         return out
 
 class v1IdleNotebookRequest:
+    idle: "typing.Optional[bool]" = None
+    notebookId: "typing.Optional[str]" = None
 
     def __init__(
         self,
         *,
-        idle: bool,
-        notebookId: str,
+        idle: "typing.Union[bool, None, Unset]" = _unset,
+        notebookId: "typing.Union[str, None, Unset]" = _unset,
     ):
-        self.idle = idle
-        self.notebookId = notebookId
+        if not isinstance(idle, Unset):
+            self.idle = idle
+        if not isinstance(notebookId, Unset):
+            self.notebookId = notebookId
 
     @classmethod
     def from_json(cls, obj: Json) -> "v1IdleNotebookRequest":
         kwargs: "typing.Dict[str, typing.Any]" = {
-            "idle": obj["idle"],
-            "notebookId": obj["notebookId"],
         }
+        if "idle" in obj:
+            kwargs["idle"] = obj["idle"]
+        if "notebookId" in obj:
+            kwargs["notebookId"] = obj["notebookId"]
         return cls(**kwargs)
 
     def to_json(self, omit_unset: bool = False) -> typing.Dict[str, typing.Any]:
         out: "typing.Dict[str, typing.Any]" = {
-            "idle": self.idle,
-            "notebookId": self.notebookId,
         }
+        if not omit_unset or "idle" in vars(self):
+            out["idle"] = self.idle
+        if not omit_unset or "notebookId" in vars(self):
+            out["notebookId"] = self.notebookId
         return out
 
 class v1InitialOperations:
+    placeholder: "typing.Optional[int]" = None
 
     def __init__(
         self,
         *,
-        placeholder: int,
+        placeholder: "typing.Union[int, None, Unset]" = _unset,
     ):
-        self.placeholder = placeholder
+        if not isinstance(placeholder, Unset):
+            self.placeholder = placeholder
 
     @classmethod
     def from_json(cls, obj: Json) -> "v1InitialOperations":
         kwargs: "typing.Dict[str, typing.Any]" = {
-            "placeholder": obj["placeholder"],
         }
+        if "placeholder" in obj:
+            kwargs["placeholder"] = obj["placeholder"]
         return cls(**kwargs)
 
     def to_json(self, omit_unset: bool = False) -> typing.Dict[str, typing.Any]:
         out: "typing.Dict[str, typing.Any]" = {
-            "placeholder": self.placeholder,
         }
+        if not omit_unset or "placeholder" in vars(self):
+            out["placeholder"] = self.placeholder
         return out
 
 class v1Int32FieldFilter:
+    gt: "typing.Optional[int]" = None
+    gte: "typing.Optional[int]" = None
+    incl: "typing.Optional[typing.Sequence[int]]" = None
+    lt: "typing.Optional[int]" = None
+    lte: "typing.Optional[int]" = None
+    notIn: "typing.Optional[typing.Sequence[int]]" = None
 
     def __init__(
         self,
         *,
-        gt: int,
-        gte: int,
-        incl: "typing.Sequence[int]",
-        lt: int,
-        lte: int,
-        notIn: "typing.Sequence[int]",
+        gt: "typing.Union[int, None, Unset]" = _unset,
+        gte: "typing.Union[int, None, Unset]" = _unset,
+        incl: "typing.Union[typing.Sequence[int], None, Unset]" = _unset,
+        lt: "typing.Union[int, None, Unset]" = _unset,
+        lte: "typing.Union[int, None, Unset]" = _unset,
+        notIn: "typing.Union[typing.Sequence[int], None, Unset]" = _unset,
     ):
-        self.gt = gt
-        self.gte = gte
-        self.incl = incl
-        self.lt = lt
-        self.lte = lte
-        self.notIn = notIn
+        if not isinstance(gt, Unset):
+            self.gt = gt
+        if not isinstance(gte, Unset):
+            self.gte = gte
+        if not isinstance(incl, Unset):
+            self.incl = incl
+        if not isinstance(lt, Unset):
+            self.lt = lt
+        if not isinstance(lte, Unset):
+            self.lte = lte
+        if not isinstance(notIn, Unset):
+            self.notIn = notIn
 
     @classmethod
     def from_json(cls, obj: Json) -> "v1Int32FieldFilter":
         kwargs: "typing.Dict[str, typing.Any]" = {
-            "gt": obj["gt"],
-            "gte": obj["gte"],
-            "incl": obj["incl"],
-            "lt": obj["lt"],
-            "lte": obj["lte"],
-            "notIn": obj["notIn"],
         }
+        if "gt" in obj:
+            kwargs["gt"] = obj["gt"]
+        if "gte" in obj:
+            kwargs["gte"] = obj["gte"]
+        if "incl" in obj:
+            kwargs["incl"] = obj["incl"]
+        if "lt" in obj:
+            kwargs["lt"] = obj["lt"]
+        if "lte" in obj:
+            kwargs["lte"] = obj["lte"]
+        if "notIn" in obj:
+            kwargs["notIn"] = obj["notIn"]
         return cls(**kwargs)
 
     def to_json(self, omit_unset: bool = False) -> typing.Dict[str, typing.Any]:
         out: "typing.Dict[str, typing.Any]" = {
-            "gt": self.gt,
-            "gte": self.gte,
-            "incl": self.incl,
-            "lt": self.lt,
-            "lte": self.lte,
-            "notIn": self.notIn,
         }
+        if not omit_unset or "gt" in vars(self):
+            out["gt"] = self.gt
+        if not omit_unset or "gte" in vars(self):
+            out["gte"] = self.gte
+        if not omit_unset or "incl" in vars(self):
+            out["incl"] = self.incl
+        if not omit_unset or "lt" in vars(self):
+            out["lt"] = self.lt
+        if not omit_unset or "lte" in vars(self):
+            out["lte"] = self.lte
+        if not omit_unset or "notIn" in vars(self):
+            out["notIn"] = self.notIn
         return out
 
 class v1Job:
@@ -5072,29 +5388,37 @@ class v1JobSummary:
         return out
 
 class v1K8PriorityClass:
+    priorityClass: "typing.Optional[str]" = None
+    priorityValue: "typing.Optional[int]" = None
 
     def __init__(
         self,
         *,
-        priorityClass: str,
-        priorityValue: int,
+        priorityClass: "typing.Union[str, None, Unset]" = _unset,
+        priorityValue: "typing.Union[int, None, Unset]" = _unset,
     ):
-        self.priorityClass = priorityClass
-        self.priorityValue = priorityValue
+        if not isinstance(priorityClass, Unset):
+            self.priorityClass = priorityClass
+        if not isinstance(priorityValue, Unset):
+            self.priorityValue = priorityValue
 
     @classmethod
     def from_json(cls, obj: Json) -> "v1K8PriorityClass":
         kwargs: "typing.Dict[str, typing.Any]" = {
-            "priorityClass": obj["priorityClass"],
-            "priorityValue": obj["priorityValue"],
         }
+        if "priorityClass" in obj:
+            kwargs["priorityClass"] = obj["priorityClass"]
+        if "priorityValue" in obj:
+            kwargs["priorityValue"] = obj["priorityValue"]
         return cls(**kwargs)
 
     def to_json(self, omit_unset: bool = False) -> typing.Dict[str, typing.Any]:
         out: "typing.Dict[str, typing.Any]" = {
-            "priorityClass": self.priorityClass,
-            "priorityValue": self.priorityValue,
         }
+        if not omit_unset or "priorityClass" in vars(self):
+            out["priorityClass"] = self.priorityClass
+        if not omit_unset or "priorityValue" in vars(self):
+            out["priorityValue"] = self.priorityValue
         return out
 
 class v1KillCommandResponse:
@@ -5238,41 +5562,61 @@ class v1KillTensorboardResponse:
         return out
 
 class v1LaunchCommandRequest:
+    config: "typing.Optional[typing.Dict[str, typing.Any]]" = None
+    data: "typing.Optional[str]" = None
+    files: "typing.Optional[typing.Sequence[v1File]]" = None
+    templateName: "typing.Optional[str]" = None
+    workspaceId: "typing.Optional[int]" = None
 
     def __init__(
         self,
         *,
-        config: "typing.Dict[str, typing.Any]",
-        data: str,
-        files: "typing.Sequence[v1File]",
-        templateName: str,
-        workspaceId: int,
+        config: "typing.Union[typing.Dict[str, typing.Any], None, Unset]" = _unset,
+        data: "typing.Union[str, None, Unset]" = _unset,
+        files: "typing.Union[typing.Sequence[v1File], None, Unset]" = _unset,
+        templateName: "typing.Union[str, None, Unset]" = _unset,
+        workspaceId: "typing.Union[int, None, Unset]" = _unset,
     ):
-        self.config = config
-        self.data = data
-        self.files = files
-        self.templateName = templateName
-        self.workspaceId = workspaceId
+        if not isinstance(config, Unset):
+            self.config = config
+        if not isinstance(data, Unset):
+            self.data = data
+        if not isinstance(files, Unset):
+            self.files = files
+        if not isinstance(templateName, Unset):
+            self.templateName = templateName
+        if not isinstance(workspaceId, Unset):
+            self.workspaceId = workspaceId
 
     @classmethod
     def from_json(cls, obj: Json) -> "v1LaunchCommandRequest":
         kwargs: "typing.Dict[str, typing.Any]" = {
-            "config": obj["config"],
-            "data": obj["data"],
-            "files": [v1File.from_json(x) for x in obj["files"]],
-            "templateName": obj["templateName"],
-            "workspaceId": obj["workspaceId"],
         }
+        if "config" in obj:
+            kwargs["config"] = obj["config"]
+        if "data" in obj:
+            kwargs["data"] = obj["data"]
+        if "files" in obj:
+            kwargs["files"] = [v1File.from_json(x) for x in obj["files"]] if obj["files"] is not None else None
+        if "templateName" in obj:
+            kwargs["templateName"] = obj["templateName"]
+        if "workspaceId" in obj:
+            kwargs["workspaceId"] = obj["workspaceId"]
         return cls(**kwargs)
 
     def to_json(self, omit_unset: bool = False) -> typing.Dict[str, typing.Any]:
         out: "typing.Dict[str, typing.Any]" = {
-            "config": self.config,
-            "data": self.data,
-            "files": [x.to_json(omit_unset) for x in self.files],
-            "templateName": self.templateName,
-            "workspaceId": self.workspaceId,
         }
+        if not omit_unset or "config" in vars(self):
+            out["config"] = self.config
+        if not omit_unset or "data" in vars(self):
+            out["data"] = self.data
+        if not omit_unset or "files" in vars(self):
+            out["files"] = None if self.files is None else [x.to_json(omit_unset) for x in self.files]
+        if not omit_unset or "templateName" in vars(self):
+            out["templateName"] = self.templateName
+        if not omit_unset or "workspaceId" in vars(self):
+            out["workspaceId"] = self.workspaceId
         return out
 
 class v1LaunchCommandResponse:
@@ -5310,41 +5654,61 @@ class v1LaunchCommandResponse:
         return out
 
 class v1LaunchNotebookRequest:
+    config: "typing.Optional[typing.Dict[str, typing.Any]]" = None
+    files: "typing.Optional[typing.Sequence[v1File]]" = None
+    preview: "typing.Optional[bool]" = None
+    templateName: "typing.Optional[str]" = None
+    workspaceId: "typing.Optional[int]" = None
 
     def __init__(
         self,
         *,
-        config: "typing.Dict[str, typing.Any]",
-        files: "typing.Sequence[v1File]",
-        preview: bool,
-        templateName: str,
-        workspaceId: int,
+        config: "typing.Union[typing.Dict[str, typing.Any], None, Unset]" = _unset,
+        files: "typing.Union[typing.Sequence[v1File], None, Unset]" = _unset,
+        preview: "typing.Union[bool, None, Unset]" = _unset,
+        templateName: "typing.Union[str, None, Unset]" = _unset,
+        workspaceId: "typing.Union[int, None, Unset]" = _unset,
     ):
-        self.config = config
-        self.files = files
-        self.preview = preview
-        self.templateName = templateName
-        self.workspaceId = workspaceId
+        if not isinstance(config, Unset):
+            self.config = config
+        if not isinstance(files, Unset):
+            self.files = files
+        if not isinstance(preview, Unset):
+            self.preview = preview
+        if not isinstance(templateName, Unset):
+            self.templateName = templateName
+        if not isinstance(workspaceId, Unset):
+            self.workspaceId = workspaceId
 
     @classmethod
     def from_json(cls, obj: Json) -> "v1LaunchNotebookRequest":
         kwargs: "typing.Dict[str, typing.Any]" = {
-            "config": obj["config"],
-            "files": [v1File.from_json(x) for x in obj["files"]],
-            "preview": obj["preview"],
-            "templateName": obj["templateName"],
-            "workspaceId": obj["workspaceId"],
         }
+        if "config" in obj:
+            kwargs["config"] = obj["config"]
+        if "files" in obj:
+            kwargs["files"] = [v1File.from_json(x) for x in obj["files"]] if obj["files"] is not None else None
+        if "preview" in obj:
+            kwargs["preview"] = obj["preview"]
+        if "templateName" in obj:
+            kwargs["templateName"] = obj["templateName"]
+        if "workspaceId" in obj:
+            kwargs["workspaceId"] = obj["workspaceId"]
         return cls(**kwargs)
 
     def to_json(self, omit_unset: bool = False) -> typing.Dict[str, typing.Any]:
         out: "typing.Dict[str, typing.Any]" = {
-            "config": self.config,
-            "files": [x.to_json(omit_unset) for x in self.files],
-            "preview": self.preview,
-            "templateName": self.templateName,
-            "workspaceId": self.workspaceId,
         }
+        if not omit_unset or "config" in vars(self):
+            out["config"] = self.config
+        if not omit_unset or "files" in vars(self):
+            out["files"] = None if self.files is None else [x.to_json(omit_unset) for x in self.files]
+        if not omit_unset or "preview" in vars(self):
+            out["preview"] = self.preview
+        if not omit_unset or "templateName" in vars(self):
+            out["templateName"] = self.templateName
+        if not omit_unset or "workspaceId" in vars(self):
+            out["workspaceId"] = self.workspaceId
         return out
 
 class v1LaunchNotebookResponse:
@@ -5382,41 +5746,61 @@ class v1LaunchNotebookResponse:
         return out
 
 class v1LaunchShellRequest:
+    config: "typing.Optional[typing.Dict[str, typing.Any]]" = None
+    data: "typing.Optional[str]" = None
+    files: "typing.Optional[typing.Sequence[v1File]]" = None
+    templateName: "typing.Optional[str]" = None
+    workspaceId: "typing.Optional[int]" = None
 
     def __init__(
         self,
         *,
-        config: "typing.Dict[str, typing.Any]",
-        data: str,
-        files: "typing.Sequence[v1File]",
-        templateName: str,
-        workspaceId: int,
+        config: "typing.Union[typing.Dict[str, typing.Any], None, Unset]" = _unset,
+        data: "typing.Union[str, None, Unset]" = _unset,
+        files: "typing.Union[typing.Sequence[v1File], None, Unset]" = _unset,
+        templateName: "typing.Union[str, None, Unset]" = _unset,
+        workspaceId: "typing.Union[int, None, Unset]" = _unset,
     ):
-        self.config = config
-        self.data = data
-        self.files = files
-        self.templateName = templateName
-        self.workspaceId = workspaceId
+        if not isinstance(config, Unset):
+            self.config = config
+        if not isinstance(data, Unset):
+            self.data = data
+        if not isinstance(files, Unset):
+            self.files = files
+        if not isinstance(templateName, Unset):
+            self.templateName = templateName
+        if not isinstance(workspaceId, Unset):
+            self.workspaceId = workspaceId
 
     @classmethod
     def from_json(cls, obj: Json) -> "v1LaunchShellRequest":
         kwargs: "typing.Dict[str, typing.Any]" = {
-            "config": obj["config"],
-            "data": obj["data"],
-            "files": [v1File.from_json(x) for x in obj["files"]],
-            "templateName": obj["templateName"],
-            "workspaceId": obj["workspaceId"],
         }
+        if "config" in obj:
+            kwargs["config"] = obj["config"]
+        if "data" in obj:
+            kwargs["data"] = obj["data"]
+        if "files" in obj:
+            kwargs["files"] = [v1File.from_json(x) for x in obj["files"]] if obj["files"] is not None else None
+        if "templateName" in obj:
+            kwargs["templateName"] = obj["templateName"]
+        if "workspaceId" in obj:
+            kwargs["workspaceId"] = obj["workspaceId"]
         return cls(**kwargs)
 
     def to_json(self, omit_unset: bool = False) -> typing.Dict[str, typing.Any]:
         out: "typing.Dict[str, typing.Any]" = {
-            "config": self.config,
-            "data": self.data,
-            "files": [x.to_json(omit_unset) for x in self.files],
-            "templateName": self.templateName,
-            "workspaceId": self.workspaceId,
         }
+        if not omit_unset or "config" in vars(self):
+            out["config"] = self.config
+        if not omit_unset or "data" in vars(self):
+            out["data"] = self.data
+        if not omit_unset or "files" in vars(self):
+            out["files"] = None if self.files is None else [x.to_json(omit_unset) for x in self.files]
+        if not omit_unset or "templateName" in vars(self):
+            out["templateName"] = self.templateName
+        if not omit_unset or "workspaceId" in vars(self):
+            out["workspaceId"] = self.workspaceId
         return out
 
 class v1LaunchShellResponse:
@@ -5454,49 +5838,77 @@ class v1LaunchShellResponse:
         return out
 
 class v1LaunchTensorboardRequest:
+    config: "typing.Optional[typing.Dict[str, typing.Any]]" = None
+    experimentIds: "typing.Optional[typing.Sequence[int]]" = None
+    files: "typing.Optional[typing.Sequence[v1File]]" = None
+    filters: "typing.Optional[v1BulkExperimentFilters]" = None
+    templateName: "typing.Optional[str]" = None
+    trialIds: "typing.Optional[typing.Sequence[int]]" = None
+    workspaceId: "typing.Optional[int]" = None
 
     def __init__(
         self,
         *,
-        config: "typing.Dict[str, typing.Any]",
-        experimentIds: "typing.Sequence[int]",
-        files: "typing.Sequence[v1File]",
-        filters: "v1BulkExperimentFilters",
-        templateName: str,
-        trialIds: "typing.Sequence[int]",
-        workspaceId: int,
+        config: "typing.Union[typing.Dict[str, typing.Any], None, Unset]" = _unset,
+        experimentIds: "typing.Union[typing.Sequence[int], None, Unset]" = _unset,
+        files: "typing.Union[typing.Sequence[v1File], None, Unset]" = _unset,
+        filters: "typing.Union[v1BulkExperimentFilters, None, Unset]" = _unset,
+        templateName: "typing.Union[str, None, Unset]" = _unset,
+        trialIds: "typing.Union[typing.Sequence[int], None, Unset]" = _unset,
+        workspaceId: "typing.Union[int, None, Unset]" = _unset,
     ):
-        self.config = config
-        self.experimentIds = experimentIds
-        self.files = files
-        self.filters = filters
-        self.templateName = templateName
-        self.trialIds = trialIds
-        self.workspaceId = workspaceId
+        if not isinstance(config, Unset):
+            self.config = config
+        if not isinstance(experimentIds, Unset):
+            self.experimentIds = experimentIds
+        if not isinstance(files, Unset):
+            self.files = files
+        if not isinstance(filters, Unset):
+            self.filters = filters
+        if not isinstance(templateName, Unset):
+            self.templateName = templateName
+        if not isinstance(trialIds, Unset):
+            self.trialIds = trialIds
+        if not isinstance(workspaceId, Unset):
+            self.workspaceId = workspaceId
 
     @classmethod
     def from_json(cls, obj: Json) -> "v1LaunchTensorboardRequest":
         kwargs: "typing.Dict[str, typing.Any]" = {
-            "config": obj["config"],
-            "experimentIds": obj["experimentIds"],
-            "files": [v1File.from_json(x) for x in obj["files"]],
-            "filters": v1BulkExperimentFilters.from_json(obj["filters"]),
-            "templateName": obj["templateName"],
-            "trialIds": obj["trialIds"],
-            "workspaceId": obj["workspaceId"],
         }
+        if "config" in obj:
+            kwargs["config"] = obj["config"]
+        if "experimentIds" in obj:
+            kwargs["experimentIds"] = obj["experimentIds"]
+        if "files" in obj:
+            kwargs["files"] = [v1File.from_json(x) for x in obj["files"]] if obj["files"] is not None else None
+        if "filters" in obj:
+            kwargs["filters"] = v1BulkExperimentFilters.from_json(obj["filters"]) if obj["filters"] is not None else None
+        if "templateName" in obj:
+            kwargs["templateName"] = obj["templateName"]
+        if "trialIds" in obj:
+            kwargs["trialIds"] = obj["trialIds"]
+        if "workspaceId" in obj:
+            kwargs["workspaceId"] = obj["workspaceId"]
         return cls(**kwargs)
 
     def to_json(self, omit_unset: bool = False) -> typing.Dict[str, typing.Any]:
         out: "typing.Dict[str, typing.Any]" = {
-            "config": self.config,
-            "experimentIds": self.experimentIds,
-            "files": [x.to_json(omit_unset) for x in self.files],
-            "filters": self.filters.to_json(omit_unset),
-            "templateName": self.templateName,
-            "trialIds": self.trialIds,
-            "workspaceId": self.workspaceId,
         }
+        if not omit_unset or "config" in vars(self):
+            out["config"] = self.config
+        if not omit_unset or "experimentIds" in vars(self):
+            out["experimentIds"] = self.experimentIds
+        if not omit_unset or "files" in vars(self):
+            out["files"] = None if self.files is None else [x.to_json(omit_unset) for x in self.files]
+        if not omit_unset or "filters" in vars(self):
+            out["filters"] = None if self.filters is None else self.filters.to_json(omit_unset)
+        if not omit_unset or "templateName" in vars(self):
+            out["templateName"] = self.templateName
+        if not omit_unset or "trialIds" in vars(self):
+            out["trialIds"] = self.trialIds
+        if not omit_unset or "workspaceId" in vars(self):
+            out["workspaceId"] = self.workspaceId
         return out
 
 class v1LaunchTensorboardResponse:
@@ -6549,49 +6961,77 @@ class v1PatchExperimentResponse:
         return out
 
 class v1PatchModel:
+    description: "typing.Optional[str]" = None
+    labels: "typing.Optional[typing.Sequence[str]]" = None
+    metadata: "typing.Optional[typing.Dict[str, typing.Any]]" = None
+    name: "typing.Optional[str]" = None
+    notes: "typing.Optional[str]" = None
+    workspaceId: "typing.Optional[int]" = None
+    workspaceName: "typing.Optional[str]" = None
 
     def __init__(
         self,
         *,
-        description: str,
-        labels: "typing.Sequence[str]",
-        metadata: "typing.Dict[str, typing.Any]",
-        name: str,
-        notes: str,
-        workspaceId: int,
-        workspaceName: str,
+        description: "typing.Union[str, None, Unset]" = _unset,
+        labels: "typing.Union[typing.Sequence[str], None, Unset]" = _unset,
+        metadata: "typing.Union[typing.Dict[str, typing.Any], None, Unset]" = _unset,
+        name: "typing.Union[str, None, Unset]" = _unset,
+        notes: "typing.Union[str, None, Unset]" = _unset,
+        workspaceId: "typing.Union[int, None, Unset]" = _unset,
+        workspaceName: "typing.Union[str, None, Unset]" = _unset,
     ):
-        self.description = description
-        self.labels = labels
-        self.metadata = metadata
-        self.name = name
-        self.notes = notes
-        self.workspaceId = workspaceId
-        self.workspaceName = workspaceName
+        if not isinstance(description, Unset):
+            self.description = description
+        if not isinstance(labels, Unset):
+            self.labels = labels
+        if not isinstance(metadata, Unset):
+            self.metadata = metadata
+        if not isinstance(name, Unset):
+            self.name = name
+        if not isinstance(notes, Unset):
+            self.notes = notes
+        if not isinstance(workspaceId, Unset):
+            self.workspaceId = workspaceId
+        if not isinstance(workspaceName, Unset):
+            self.workspaceName = workspaceName
 
     @classmethod
     def from_json(cls, obj: Json) -> "v1PatchModel":
         kwargs: "typing.Dict[str, typing.Any]" = {
-            "description": obj["description"],
-            "labels": obj["labels"],
-            "metadata": obj["metadata"],
-            "name": obj["name"],
-            "notes": obj["notes"],
-            "workspaceId": obj["workspaceId"],
-            "workspaceName": obj["workspaceName"],
         }
+        if "description" in obj:
+            kwargs["description"] = obj["description"]
+        if "labels" in obj:
+            kwargs["labels"] = obj["labels"]
+        if "metadata" in obj:
+            kwargs["metadata"] = obj["metadata"]
+        if "name" in obj:
+            kwargs["name"] = obj["name"]
+        if "notes" in obj:
+            kwargs["notes"] = obj["notes"]
+        if "workspaceId" in obj:
+            kwargs["workspaceId"] = obj["workspaceId"]
+        if "workspaceName" in obj:
+            kwargs["workspaceName"] = obj["workspaceName"]
         return cls(**kwargs)
 
     def to_json(self, omit_unset: bool = False) -> typing.Dict[str, typing.Any]:
         out: "typing.Dict[str, typing.Any]" = {
-            "description": self.description,
-            "labels": self.labels,
-            "metadata": self.metadata,
-            "name": self.name,
-            "notes": self.notes,
-            "workspaceId": self.workspaceId,
-            "workspaceName": self.workspaceName,
         }
+        if not omit_unset or "description" in vars(self):
+            out["description"] = self.description
+        if not omit_unset or "labels" in vars(self):
+            out["labels"] = self.labels
+        if not omit_unset or "metadata" in vars(self):
+            out["metadata"] = self.metadata
+        if not omit_unset or "name" in vars(self):
+            out["name"] = self.name
+        if not omit_unset or "notes" in vars(self):
+            out["notes"] = self.notes
+        if not omit_unset or "workspaceId" in vars(self):
+            out["workspaceId"] = self.workspaceId
+        if not omit_unset or "workspaceName" in vars(self):
+            out["workspaceName"] = self.workspaceName
         return out
 
 class v1PatchModelResponse:
@@ -6617,45 +7057,69 @@ class v1PatchModelResponse:
         return out
 
 class v1PatchModelVersion:
+    checkpoint: "typing.Optional[v1Checkpoint]" = None
+    comment: "typing.Optional[str]" = None
+    labels: "typing.Optional[typing.Sequence[str]]" = None
+    metadata: "typing.Optional[typing.Dict[str, typing.Any]]" = None
+    name: "typing.Optional[str]" = None
+    notes: "typing.Optional[str]" = None
 
     def __init__(
         self,
         *,
-        checkpoint: "v1Checkpoint",
-        comment: str,
-        labels: "typing.Sequence[str]",
-        metadata: "typing.Dict[str, typing.Any]",
-        name: str,
-        notes: str,
+        checkpoint: "typing.Union[v1Checkpoint, None, Unset]" = _unset,
+        comment: "typing.Union[str, None, Unset]" = _unset,
+        labels: "typing.Union[typing.Sequence[str], None, Unset]" = _unset,
+        metadata: "typing.Union[typing.Dict[str, typing.Any], None, Unset]" = _unset,
+        name: "typing.Union[str, None, Unset]" = _unset,
+        notes: "typing.Union[str, None, Unset]" = _unset,
     ):
-        self.checkpoint = checkpoint
-        self.comment = comment
-        self.labels = labels
-        self.metadata = metadata
-        self.name = name
-        self.notes = notes
+        if not isinstance(checkpoint, Unset):
+            self.checkpoint = checkpoint
+        if not isinstance(comment, Unset):
+            self.comment = comment
+        if not isinstance(labels, Unset):
+            self.labels = labels
+        if not isinstance(metadata, Unset):
+            self.metadata = metadata
+        if not isinstance(name, Unset):
+            self.name = name
+        if not isinstance(notes, Unset):
+            self.notes = notes
 
     @classmethod
     def from_json(cls, obj: Json) -> "v1PatchModelVersion":
         kwargs: "typing.Dict[str, typing.Any]" = {
-            "checkpoint": v1Checkpoint.from_json(obj["checkpoint"]),
-            "comment": obj["comment"],
-            "labels": obj["labels"],
-            "metadata": obj["metadata"],
-            "name": obj["name"],
-            "notes": obj["notes"],
         }
+        if "checkpoint" in obj:
+            kwargs["checkpoint"] = v1Checkpoint.from_json(obj["checkpoint"]) if obj["checkpoint"] is not None else None
+        if "comment" in obj:
+            kwargs["comment"] = obj["comment"]
+        if "labels" in obj:
+            kwargs["labels"] = obj["labels"]
+        if "metadata" in obj:
+            kwargs["metadata"] = obj["metadata"]
+        if "name" in obj:
+            kwargs["name"] = obj["name"]
+        if "notes" in obj:
+            kwargs["notes"] = obj["notes"]
         return cls(**kwargs)
 
     def to_json(self, omit_unset: bool = False) -> typing.Dict[str, typing.Any]:
         out: "typing.Dict[str, typing.Any]" = {
-            "checkpoint": self.checkpoint.to_json(omit_unset),
-            "comment": self.comment,
-            "labels": self.labels,
-            "metadata": self.metadata,
-            "name": self.name,
-            "notes": self.notes,
         }
+        if not omit_unset or "checkpoint" in vars(self):
+            out["checkpoint"] = None if self.checkpoint is None else self.checkpoint.to_json(omit_unset)
+        if not omit_unset or "comment" in vars(self):
+            out["comment"] = self.comment
+        if not omit_unset or "labels" in vars(self):
+            out["labels"] = self.labels
+        if not omit_unset or "metadata" in vars(self):
+            out["metadata"] = self.metadata
+        if not omit_unset or "name" in vars(self):
+            out["name"] = self.name
+        if not omit_unset or "notes" in vars(self):
+            out["notes"] = self.notes
         return out
 
 class v1PatchModelVersionResponse:
@@ -6681,29 +7145,37 @@ class v1PatchModelVersionResponse:
         return out
 
 class v1PatchProject:
+    description: "typing.Optional[str]" = None
+    name: "typing.Optional[str]" = None
 
     def __init__(
         self,
         *,
-        description: str,
-        name: str,
+        description: "typing.Union[str, None, Unset]" = _unset,
+        name: "typing.Union[str, None, Unset]" = _unset,
     ):
-        self.description = description
-        self.name = name
+        if not isinstance(description, Unset):
+            self.description = description
+        if not isinstance(name, Unset):
+            self.name = name
 
     @classmethod
     def from_json(cls, obj: Json) -> "v1PatchProject":
         kwargs: "typing.Dict[str, typing.Any]" = {
-            "description": obj["description"],
-            "name": obj["name"],
         }
+        if "description" in obj:
+            kwargs["description"] = obj["description"]
+        if "name" in obj:
+            kwargs["name"] = obj["name"]
         return cls(**kwargs)
 
     def to_json(self, omit_unset: bool = False) -> typing.Dict[str, typing.Any]:
         out: "typing.Dict[str, typing.Any]" = {
-            "description": self.description,
-            "name": self.name,
         }
+        if not omit_unset or "description" in vars(self):
+            out["description"] = self.description
+        if not omit_unset or "name" in vars(self):
+            out["name"] = self.name
         return out
 
 class v1PatchProjectResponse:
@@ -6797,53 +7269,85 @@ class v1PatchTrialsCollectionResponse:
         return out
 
 class v1PatchUser:
+    active: "typing.Optional[bool]" = None
+    admin: "typing.Optional[bool]" = None
+    agentUserGroup: "typing.Optional[v1AgentUserGroup]" = None
+    displayName: "typing.Optional[str]" = None
+    isHashed: "typing.Optional[bool]" = None
+    password: "typing.Optional[str]" = None
+    remote: "typing.Optional[bool]" = None
+    username: "typing.Optional[str]" = None
 
     def __init__(
         self,
         *,
-        active: bool,
-        admin: bool,
-        agentUserGroup: "v1AgentUserGroup",
-        displayName: str,
-        isHashed: bool,
-        password: str,
-        remote: bool,
-        username: str,
+        active: "typing.Union[bool, None, Unset]" = _unset,
+        admin: "typing.Union[bool, None, Unset]" = _unset,
+        agentUserGroup: "typing.Union[v1AgentUserGroup, None, Unset]" = _unset,
+        displayName: "typing.Union[str, None, Unset]" = _unset,
+        isHashed: "typing.Union[bool, None, Unset]" = _unset,
+        password: "typing.Union[str, None, Unset]" = _unset,
+        remote: "typing.Union[bool, None, Unset]" = _unset,
+        username: "typing.Union[str, None, Unset]" = _unset,
     ):
-        self.active = active
-        self.admin = admin
-        self.agentUserGroup = agentUserGroup
-        self.displayName = displayName
-        self.isHashed = isHashed
-        self.password = password
-        self.remote = remote
-        self.username = username
+        if not isinstance(active, Unset):
+            self.active = active
+        if not isinstance(admin, Unset):
+            self.admin = admin
+        if not isinstance(agentUserGroup, Unset):
+            self.agentUserGroup = agentUserGroup
+        if not isinstance(displayName, Unset):
+            self.displayName = displayName
+        if not isinstance(isHashed, Unset):
+            self.isHashed = isHashed
+        if not isinstance(password, Unset):
+            self.password = password
+        if not isinstance(remote, Unset):
+            self.remote = remote
+        if not isinstance(username, Unset):
+            self.username = username
 
     @classmethod
     def from_json(cls, obj: Json) -> "v1PatchUser":
         kwargs: "typing.Dict[str, typing.Any]" = {
-            "active": obj["active"],
-            "admin": obj["admin"],
-            "agentUserGroup": v1AgentUserGroup.from_json(obj["agentUserGroup"]),
-            "displayName": obj["displayName"],
-            "isHashed": obj["isHashed"],
-            "password": obj["password"],
-            "remote": obj["remote"],
-            "username": obj["username"],
         }
+        if "active" in obj:
+            kwargs["active"] = obj["active"]
+        if "admin" in obj:
+            kwargs["admin"] = obj["admin"]
+        if "agentUserGroup" in obj:
+            kwargs["agentUserGroup"] = v1AgentUserGroup.from_json(obj["agentUserGroup"]) if obj["agentUserGroup"] is not None else None
+        if "displayName" in obj:
+            kwargs["displayName"] = obj["displayName"]
+        if "isHashed" in obj:
+            kwargs["isHashed"] = obj["isHashed"]
+        if "password" in obj:
+            kwargs["password"] = obj["password"]
+        if "remote" in obj:
+            kwargs["remote"] = obj["remote"]
+        if "username" in obj:
+            kwargs["username"] = obj["username"]
         return cls(**kwargs)
 
     def to_json(self, omit_unset: bool = False) -> typing.Dict[str, typing.Any]:
         out: "typing.Dict[str, typing.Any]" = {
-            "active": self.active,
-            "admin": self.admin,
-            "agentUserGroup": self.agentUserGroup.to_json(omit_unset),
-            "displayName": self.displayName,
-            "isHashed": self.isHashed,
-            "password": self.password,
-            "remote": self.remote,
-            "username": self.username,
         }
+        if not omit_unset or "active" in vars(self):
+            out["active"] = self.active
+        if not omit_unset or "admin" in vars(self):
+            out["admin"] = self.admin
+        if not omit_unset or "agentUserGroup" in vars(self):
+            out["agentUserGroup"] = None if self.agentUserGroup is None else self.agentUserGroup.to_json(omit_unset)
+        if not omit_unset or "displayName" in vars(self):
+            out["displayName"] = self.displayName
+        if not omit_unset or "isHashed" in vars(self):
+            out["isHashed"] = self.isHashed
+        if not omit_unset or "password" in vars(self):
+            out["password"] = self.password
+        if not omit_unset or "remote" in vars(self):
+            out["remote"] = self.remote
+        if not omit_unset or "username" in vars(self):
+            out["username"] = self.username
         return out
 
 class v1PatchUserResponse:
@@ -6869,33 +7373,45 @@ class v1PatchUserResponse:
         return out
 
 class v1PatchWorkspace:
+    agentUserGroup: "typing.Optional[v1AgentUserGroup]" = None
+    checkpointStorageConfig: "typing.Optional[typing.Dict[str, typing.Any]]" = None
+    name: "typing.Optional[str]" = None
 
     def __init__(
         self,
         *,
-        agentUserGroup: "v1AgentUserGroup",
-        checkpointStorageConfig: "typing.Dict[str, typing.Any]",
-        name: str,
+        agentUserGroup: "typing.Union[v1AgentUserGroup, None, Unset]" = _unset,
+        checkpointStorageConfig: "typing.Union[typing.Dict[str, typing.Any], None, Unset]" = _unset,
+        name: "typing.Union[str, None, Unset]" = _unset,
     ):
-        self.agentUserGroup = agentUserGroup
-        self.checkpointStorageConfig = checkpointStorageConfig
-        self.name = name
+        if not isinstance(agentUserGroup, Unset):
+            self.agentUserGroup = agentUserGroup
+        if not isinstance(checkpointStorageConfig, Unset):
+            self.checkpointStorageConfig = checkpointStorageConfig
+        if not isinstance(name, Unset):
+            self.name = name
 
     @classmethod
     def from_json(cls, obj: Json) -> "v1PatchWorkspace":
         kwargs: "typing.Dict[str, typing.Any]" = {
-            "agentUserGroup": v1AgentUserGroup.from_json(obj["agentUserGroup"]),
-            "checkpointStorageConfig": obj["checkpointStorageConfig"],
-            "name": obj["name"],
         }
+        if "agentUserGroup" in obj:
+            kwargs["agentUserGroup"] = v1AgentUserGroup.from_json(obj["agentUserGroup"]) if obj["agentUserGroup"] is not None else None
+        if "checkpointStorageConfig" in obj:
+            kwargs["checkpointStorageConfig"] = obj["checkpointStorageConfig"]
+        if "name" in obj:
+            kwargs["name"] = obj["name"]
         return cls(**kwargs)
 
     def to_json(self, omit_unset: bool = False) -> typing.Dict[str, typing.Any]:
         out: "typing.Dict[str, typing.Any]" = {
-            "agentUserGroup": self.agentUserGroup.to_json(omit_unset),
-            "checkpointStorageConfig": self.checkpointStorageConfig,
-            "name": self.name,
         }
+        if not omit_unset or "agentUserGroup" in vars(self):
+            out["agentUserGroup"] = None if self.agentUserGroup is None else self.agentUserGroup.to_json(omit_unset)
+        if not omit_unset or "checkpointStorageConfig" in vars(self):
+            out["checkpointStorageConfig"] = self.checkpointStorageConfig
+        if not omit_unset or "name" in vars(self):
+            out["name"] = self.name
         return out
 
 class v1PatchWorkspaceResponse:
@@ -7045,85 +7561,113 @@ class v1PermissionType(enum.Enum):
     EDIT_WEBHOOKS = "PERMISSION_TYPE_EDIT_WEBHOOKS"
 
 class v1PolymorphicFilter:
+    doubleRange: "typing.Optional[v1DoubleFieldFilter]" = None
+    integerRange: "typing.Optional[v1Int32FieldFilter]" = None
+    name: "typing.Optional[str]" = None
+    timeRange: "typing.Optional[v1TimestampFieldFilter]" = None
 
     def __init__(
         self,
         *,
-        doubleRange: "v1DoubleFieldFilter",
-        integerRange: "v1Int32FieldFilter",
-        name: str,
-        timeRange: "v1TimestampFieldFilter",
+        doubleRange: "typing.Union[v1DoubleFieldFilter, None, Unset]" = _unset,
+        integerRange: "typing.Union[v1Int32FieldFilter, None, Unset]" = _unset,
+        name: "typing.Union[str, None, Unset]" = _unset,
+        timeRange: "typing.Union[v1TimestampFieldFilter, None, Unset]" = _unset,
     ):
-        self.doubleRange = doubleRange
-        self.integerRange = integerRange
-        self.name = name
-        self.timeRange = timeRange
+        if not isinstance(doubleRange, Unset):
+            self.doubleRange = doubleRange
+        if not isinstance(integerRange, Unset):
+            self.integerRange = integerRange
+        if not isinstance(name, Unset):
+            self.name = name
+        if not isinstance(timeRange, Unset):
+            self.timeRange = timeRange
 
     @classmethod
     def from_json(cls, obj: Json) -> "v1PolymorphicFilter":
         kwargs: "typing.Dict[str, typing.Any]" = {
-            "doubleRange": v1DoubleFieldFilter.from_json(obj["doubleRange"]),
-            "integerRange": v1Int32FieldFilter.from_json(obj["integerRange"]),
-            "name": obj["name"],
-            "timeRange": v1TimestampFieldFilter.from_json(obj["timeRange"]),
         }
+        if "doubleRange" in obj:
+            kwargs["doubleRange"] = v1DoubleFieldFilter.from_json(obj["doubleRange"]) if obj["doubleRange"] is not None else None
+        if "integerRange" in obj:
+            kwargs["integerRange"] = v1Int32FieldFilter.from_json(obj["integerRange"]) if obj["integerRange"] is not None else None
+        if "name" in obj:
+            kwargs["name"] = obj["name"]
+        if "timeRange" in obj:
+            kwargs["timeRange"] = v1TimestampFieldFilter.from_json(obj["timeRange"]) if obj["timeRange"] is not None else None
         return cls(**kwargs)
 
     def to_json(self, omit_unset: bool = False) -> typing.Dict[str, typing.Any]:
         out: "typing.Dict[str, typing.Any]" = {
-            "doubleRange": self.doubleRange.to_json(omit_unset),
-            "integerRange": self.integerRange.to_json(omit_unset),
-            "name": self.name,
-            "timeRange": self.timeRange.to_json(omit_unset),
         }
+        if not omit_unset or "doubleRange" in vars(self):
+            out["doubleRange"] = None if self.doubleRange is None else self.doubleRange.to_json(omit_unset)
+        if not omit_unset or "integerRange" in vars(self):
+            out["integerRange"] = None if self.integerRange is None else self.integerRange.to_json(omit_unset)
+        if not omit_unset or "name" in vars(self):
+            out["name"] = self.name
+        if not omit_unset or "timeRange" in vars(self):
+            out["timeRange"] = None if self.timeRange is None else self.timeRange.to_json(omit_unset)
         return out
 
 class v1PostAllocationProxyAddressRequest:
+    allocationId: "typing.Optional[str]" = None
+    proxyAddress: "typing.Optional[str]" = None
 
     def __init__(
         self,
         *,
-        allocationId: str,
-        proxyAddress: str,
+        allocationId: "typing.Union[str, None, Unset]" = _unset,
+        proxyAddress: "typing.Union[str, None, Unset]" = _unset,
     ):
-        self.allocationId = allocationId
-        self.proxyAddress = proxyAddress
+        if not isinstance(allocationId, Unset):
+            self.allocationId = allocationId
+        if not isinstance(proxyAddress, Unset):
+            self.proxyAddress = proxyAddress
 
     @classmethod
     def from_json(cls, obj: Json) -> "v1PostAllocationProxyAddressRequest":
         kwargs: "typing.Dict[str, typing.Any]" = {
-            "allocationId": obj["allocationId"],
-            "proxyAddress": obj["proxyAddress"],
         }
+        if "allocationId" in obj:
+            kwargs["allocationId"] = obj["allocationId"]
+        if "proxyAddress" in obj:
+            kwargs["proxyAddress"] = obj["proxyAddress"]
         return cls(**kwargs)
 
     def to_json(self, omit_unset: bool = False) -> typing.Dict[str, typing.Any]:
         out: "typing.Dict[str, typing.Any]" = {
-            "allocationId": self.allocationId,
-            "proxyAddress": self.proxyAddress,
         }
+        if not omit_unset or "allocationId" in vars(self):
+            out["allocationId"] = self.allocationId
+        if not omit_unset or "proxyAddress" in vars(self):
+            out["proxyAddress"] = self.proxyAddress
         return out
 
 class v1PostCheckpointMetadataRequest:
+    checkpoint: "typing.Optional[v1Checkpoint]" = None
 
     def __init__(
         self,
         *,
-        checkpoint: "v1Checkpoint",
+        checkpoint: "typing.Union[v1Checkpoint, None, Unset]" = _unset,
     ):
-        self.checkpoint = checkpoint
+        if not isinstance(checkpoint, Unset):
+            self.checkpoint = checkpoint
 
     @classmethod
     def from_json(cls, obj: Json) -> "v1PostCheckpointMetadataRequest":
         kwargs: "typing.Dict[str, typing.Any]" = {
-            "checkpoint": v1Checkpoint.from_json(obj["checkpoint"]),
         }
+        if "checkpoint" in obj:
+            kwargs["checkpoint"] = v1Checkpoint.from_json(obj["checkpoint"]) if obj["checkpoint"] is not None else None
         return cls(**kwargs)
 
     def to_json(self, omit_unset: bool = False) -> typing.Dict[str, typing.Any]:
         out: "typing.Dict[str, typing.Any]" = {
-            "checkpoint": self.checkpoint.to_json(omit_unset),
         }
+        if not omit_unset or "checkpoint" in vars(self):
+            out["checkpoint"] = None if self.checkpoint is None else self.checkpoint.to_json(omit_unset)
         return out
 
 class v1PostCheckpointMetadataResponse:
@@ -7385,33 +7929,45 @@ class v1PostProjectResponse:
         return out
 
 class v1PostSearcherOperationsRequest:
+    experimentId: "typing.Optional[int]" = None
+    searcherOperations: "typing.Optional[typing.Sequence[v1SearcherOperation]]" = None
+    triggeredByEvent: "typing.Optional[v1SearcherEvent]" = None
 
     def __init__(
         self,
         *,
-        experimentId: int,
-        searcherOperations: "typing.Sequence[v1SearcherOperation]",
-        triggeredByEvent: "v1SearcherEvent",
+        experimentId: "typing.Union[int, None, Unset]" = _unset,
+        searcherOperations: "typing.Union[typing.Sequence[v1SearcherOperation], None, Unset]" = _unset,
+        triggeredByEvent: "typing.Union[v1SearcherEvent, None, Unset]" = _unset,
     ):
-        self.experimentId = experimentId
-        self.searcherOperations = searcherOperations
-        self.triggeredByEvent = triggeredByEvent
+        if not isinstance(experimentId, Unset):
+            self.experimentId = experimentId
+        if not isinstance(searcherOperations, Unset):
+            self.searcherOperations = searcherOperations
+        if not isinstance(triggeredByEvent, Unset):
+            self.triggeredByEvent = triggeredByEvent
 
     @classmethod
     def from_json(cls, obj: Json) -> "v1PostSearcherOperationsRequest":
         kwargs: "typing.Dict[str, typing.Any]" = {
-            "experimentId": obj["experimentId"],
-            "searcherOperations": [v1SearcherOperation.from_json(x) for x in obj["searcherOperations"]],
-            "triggeredByEvent": v1SearcherEvent.from_json(obj["triggeredByEvent"]),
         }
+        if "experimentId" in obj:
+            kwargs["experimentId"] = obj["experimentId"]
+        if "searcherOperations" in obj:
+            kwargs["searcherOperations"] = [v1SearcherOperation.from_json(x) for x in obj["searcherOperations"]] if obj["searcherOperations"] is not None else None
+        if "triggeredByEvent" in obj:
+            kwargs["triggeredByEvent"] = v1SearcherEvent.from_json(obj["triggeredByEvent"]) if obj["triggeredByEvent"] is not None else None
         return cls(**kwargs)
 
     def to_json(self, omit_unset: bool = False) -> typing.Dict[str, typing.Any]:
         out: "typing.Dict[str, typing.Any]" = {
-            "experimentId": self.experimentId,
-            "searcherOperations": [x.to_json(omit_unset) for x in self.searcherOperations],
-            "triggeredByEvent": self.triggeredByEvent.to_json(omit_unset),
         }
+        if not omit_unset or "experimentId" in vars(self):
+            out["experimentId"] = self.experimentId
+        if not omit_unset or "searcherOperations" in vars(self):
+            out["searcherOperations"] = None if self.searcherOperations is None else [x.to_json(omit_unset) for x in self.searcherOperations]
+        if not omit_unset or "triggeredByEvent" in vars(self):
+            out["triggeredByEvent"] = None if self.triggeredByEvent is None else self.triggeredByEvent.to_json(omit_unset)
         return out
 
 class v1PostTrialProfilerMetricsBatchRequest:
@@ -7471,33 +8027,45 @@ class v1PostUserActivityRequest:
         return out
 
 class v1PostUserRequest:
+    isHashed: "typing.Optional[bool]" = None
+    password: "typing.Optional[str]" = None
+    user: "typing.Optional[v1User]" = None
 
     def __init__(
         self,
         *,
-        isHashed: bool,
-        password: str,
-        user: "v1User",
+        isHashed: "typing.Union[bool, None, Unset]" = _unset,
+        password: "typing.Union[str, None, Unset]" = _unset,
+        user: "typing.Union[v1User, None, Unset]" = _unset,
     ):
-        self.isHashed = isHashed
-        self.password = password
-        self.user = user
+        if not isinstance(isHashed, Unset):
+            self.isHashed = isHashed
+        if not isinstance(password, Unset):
+            self.password = password
+        if not isinstance(user, Unset):
+            self.user = user
 
     @classmethod
     def from_json(cls, obj: Json) -> "v1PostUserRequest":
         kwargs: "typing.Dict[str, typing.Any]" = {
-            "isHashed": obj["isHashed"],
-            "password": obj["password"],
-            "user": v1User.from_json(obj["user"]),
         }
+        if "isHashed" in obj:
+            kwargs["isHashed"] = obj["isHashed"]
+        if "password" in obj:
+            kwargs["password"] = obj["password"]
+        if "user" in obj:
+            kwargs["user"] = v1User.from_json(obj["user"]) if obj["user"] is not None else None
         return cls(**kwargs)
 
     def to_json(self, omit_unset: bool = False) -> typing.Dict[str, typing.Any]:
         out: "typing.Dict[str, typing.Any]" = {
-            "isHashed": self.isHashed,
-            "password": self.password,
-            "user": self.user.to_json(omit_unset),
         }
+        if not omit_unset or "isHashed" in vars(self):
+            out["isHashed"] = self.isHashed
+        if not omit_unset or "password" in vars(self):
+            out["password"] = self.password
+        if not omit_unset or "user" in vars(self):
+            out["user"] = None if self.user is None else self.user.to_json(omit_unset)
         return out
 
 class v1PostUserResponse:
@@ -7631,29 +8199,37 @@ class v1PostWorkspaceResponse:
         return out
 
 class v1PreviewHPSearchRequest:
+    config: "typing.Optional[typing.Dict[str, typing.Any]]" = None
+    seed: "typing.Optional[int]" = None
 
     def __init__(
         self,
         *,
-        config: "typing.Dict[str, typing.Any]",
-        seed: int,
+        config: "typing.Union[typing.Dict[str, typing.Any], None, Unset]" = _unset,
+        seed: "typing.Union[int, None, Unset]" = _unset,
     ):
-        self.config = config
-        self.seed = seed
+        if not isinstance(config, Unset):
+            self.config = config
+        if not isinstance(seed, Unset):
+            self.seed = seed
 
     @classmethod
     def from_json(cls, obj: Json) -> "v1PreviewHPSearchRequest":
         kwargs: "typing.Dict[str, typing.Any]" = {
-            "config": obj["config"],
-            "seed": obj["seed"],
         }
+        if "config" in obj:
+            kwargs["config"] = obj["config"]
+        if "seed" in obj:
+            kwargs["seed"] = obj["seed"]
         return cls(**kwargs)
 
     def to_json(self, omit_unset: bool = False) -> typing.Dict[str, typing.Any]:
         out: "typing.Dict[str, typing.Any]" = {
-            "config": self.config,
-            "seed": self.seed,
         }
+        if not omit_unset or "config" in vars(self):
+            out["config"] = self.config
+        if not omit_unset or "seed" in vars(self):
+            out["seed"] = self.seed
         return out
 
 class v1PreviewHPSearchResponse:
@@ -7769,37 +8345,53 @@ class v1Project:
         return out
 
 class v1ProxyPortConfig:
+    port: "typing.Optional[int]" = None
+    proxyTcp: "typing.Optional[bool]" = None
+    serviceId: "typing.Optional[str]" = None
+    unauthenticated: "typing.Optional[bool]" = None
 
     def __init__(
         self,
         *,
-        port: int,
-        proxyTcp: bool,
-        serviceId: str,
-        unauthenticated: bool,
+        port: "typing.Union[int, None, Unset]" = _unset,
+        proxyTcp: "typing.Union[bool, None, Unset]" = _unset,
+        serviceId: "typing.Union[str, None, Unset]" = _unset,
+        unauthenticated: "typing.Union[bool, None, Unset]" = _unset,
     ):
-        self.port = port
-        self.proxyTcp = proxyTcp
-        self.serviceId = serviceId
-        self.unauthenticated = unauthenticated
+        if not isinstance(port, Unset):
+            self.port = port
+        if not isinstance(proxyTcp, Unset):
+            self.proxyTcp = proxyTcp
+        if not isinstance(serviceId, Unset):
+            self.serviceId = serviceId
+        if not isinstance(unauthenticated, Unset):
+            self.unauthenticated = unauthenticated
 
     @classmethod
     def from_json(cls, obj: Json) -> "v1ProxyPortConfig":
         kwargs: "typing.Dict[str, typing.Any]" = {
-            "port": obj["port"],
-            "proxyTcp": obj["proxyTcp"],
-            "serviceId": obj["serviceId"],
-            "unauthenticated": obj["unauthenticated"],
         }
+        if "port" in obj:
+            kwargs["port"] = obj["port"]
+        if "proxyTcp" in obj:
+            kwargs["proxyTcp"] = obj["proxyTcp"]
+        if "serviceId" in obj:
+            kwargs["serviceId"] = obj["serviceId"]
+        if "unauthenticated" in obj:
+            kwargs["unauthenticated"] = obj["unauthenticated"]
         return cls(**kwargs)
 
     def to_json(self, omit_unset: bool = False) -> typing.Dict[str, typing.Any]:
         out: "typing.Dict[str, typing.Any]" = {
-            "port": self.port,
-            "proxyTcp": self.proxyTcp,
-            "serviceId": self.serviceId,
-            "unauthenticated": self.unauthenticated,
         }
+        if not omit_unset or "port" in vars(self):
+            out["port"] = self.port
+        if not omit_unset or "proxyTcp" in vars(self):
+            out["proxyTcp"] = self.proxyTcp
+        if not omit_unset or "serviceId" in vars(self):
+            out["serviceId"] = self.serviceId
+        if not omit_unset or "unauthenticated" in vars(self):
+            out["unauthenticated"] = self.unauthenticated
         return out
 
 class v1PutProjectNotesRequest:
@@ -8063,29 +8655,37 @@ class v1RPQueueStat:
         return out
 
 class v1RemoveAssignmentsRequest:
+    groupRoleAssignments: "typing.Optional[typing.Sequence[v1GroupRoleAssignment]]" = None
+    userRoleAssignments: "typing.Optional[typing.Sequence[v1UserRoleAssignment]]" = None
 
     def __init__(
         self,
         *,
-        groupRoleAssignments: "typing.Sequence[v1GroupRoleAssignment]",
-        userRoleAssignments: "typing.Sequence[v1UserRoleAssignment]",
+        groupRoleAssignments: "typing.Union[typing.Sequence[v1GroupRoleAssignment], None, Unset]" = _unset,
+        userRoleAssignments: "typing.Union[typing.Sequence[v1UserRoleAssignment], None, Unset]" = _unset,
     ):
-        self.groupRoleAssignments = groupRoleAssignments
-        self.userRoleAssignments = userRoleAssignments
+        if not isinstance(groupRoleAssignments, Unset):
+            self.groupRoleAssignments = groupRoleAssignments
+        if not isinstance(userRoleAssignments, Unset):
+            self.userRoleAssignments = userRoleAssignments
 
     @classmethod
     def from_json(cls, obj: Json) -> "v1RemoveAssignmentsRequest":
         kwargs: "typing.Dict[str, typing.Any]" = {
-            "groupRoleAssignments": [v1GroupRoleAssignment.from_json(x) for x in obj["groupRoleAssignments"]],
-            "userRoleAssignments": [v1UserRoleAssignment.from_json(x) for x in obj["userRoleAssignments"]],
         }
+        if "groupRoleAssignments" in obj:
+            kwargs["groupRoleAssignments"] = [v1GroupRoleAssignment.from_json(x) for x in obj["groupRoleAssignments"]] if obj["groupRoleAssignments"] is not None else None
+        if "userRoleAssignments" in obj:
+            kwargs["userRoleAssignments"] = [v1UserRoleAssignment.from_json(x) for x in obj["userRoleAssignments"]] if obj["userRoleAssignments"] is not None else None
         return cls(**kwargs)
 
     def to_json(self, omit_unset: bool = False) -> typing.Dict[str, typing.Any]:
         out: "typing.Dict[str, typing.Any]" = {
-            "groupRoleAssignments": [x.to_json(omit_unset) for x in self.groupRoleAssignments],
-            "userRoleAssignments": [x.to_json(omit_unset) for x in self.userRoleAssignments],
         }
+        if not omit_unset or "groupRoleAssignments" in vars(self):
+            out["groupRoleAssignments"] = None if self.groupRoleAssignments is None else [x.to_json(omit_unset) for x in self.groupRoleAssignments]
+        if not omit_unset or "userRoleAssignments" in vars(self):
+            out["userRoleAssignments"] = None if self.userRoleAssignments is None else [x.to_json(omit_unset) for x in self.userRoleAssignments]
         return out
 
 class v1RendezvousInfo:
@@ -8192,57 +8792,93 @@ class v1ResourceAllocationAggregationPeriod(enum.Enum):
     MONTHLY = "RESOURCE_ALLOCATION_AGGREGATION_PERIOD_MONTHLY"
 
 class v1ResourceAllocationRawEntry:
+    endTime: "typing.Optional[str]" = None
+    experimentId: "typing.Optional[int]" = None
+    kind: "typing.Optional[str]" = None
+    labels: "typing.Optional[typing.Sequence[str]]" = None
+    seconds: "typing.Optional[float]" = None
+    slots: "typing.Optional[int]" = None
+    startTime: "typing.Optional[str]" = None
+    userId: "typing.Optional[int]" = None
+    username: "typing.Optional[str]" = None
 
     def __init__(
         self,
         *,
-        endTime: str,
-        experimentId: int,
-        kind: str,
-        labels: "typing.Sequence[str]",
-        seconds: float,
-        slots: int,
-        startTime: str,
-        userId: int,
-        username: str,
+        endTime: "typing.Union[str, None, Unset]" = _unset,
+        experimentId: "typing.Union[int, None, Unset]" = _unset,
+        kind: "typing.Union[str, None, Unset]" = _unset,
+        labels: "typing.Union[typing.Sequence[str], None, Unset]" = _unset,
+        seconds: "typing.Union[float, None, Unset]" = _unset,
+        slots: "typing.Union[int, None, Unset]" = _unset,
+        startTime: "typing.Union[str, None, Unset]" = _unset,
+        userId: "typing.Union[int, None, Unset]" = _unset,
+        username: "typing.Union[str, None, Unset]" = _unset,
     ):
-        self.endTime = endTime
-        self.experimentId = experimentId
-        self.kind = kind
-        self.labels = labels
-        self.seconds = seconds
-        self.slots = slots
-        self.startTime = startTime
-        self.userId = userId
-        self.username = username
+        if not isinstance(endTime, Unset):
+            self.endTime = endTime
+        if not isinstance(experimentId, Unset):
+            self.experimentId = experimentId
+        if not isinstance(kind, Unset):
+            self.kind = kind
+        if not isinstance(labels, Unset):
+            self.labels = labels
+        if not isinstance(seconds, Unset):
+            self.seconds = seconds
+        if not isinstance(slots, Unset):
+            self.slots = slots
+        if not isinstance(startTime, Unset):
+            self.startTime = startTime
+        if not isinstance(userId, Unset):
+            self.userId = userId
+        if not isinstance(username, Unset):
+            self.username = username
 
     @classmethod
     def from_json(cls, obj: Json) -> "v1ResourceAllocationRawEntry":
         kwargs: "typing.Dict[str, typing.Any]" = {
-            "endTime": obj["endTime"],
-            "experimentId": obj["experimentId"],
-            "kind": obj["kind"],
-            "labels": obj["labels"],
-            "seconds": float(obj["seconds"]),
-            "slots": obj["slots"],
-            "startTime": obj["startTime"],
-            "userId": obj["userId"],
-            "username": obj["username"],
         }
+        if "endTime" in obj:
+            kwargs["endTime"] = obj["endTime"]
+        if "experimentId" in obj:
+            kwargs["experimentId"] = obj["experimentId"]
+        if "kind" in obj:
+            kwargs["kind"] = obj["kind"]
+        if "labels" in obj:
+            kwargs["labels"] = obj["labels"]
+        if "seconds" in obj:
+            kwargs["seconds"] = float(obj["seconds"]) if obj["seconds"] is not None else None
+        if "slots" in obj:
+            kwargs["slots"] = obj["slots"]
+        if "startTime" in obj:
+            kwargs["startTime"] = obj["startTime"]
+        if "userId" in obj:
+            kwargs["userId"] = obj["userId"]
+        if "username" in obj:
+            kwargs["username"] = obj["username"]
         return cls(**kwargs)
 
     def to_json(self, omit_unset: bool = False) -> typing.Dict[str, typing.Any]:
         out: "typing.Dict[str, typing.Any]" = {
-            "endTime": self.endTime,
-            "experimentId": self.experimentId,
-            "kind": self.kind,
-            "labels": self.labels,
-            "seconds": dump_float(self.seconds),
-            "slots": self.slots,
-            "startTime": self.startTime,
-            "userId": self.userId,
-            "username": self.username,
         }
+        if not omit_unset or "endTime" in vars(self):
+            out["endTime"] = self.endTime
+        if not omit_unset or "experimentId" in vars(self):
+            out["experimentId"] = self.experimentId
+        if not omit_unset or "kind" in vars(self):
+            out["kind"] = self.kind
+        if not omit_unset or "labels" in vars(self):
+            out["labels"] = self.labels
+        if not omit_unset or "seconds" in vars(self):
+            out["seconds"] = None if self.seconds is None else dump_float(self.seconds)
+        if not omit_unset or "slots" in vars(self):
+            out["slots"] = self.slots
+        if not omit_unset or "startTime" in vars(self):
+            out["startTime"] = self.startTime
+        if not omit_unset or "userId" in vars(self):
+            out["userId"] = self.userId
+        if not omit_unset or "username" in vars(self):
+            out["username"] = self.username
         return out
 
 class v1ResourceAllocationRawResponse:
@@ -8544,33 +9180,45 @@ class v1ResourcePoolAwsDetail:
         return out
 
 class v1ResourcePoolDetail:
+    aws: "typing.Optional[v1ResourcePoolAwsDetail]" = None
+    gcp: "typing.Optional[v1ResourcePoolGcpDetail]" = None
+    priorityScheduler: "typing.Optional[v1ResourcePoolPrioritySchedulerDetail]" = None
 
     def __init__(
         self,
         *,
-        aws: "v1ResourcePoolAwsDetail",
-        gcp: "v1ResourcePoolGcpDetail",
-        priorityScheduler: "v1ResourcePoolPrioritySchedulerDetail",
+        aws: "typing.Union[v1ResourcePoolAwsDetail, None, Unset]" = _unset,
+        gcp: "typing.Union[v1ResourcePoolGcpDetail, None, Unset]" = _unset,
+        priorityScheduler: "typing.Union[v1ResourcePoolPrioritySchedulerDetail, None, Unset]" = _unset,
     ):
-        self.aws = aws
-        self.gcp = gcp
-        self.priorityScheduler = priorityScheduler
+        if not isinstance(aws, Unset):
+            self.aws = aws
+        if not isinstance(gcp, Unset):
+            self.gcp = gcp
+        if not isinstance(priorityScheduler, Unset):
+            self.priorityScheduler = priorityScheduler
 
     @classmethod
     def from_json(cls, obj: Json) -> "v1ResourcePoolDetail":
         kwargs: "typing.Dict[str, typing.Any]" = {
-            "aws": v1ResourcePoolAwsDetail.from_json(obj["aws"]),
-            "gcp": v1ResourcePoolGcpDetail.from_json(obj["gcp"]),
-            "priorityScheduler": v1ResourcePoolPrioritySchedulerDetail.from_json(obj["priorityScheduler"]),
         }
+        if "aws" in obj:
+            kwargs["aws"] = v1ResourcePoolAwsDetail.from_json(obj["aws"]) if obj["aws"] is not None else None
+        if "gcp" in obj:
+            kwargs["gcp"] = v1ResourcePoolGcpDetail.from_json(obj["gcp"]) if obj["gcp"] is not None else None
+        if "priorityScheduler" in obj:
+            kwargs["priorityScheduler"] = v1ResourcePoolPrioritySchedulerDetail.from_json(obj["priorityScheduler"]) if obj["priorityScheduler"] is not None else None
         return cls(**kwargs)
 
     def to_json(self, omit_unset: bool = False) -> typing.Dict[str, typing.Any]:
         out: "typing.Dict[str, typing.Any]" = {
-            "aws": self.aws.to_json(omit_unset),
-            "gcp": self.gcp.to_json(omit_unset),
-            "priorityScheduler": self.priorityScheduler.to_json(omit_unset),
         }
+        if not omit_unset or "aws" in vars(self):
+            out["aws"] = None if self.aws is None else self.aws.to_json(omit_unset)
+        if not omit_unset or "gcp" in vars(self):
+            out["gcp"] = None if self.gcp is None else self.gcp.to_json(omit_unset)
+        if not omit_unset or "priorityScheduler" in vars(self):
+            out["priorityScheduler"] = None if self.priorityScheduler is None else self.priorityScheduler.to_json(omit_unset)
         return out
 
 class v1ResourcePoolGcpDetail:
@@ -8713,127 +9361,179 @@ class v1ResourcePoolType(enum.Enum):
     K8S = "RESOURCE_POOL_TYPE_K8S"
 
 class v1ResourcesFailure:
+    errMsg: "typing.Optional[str]" = None
+    exitCode: "typing.Optional[int]" = None
+    failureType: "typing.Optional[v1FailureType]" = None
 
     def __init__(
         self,
         *,
-        errMsg: str,
-        exitCode: int,
-        failureType: "v1FailureType",
+        errMsg: "typing.Union[str, None, Unset]" = _unset,
+        exitCode: "typing.Union[int, None, Unset]" = _unset,
+        failureType: "typing.Union[v1FailureType, None, Unset]" = _unset,
     ):
-        self.errMsg = errMsg
-        self.exitCode = exitCode
-        self.failureType = failureType
+        if not isinstance(errMsg, Unset):
+            self.errMsg = errMsg
+        if not isinstance(exitCode, Unset):
+            self.exitCode = exitCode
+        if not isinstance(failureType, Unset):
+            self.failureType = failureType
 
     @classmethod
     def from_json(cls, obj: Json) -> "v1ResourcesFailure":
         kwargs: "typing.Dict[str, typing.Any]" = {
-            "errMsg": obj["errMsg"],
-            "exitCode": obj["exitCode"],
-            "failureType": v1FailureType(obj["failureType"]),
         }
+        if "errMsg" in obj:
+            kwargs["errMsg"] = obj["errMsg"]
+        if "exitCode" in obj:
+            kwargs["exitCode"] = obj["exitCode"]
+        if "failureType" in obj:
+            kwargs["failureType"] = v1FailureType(obj["failureType"]) if obj["failureType"] is not None else None
         return cls(**kwargs)
 
     def to_json(self, omit_unset: bool = False) -> typing.Dict[str, typing.Any]:
         out: "typing.Dict[str, typing.Any]" = {
-            "errMsg": self.errMsg,
-            "exitCode": self.exitCode,
-            "failureType": self.failureType.value,
         }
+        if not omit_unset or "errMsg" in vars(self):
+            out["errMsg"] = self.errMsg
+        if not omit_unset or "exitCode" in vars(self):
+            out["exitCode"] = self.exitCode
+        if not omit_unset or "failureType" in vars(self):
+            out["failureType"] = None if self.failureType is None else self.failureType.value
         return out
 
 class v1ResourcesStarted:
+    addresses: "typing.Optional[typing.Sequence[v1Address]]" = None
+    nativeResourcesId: "typing.Optional[str]" = None
 
     def __init__(
         self,
         *,
-        addresses: "typing.Sequence[v1Address]",
-        nativeResourcesId: str,
+        addresses: "typing.Union[typing.Sequence[v1Address], None, Unset]" = _unset,
+        nativeResourcesId: "typing.Union[str, None, Unset]" = _unset,
     ):
-        self.addresses = addresses
-        self.nativeResourcesId = nativeResourcesId
+        if not isinstance(addresses, Unset):
+            self.addresses = addresses
+        if not isinstance(nativeResourcesId, Unset):
+            self.nativeResourcesId = nativeResourcesId
 
     @classmethod
     def from_json(cls, obj: Json) -> "v1ResourcesStarted":
         kwargs: "typing.Dict[str, typing.Any]" = {
-            "addresses": [v1Address.from_json(x) for x in obj["addresses"]],
-            "nativeResourcesId": obj["nativeResourcesId"],
         }
+        if "addresses" in obj:
+            kwargs["addresses"] = [v1Address.from_json(x) for x in obj["addresses"]] if obj["addresses"] is not None else None
+        if "nativeResourcesId" in obj:
+            kwargs["nativeResourcesId"] = obj["nativeResourcesId"]
         return cls(**kwargs)
 
     def to_json(self, omit_unset: bool = False) -> typing.Dict[str, typing.Any]:
         out: "typing.Dict[str, typing.Any]" = {
-            "addresses": [x.to_json(omit_unset) for x in self.addresses],
-            "nativeResourcesId": self.nativeResourcesId,
         }
+        if not omit_unset or "addresses" in vars(self):
+            out["addresses"] = None if self.addresses is None else [x.to_json(omit_unset) for x in self.addresses]
+        if not omit_unset or "nativeResourcesId" in vars(self):
+            out["nativeResourcesId"] = self.nativeResourcesId
         return out
 
 class v1ResourcesStopped:
+    failure: "typing.Optional[v1ResourcesFailure]" = None
 
     def __init__(
         self,
         *,
-        failure: "v1ResourcesFailure",
+        failure: "typing.Union[v1ResourcesFailure, None, Unset]" = _unset,
     ):
-        self.failure = failure
+        if not isinstance(failure, Unset):
+            self.failure = failure
 
     @classmethod
     def from_json(cls, obj: Json) -> "v1ResourcesStopped":
         kwargs: "typing.Dict[str, typing.Any]" = {
-            "failure": v1ResourcesFailure.from_json(obj["failure"]),
         }
+        if "failure" in obj:
+            kwargs["failure"] = v1ResourcesFailure.from_json(obj["failure"]) if obj["failure"] is not None else None
         return cls(**kwargs)
 
     def to_json(self, omit_unset: bool = False) -> typing.Dict[str, typing.Any]:
         out: "typing.Dict[str, typing.Any]" = {
-            "failure": self.failure.to_json(omit_unset),
         }
+        if not omit_unset or "failure" in vars(self):
+            out["failure"] = None if self.failure is None else self.failure.to_json(omit_unset)
         return out
 
 class v1ResourcesSummary:
+    agentDevices: "typing.Optional[typing.Dict[str, ResourcesSummaryDevices]]" = None
+    allocationId: "typing.Optional[str]" = None
+    containerId: "typing.Optional[str]" = None
+    exited: "typing.Optional[v1ResourcesStopped]" = None
+    resourcesId: "typing.Optional[str]" = None
+    resourcesType: "typing.Optional[str]" = None
+    started: "typing.Optional[v1ResourcesStarted]" = None
 
     def __init__(
         self,
         *,
-        agentDevices: "typing.Dict[str, ResourcesSummaryDevices]",
-        allocationId: str,
-        containerId: str,
-        exited: "v1ResourcesStopped",
-        resourcesId: str,
-        resourcesType: str,
-        started: "v1ResourcesStarted",
+        agentDevices: "typing.Union[typing.Dict[str, ResourcesSummaryDevices], None, Unset]" = _unset,
+        allocationId: "typing.Union[str, None, Unset]" = _unset,
+        containerId: "typing.Union[str, None, Unset]" = _unset,
+        exited: "typing.Union[v1ResourcesStopped, None, Unset]" = _unset,
+        resourcesId: "typing.Union[str, None, Unset]" = _unset,
+        resourcesType: "typing.Union[str, None, Unset]" = _unset,
+        started: "typing.Union[v1ResourcesStarted, None, Unset]" = _unset,
     ):
-        self.agentDevices = agentDevices
-        self.allocationId = allocationId
-        self.containerId = containerId
-        self.exited = exited
-        self.resourcesId = resourcesId
-        self.resourcesType = resourcesType
-        self.started = started
+        if not isinstance(agentDevices, Unset):
+            self.agentDevices = agentDevices
+        if not isinstance(allocationId, Unset):
+            self.allocationId = allocationId
+        if not isinstance(containerId, Unset):
+            self.containerId = containerId
+        if not isinstance(exited, Unset):
+            self.exited = exited
+        if not isinstance(resourcesId, Unset):
+            self.resourcesId = resourcesId
+        if not isinstance(resourcesType, Unset):
+            self.resourcesType = resourcesType
+        if not isinstance(started, Unset):
+            self.started = started
 
     @classmethod
     def from_json(cls, obj: Json) -> "v1ResourcesSummary":
         kwargs: "typing.Dict[str, typing.Any]" = {
-            "agentDevices": {k: ResourcesSummaryDevices.from_json(v) for k, v in obj["agentDevices"].items()},
-            "allocationId": obj["allocationId"],
-            "containerId": obj["containerId"],
-            "exited": v1ResourcesStopped.from_json(obj["exited"]),
-            "resourcesId": obj["resourcesId"],
-            "resourcesType": obj["resourcesType"],
-            "started": v1ResourcesStarted.from_json(obj["started"]),
         }
+        if "agentDevices" in obj:
+            kwargs["agentDevices"] = {k: ResourcesSummaryDevices.from_json(v) for k, v in obj["agentDevices"].items()} if obj["agentDevices"] is not None else None
+        if "allocationId" in obj:
+            kwargs["allocationId"] = obj["allocationId"]
+        if "containerId" in obj:
+            kwargs["containerId"] = obj["containerId"]
+        if "exited" in obj:
+            kwargs["exited"] = v1ResourcesStopped.from_json(obj["exited"]) if obj["exited"] is not None else None
+        if "resourcesId" in obj:
+            kwargs["resourcesId"] = obj["resourcesId"]
+        if "resourcesType" in obj:
+            kwargs["resourcesType"] = obj["resourcesType"]
+        if "started" in obj:
+            kwargs["started"] = v1ResourcesStarted.from_json(obj["started"]) if obj["started"] is not None else None
         return cls(**kwargs)
 
     def to_json(self, omit_unset: bool = False) -> typing.Dict[str, typing.Any]:
         out: "typing.Dict[str, typing.Any]" = {
-            "agentDevices": {k: v.to_json(omit_unset) for k, v in self.agentDevices.items()},
-            "allocationId": self.allocationId,
-            "containerId": self.containerId,
-            "exited": self.exited.to_json(omit_unset),
-            "resourcesId": self.resourcesId,
-            "resourcesType": self.resourcesType,
-            "started": self.started.to_json(omit_unset),
         }
+        if not omit_unset or "agentDevices" in vars(self):
+            out["agentDevices"] = None if self.agentDevices is None else {k: v.to_json(omit_unset) for k, v in self.agentDevices.items()}
+        if not omit_unset or "allocationId" in vars(self):
+            out["allocationId"] = self.allocationId
+        if not omit_unset or "containerId" in vars(self):
+            out["containerId"] = self.containerId
+        if not omit_unset or "exited" in vars(self):
+            out["exited"] = None if self.exited is None else self.exited.to_json(omit_unset)
+        if not omit_unset or "resourcesId" in vars(self):
+            out["resourcesId"] = self.resourcesId
+        if not omit_unset or "resourcesType" in vars(self):
+            out["resourcesType"] = self.resourcesType
+        if not omit_unset or "started" in vars(self):
+            out["started"] = None if self.started is None else self.started.to_json(omit_unset)
         return out
 
 class v1Role:
@@ -8959,59 +9659,79 @@ class v1RoleAssignmentSummary:
         return out
 
 class v1RoleWithAssignments:
+    groupRoleAssignments: "typing.Optional[typing.Sequence[v1GroupRoleAssignment]]" = None
+    role: "typing.Optional[v1Role]" = None
+    userRoleAssignments: "typing.Optional[typing.Sequence[v1UserRoleAssignment]]" = None
 
     def __init__(
         self,
         *,
-        groupRoleAssignments: "typing.Sequence[v1GroupRoleAssignment]",
-        role: "v1Role",
-        userRoleAssignments: "typing.Sequence[v1UserRoleAssignment]",
+        groupRoleAssignments: "typing.Union[typing.Sequence[v1GroupRoleAssignment], None, Unset]" = _unset,
+        role: "typing.Union[v1Role, None, Unset]" = _unset,
+        userRoleAssignments: "typing.Union[typing.Sequence[v1UserRoleAssignment], None, Unset]" = _unset,
     ):
-        self.groupRoleAssignments = groupRoleAssignments
-        self.role = role
-        self.userRoleAssignments = userRoleAssignments
+        if not isinstance(groupRoleAssignments, Unset):
+            self.groupRoleAssignments = groupRoleAssignments
+        if not isinstance(role, Unset):
+            self.role = role
+        if not isinstance(userRoleAssignments, Unset):
+            self.userRoleAssignments = userRoleAssignments
 
     @classmethod
     def from_json(cls, obj: Json) -> "v1RoleWithAssignments":
         kwargs: "typing.Dict[str, typing.Any]" = {
-            "groupRoleAssignments": [v1GroupRoleAssignment.from_json(x) for x in obj["groupRoleAssignments"]],
-            "role": v1Role.from_json(obj["role"]),
-            "userRoleAssignments": [v1UserRoleAssignment.from_json(x) for x in obj["userRoleAssignments"]],
         }
+        if "groupRoleAssignments" in obj:
+            kwargs["groupRoleAssignments"] = [v1GroupRoleAssignment.from_json(x) for x in obj["groupRoleAssignments"]] if obj["groupRoleAssignments"] is not None else None
+        if "role" in obj:
+            kwargs["role"] = v1Role.from_json(obj["role"]) if obj["role"] is not None else None
+        if "userRoleAssignments" in obj:
+            kwargs["userRoleAssignments"] = [v1UserRoleAssignment.from_json(x) for x in obj["userRoleAssignments"]] if obj["userRoleAssignments"] is not None else None
         return cls(**kwargs)
 
     def to_json(self, omit_unset: bool = False) -> typing.Dict[str, typing.Any]:
         out: "typing.Dict[str, typing.Any]" = {
-            "groupRoleAssignments": [x.to_json(omit_unset) for x in self.groupRoleAssignments],
-            "role": self.role.to_json(omit_unset),
-            "userRoleAssignments": [x.to_json(omit_unset) for x in self.userRoleAssignments],
         }
+        if not omit_unset or "groupRoleAssignments" in vars(self):
+            out["groupRoleAssignments"] = None if self.groupRoleAssignments is None else [x.to_json(omit_unset) for x in self.groupRoleAssignments]
+        if not omit_unset or "role" in vars(self):
+            out["role"] = None if self.role is None else self.role.to_json(omit_unset)
+        if not omit_unset or "userRoleAssignments" in vars(self):
+            out["userRoleAssignments"] = None if self.userRoleAssignments is None else [x.to_json(omit_unset) for x in self.userRoleAssignments]
         return out
 
 class v1RunnableOperation:
+    length: "typing.Optional[str]" = None
+    type: "typing.Optional[v1RunnableType]" = None
 
     def __init__(
         self,
         *,
-        length: str,
-        type: "v1RunnableType",
+        length: "typing.Union[str, None, Unset]" = _unset,
+        type: "typing.Union[v1RunnableType, None, Unset]" = _unset,
     ):
-        self.length = length
-        self.type = type
+        if not isinstance(length, Unset):
+            self.length = length
+        if not isinstance(type, Unset):
+            self.type = type
 
     @classmethod
     def from_json(cls, obj: Json) -> "v1RunnableOperation":
         kwargs: "typing.Dict[str, typing.Any]" = {
-            "length": obj["length"],
-            "type": v1RunnableType(obj["type"]),
         }
+        if "length" in obj:
+            kwargs["length"] = obj["length"]
+        if "type" in obj:
+            kwargs["type"] = v1RunnableType(obj["type"]) if obj["type"] is not None else None
         return cls(**kwargs)
 
     def to_json(self, omit_unset: bool = False) -> typing.Dict[str, typing.Any]:
         out: "typing.Dict[str, typing.Any]" = {
-            "length": self.length,
-            "type": self.type.value,
         }
+        if not omit_unset or "length" in vars(self):
+            out["length"] = self.length
+        if not omit_unset or "type" in vars(self):
+            out["type"] = None if self.type is None else self.type.value
         return out
 
 class v1RunnableType(enum.Enum):
@@ -9060,55 +9780,71 @@ class v1SchedulerType(enum.Enum):
     PBS = "SCHEDULER_TYPE_PBS"
 
 class v1ScopeTypeMask:
+    cluster: "typing.Optional[bool]" = None
+    workspace: "typing.Optional[bool]" = None
 
     def __init__(
         self,
         *,
-        cluster: bool,
-        workspace: bool,
+        cluster: "typing.Union[bool, None, Unset]" = _unset,
+        workspace: "typing.Union[bool, None, Unset]" = _unset,
     ):
-        self.cluster = cluster
-        self.workspace = workspace
+        if not isinstance(cluster, Unset):
+            self.cluster = cluster
+        if not isinstance(workspace, Unset):
+            self.workspace = workspace
 
     @classmethod
     def from_json(cls, obj: Json) -> "v1ScopeTypeMask":
         kwargs: "typing.Dict[str, typing.Any]" = {
-            "cluster": obj["cluster"],
-            "workspace": obj["workspace"],
         }
+        if "cluster" in obj:
+            kwargs["cluster"] = obj["cluster"]
+        if "workspace" in obj:
+            kwargs["workspace"] = obj["workspace"]
         return cls(**kwargs)
 
     def to_json(self, omit_unset: bool = False) -> typing.Dict[str, typing.Any]:
         out: "typing.Dict[str, typing.Any]" = {
-            "cluster": self.cluster,
-            "workspace": self.workspace,
         }
+        if not omit_unset or "cluster" in vars(self):
+            out["cluster"] = self.cluster
+        if not omit_unset or "workspace" in vars(self):
+            out["workspace"] = self.workspace
         return out
 
 class v1SearchExperimentExperiment:
+    bestTrial: "typing.Optional[trialv1Trial]" = None
+    experiment: "typing.Optional[v1Experiment]" = None
 
     def __init__(
         self,
         *,
-        bestTrial: "trialv1Trial",
-        experiment: "v1Experiment",
+        bestTrial: "typing.Union[trialv1Trial, None, Unset]" = _unset,
+        experiment: "typing.Union[v1Experiment, None, Unset]" = _unset,
     ):
-        self.bestTrial = bestTrial
-        self.experiment = experiment
+        if not isinstance(bestTrial, Unset):
+            self.bestTrial = bestTrial
+        if not isinstance(experiment, Unset):
+            self.experiment = experiment
 
     @classmethod
     def from_json(cls, obj: Json) -> "v1SearchExperimentExperiment":
         kwargs: "typing.Dict[str, typing.Any]" = {
-            "bestTrial": trialv1Trial.from_json(obj["bestTrial"]),
-            "experiment": v1Experiment.from_json(obj["experiment"]),
         }
+        if "bestTrial" in obj:
+            kwargs["bestTrial"] = trialv1Trial.from_json(obj["bestTrial"]) if obj["bestTrial"] is not None else None
+        if "experiment" in obj:
+            kwargs["experiment"] = v1Experiment.from_json(obj["experiment"]) if obj["experiment"] is not None else None
         return cls(**kwargs)
 
     def to_json(self, omit_unset: bool = False) -> typing.Dict[str, typing.Any]:
         out: "typing.Dict[str, typing.Any]" = {
-            "bestTrial": self.bestTrial.to_json(omit_unset),
-            "experiment": self.experiment.to_json(omit_unset),
         }
+        if not omit_unset or "bestTrial" in vars(self):
+            out["bestTrial"] = None if self.bestTrial is None else self.bestTrial.to_json(omit_unset)
+        if not omit_unset or "experiment" in vars(self):
+            out["experiment"] = None if self.experiment is None else self.experiment.to_json(omit_unset)
         return out
 
 class v1SearchExperimentsResponse:
@@ -9280,67 +10016,95 @@ class v1SearcherEvent:
         return out
 
 class v1SearcherOperation:
+    closeTrial: "typing.Optional[v1CloseTrialOperation]" = None
+    createTrial: "typing.Optional[v1CreateTrialOperation]" = None
+    setSearcherProgress: "typing.Optional[v1SetSearcherProgressOperation]" = None
+    shutDown: "typing.Optional[v1ShutDownOperation]" = None
+    trialOperation: "typing.Optional[v1TrialOperation]" = None
 
     def __init__(
         self,
         *,
-        closeTrial: "v1CloseTrialOperation",
-        createTrial: "v1CreateTrialOperation",
-        setSearcherProgress: "v1SetSearcherProgressOperation",
-        shutDown: "v1ShutDownOperation",
-        trialOperation: "v1TrialOperation",
+        closeTrial: "typing.Union[v1CloseTrialOperation, None, Unset]" = _unset,
+        createTrial: "typing.Union[v1CreateTrialOperation, None, Unset]" = _unset,
+        setSearcherProgress: "typing.Union[v1SetSearcherProgressOperation, None, Unset]" = _unset,
+        shutDown: "typing.Union[v1ShutDownOperation, None, Unset]" = _unset,
+        trialOperation: "typing.Union[v1TrialOperation, None, Unset]" = _unset,
     ):
-        self.closeTrial = closeTrial
-        self.createTrial = createTrial
-        self.setSearcherProgress = setSearcherProgress
-        self.shutDown = shutDown
-        self.trialOperation = trialOperation
+        if not isinstance(closeTrial, Unset):
+            self.closeTrial = closeTrial
+        if not isinstance(createTrial, Unset):
+            self.createTrial = createTrial
+        if not isinstance(setSearcherProgress, Unset):
+            self.setSearcherProgress = setSearcherProgress
+        if not isinstance(shutDown, Unset):
+            self.shutDown = shutDown
+        if not isinstance(trialOperation, Unset):
+            self.trialOperation = trialOperation
 
     @classmethod
     def from_json(cls, obj: Json) -> "v1SearcherOperation":
         kwargs: "typing.Dict[str, typing.Any]" = {
-            "closeTrial": v1CloseTrialOperation.from_json(obj["closeTrial"]),
-            "createTrial": v1CreateTrialOperation.from_json(obj["createTrial"]),
-            "setSearcherProgress": v1SetSearcherProgressOperation.from_json(obj["setSearcherProgress"]),
-            "shutDown": v1ShutDownOperation.from_json(obj["shutDown"]),
-            "trialOperation": v1TrialOperation.from_json(obj["trialOperation"]),
         }
+        if "closeTrial" in obj:
+            kwargs["closeTrial"] = v1CloseTrialOperation.from_json(obj["closeTrial"]) if obj["closeTrial"] is not None else None
+        if "createTrial" in obj:
+            kwargs["createTrial"] = v1CreateTrialOperation.from_json(obj["createTrial"]) if obj["createTrial"] is not None else None
+        if "setSearcherProgress" in obj:
+            kwargs["setSearcherProgress"] = v1SetSearcherProgressOperation.from_json(obj["setSearcherProgress"]) if obj["setSearcherProgress"] is not None else None
+        if "shutDown" in obj:
+            kwargs["shutDown"] = v1ShutDownOperation.from_json(obj["shutDown"]) if obj["shutDown"] is not None else None
+        if "trialOperation" in obj:
+            kwargs["trialOperation"] = v1TrialOperation.from_json(obj["trialOperation"]) if obj["trialOperation"] is not None else None
         return cls(**kwargs)
 
     def to_json(self, omit_unset: bool = False) -> typing.Dict[str, typing.Any]:
         out: "typing.Dict[str, typing.Any]" = {
-            "closeTrial": self.closeTrial.to_json(omit_unset),
-            "createTrial": self.createTrial.to_json(omit_unset),
-            "setSearcherProgress": self.setSearcherProgress.to_json(omit_unset),
-            "shutDown": self.shutDown.to_json(omit_unset),
-            "trialOperation": self.trialOperation.to_json(omit_unset),
         }
+        if not omit_unset or "closeTrial" in vars(self):
+            out["closeTrial"] = None if self.closeTrial is None else self.closeTrial.to_json(omit_unset)
+        if not omit_unset or "createTrial" in vars(self):
+            out["createTrial"] = None if self.createTrial is None else self.createTrial.to_json(omit_unset)
+        if not omit_unset or "setSearcherProgress" in vars(self):
+            out["setSearcherProgress"] = None if self.setSearcherProgress is None else self.setSearcherProgress.to_json(omit_unset)
+        if not omit_unset or "shutDown" in vars(self):
+            out["shutDown"] = None if self.shutDown is None else self.shutDown.to_json(omit_unset)
+        if not omit_unset or "trialOperation" in vars(self):
+            out["trialOperation"] = None if self.trialOperation is None else self.trialOperation.to_json(omit_unset)
         return out
 
 class v1SetCommandPriorityRequest:
+    commandId: "typing.Optional[str]" = None
+    priority: "typing.Optional[int]" = None
 
     def __init__(
         self,
         *,
-        commandId: str,
-        priority: int,
+        commandId: "typing.Union[str, None, Unset]" = _unset,
+        priority: "typing.Union[int, None, Unset]" = _unset,
     ):
-        self.commandId = commandId
-        self.priority = priority
+        if not isinstance(commandId, Unset):
+            self.commandId = commandId
+        if not isinstance(priority, Unset):
+            self.priority = priority
 
     @classmethod
     def from_json(cls, obj: Json) -> "v1SetCommandPriorityRequest":
         kwargs: "typing.Dict[str, typing.Any]" = {
-            "commandId": obj["commandId"],
-            "priority": obj["priority"],
         }
+        if "commandId" in obj:
+            kwargs["commandId"] = obj["commandId"]
+        if "priority" in obj:
+            kwargs["priority"] = obj["priority"]
         return cls(**kwargs)
 
     def to_json(self, omit_unset: bool = False) -> typing.Dict[str, typing.Any]:
         out: "typing.Dict[str, typing.Any]" = {
-            "commandId": self.commandId,
-            "priority": self.priority,
         }
+        if not omit_unset or "commandId" in vars(self):
+            out["commandId"] = self.commandId
+        if not omit_unset or "priority" in vars(self):
+            out["priority"] = self.priority
         return out
 
 class v1SetCommandPriorityResponse:
@@ -9366,29 +10130,37 @@ class v1SetCommandPriorityResponse:
         return out
 
 class v1SetNotebookPriorityRequest:
+    notebookId: "typing.Optional[str]" = None
+    priority: "typing.Optional[int]" = None
 
     def __init__(
         self,
         *,
-        notebookId: str,
-        priority: int,
+        notebookId: "typing.Union[str, None, Unset]" = _unset,
+        priority: "typing.Union[int, None, Unset]" = _unset,
     ):
-        self.notebookId = notebookId
-        self.priority = priority
+        if not isinstance(notebookId, Unset):
+            self.notebookId = notebookId
+        if not isinstance(priority, Unset):
+            self.priority = priority
 
     @classmethod
     def from_json(cls, obj: Json) -> "v1SetNotebookPriorityRequest":
         kwargs: "typing.Dict[str, typing.Any]" = {
-            "notebookId": obj["notebookId"],
-            "priority": obj["priority"],
         }
+        if "notebookId" in obj:
+            kwargs["notebookId"] = obj["notebookId"]
+        if "priority" in obj:
+            kwargs["priority"] = obj["priority"]
         return cls(**kwargs)
 
     def to_json(self, omit_unset: bool = False) -> typing.Dict[str, typing.Any]:
         out: "typing.Dict[str, typing.Any]" = {
-            "notebookId": self.notebookId,
-            "priority": self.priority,
         }
+        if not omit_unset or "notebookId" in vars(self):
+            out["notebookId"] = self.notebookId
+        if not omit_unset or "priority" in vars(self):
+            out["priority"] = self.priority
         return out
 
 class v1SetNotebookPriorityResponse:
@@ -9414,51 +10186,63 @@ class v1SetNotebookPriorityResponse:
         return out
 
 class v1SetSearcherProgressOperation:
+    progress: "typing.Optional[float]" = None
 
     def __init__(
         self,
         *,
-        progress: float,
+        progress: "typing.Union[float, None, Unset]" = _unset,
     ):
-        self.progress = progress
+        if not isinstance(progress, Unset):
+            self.progress = progress
 
     @classmethod
     def from_json(cls, obj: Json) -> "v1SetSearcherProgressOperation":
         kwargs: "typing.Dict[str, typing.Any]" = {
-            "progress": float(obj["progress"]),
         }
+        if "progress" in obj:
+            kwargs["progress"] = float(obj["progress"]) if obj["progress"] is not None else None
         return cls(**kwargs)
 
     def to_json(self, omit_unset: bool = False) -> typing.Dict[str, typing.Any]:
         out: "typing.Dict[str, typing.Any]" = {
-            "progress": dump_float(self.progress),
         }
+        if not omit_unset or "progress" in vars(self):
+            out["progress"] = None if self.progress is None else dump_float(self.progress)
         return out
 
 class v1SetShellPriorityRequest:
+    priority: "typing.Optional[int]" = None
+    shellId: "typing.Optional[str]" = None
 
     def __init__(
         self,
         *,
-        priority: int,
-        shellId: str,
+        priority: "typing.Union[int, None, Unset]" = _unset,
+        shellId: "typing.Union[str, None, Unset]" = _unset,
     ):
-        self.priority = priority
-        self.shellId = shellId
+        if not isinstance(priority, Unset):
+            self.priority = priority
+        if not isinstance(shellId, Unset):
+            self.shellId = shellId
 
     @classmethod
     def from_json(cls, obj: Json) -> "v1SetShellPriorityRequest":
         kwargs: "typing.Dict[str, typing.Any]" = {
-            "priority": obj["priority"],
-            "shellId": obj["shellId"],
         }
+        if "priority" in obj:
+            kwargs["priority"] = obj["priority"]
+        if "shellId" in obj:
+            kwargs["shellId"] = obj["shellId"]
         return cls(**kwargs)
 
     def to_json(self, omit_unset: bool = False) -> typing.Dict[str, typing.Any]:
         out: "typing.Dict[str, typing.Any]" = {
-            "priority": self.priority,
-            "shellId": self.shellId,
         }
+        if not omit_unset or "priority" in vars(self):
+            out["priority"] = self.priority
+        if not omit_unset or "shellId" in vars(self):
+            out["shellId"] = self.shellId
         return out
 
 class v1SetShellPriorityResponse:
@@ -9484,29 +10268,37 @@ class v1SetShellPriorityResponse:
         return out
 
 class v1SetTensorboardPriorityRequest:
+    priority: "typing.Optional[int]" = None
+    tensorboardId: "typing.Optional[str]" = None
 
     def __init__(
         self,
         *,
-        priority: int,
-        tensorboardId: str,
+        priority: "typing.Union[int, None, Unset]" = _unset,
+        tensorboardId: "typing.Union[str, None, Unset]" = _unset,
     ):
-        self.priority = priority
-        self.tensorboardId = tensorboardId
+        if not isinstance(priority, Unset):
+            self.priority = priority
+        if not isinstance(tensorboardId, Unset):
+            self.tensorboardId = tensorboardId
 
     @classmethod
     def from_json(cls, obj: Json) -> "v1SetTensorboardPriorityRequest":
         kwargs: "typing.Dict[str, typing.Any]" = {
-            "priority": obj["priority"],
-            "tensorboardId": obj["tensorboardId"],
         }
+        if "priority" in obj:
+            kwargs["priority"] = obj["priority"]
+        if "tensorboardId" in obj:
+            kwargs["tensorboardId"] = obj["tensorboardId"]
         return cls(**kwargs)
 
     def to_json(self, omit_unset: bool = False) -> typing.Dict[str, typing.Any]:
         out: "typing.Dict[str, typing.Any]" = {
-            "priority": self.priority,
-            "tensorboardId": self.tensorboardId,
         }
+        if not omit_unset or "priority" in vars(self):
+            out["priority"] = self.priority
+        if not omit_unset or "tensorboardId" in vars(self):
+            out["tensorboardId"] = self.tensorboardId
         return out
 
 class v1SetTensorboardPriorityResponse:
@@ -9668,25 +10460,29 @@ class v1Shell:
         return out
 
 class v1ShutDownOperation:
+    placeholder: "typing.Optional[int]" = None
 
     def __init__(
         self,
         *,
-        placeholder: int,
+        placeholder: "typing.Union[int, None, Unset]" = _unset,
     ):
-        self.placeholder = placeholder
+        if not isinstance(placeholder, Unset):
+            self.placeholder = placeholder
 
     @classmethod
     def from_json(cls, obj: Json) -> "v1ShutDownOperation":
         kwargs: "typing.Dict[str, typing.Any]" = {
-            "placeholder": obj["placeholder"],
         }
+        if "placeholder" in obj:
+            kwargs["placeholder"] = obj["placeholder"]
         return cls(**kwargs)
 
     def to_json(self, omit_unset: bool = False) -> typing.Dict[str, typing.Any]:
         out: "typing.Dict[str, typing.Any]" = {
-            "placeholder": self.placeholder,
         }
+        if not omit_unset or "placeholder" in vars(self):
+            out["placeholder"] = self.placeholder
         return out
 
 class v1Slot:
@@ -10237,85 +11033,149 @@ class v1TrialExitedEarlyExitedReason(enum.Enum):
     USER_CANCELED = "EXITED_REASON_USER_CANCELED"
 
 class v1TrialFilters:
+    endTime: "typing.Optional[v1TimestampFieldFilter]" = None
+    experimentIds: "typing.Optional[typing.Sequence[int]]" = None
+    hparams: "typing.Optional[typing.Sequence[v1ColumnFilter]]" = None
+    projectIds: "typing.Optional[typing.Sequence[int]]" = None
+    rankWithinExp: "typing.Optional[TrialFiltersRankWithinExp]" = None
+    searcher: "typing.Optional[str]" = None
+    searcherMetric: "typing.Optional[str]" = None
+    searcherMetricValue: "typing.Optional[v1DoubleFieldFilter]" = None
+    startTime: "typing.Optional[v1TimestampFieldFilter]" = None
+    states: "typing.Optional[typing.Sequence[trialv1State]]" = None
+    tags: "typing.Optional[typing.Sequence[v1TrialTag]]" = None
+    trainingMetrics: "typing.Optional[typing.Sequence[v1ColumnFilter]]" = None
+    trialIds: "typing.Optional[typing.Sequence[int]]" = None
+    userIds: "typing.Optional[typing.Sequence[int]]" = None
+    validationMetrics: "typing.Optional[typing.Sequence[v1ColumnFilter]]" = None
+    workspaceIds: "typing.Optional[typing.Sequence[int]]" = None
 
     def __init__(
         self,
         *,
-        endTime: "v1TimestampFieldFilter",
-        experimentIds: "typing.Sequence[int]",
-        hparams: "typing.Sequence[v1ColumnFilter]",
-        projectIds: "typing.Sequence[int]",
-        rankWithinExp: "TrialFiltersRankWithinExp",
-        searcher: str,
-        searcherMetric: str,
-        searcherMetricValue: "v1DoubleFieldFilter",
-        startTime: "v1TimestampFieldFilter",
-        states: "typing.Sequence[trialv1State]",
-        tags: "typing.Sequence[v1TrialTag]",
-        trainingMetrics: "typing.Sequence[v1ColumnFilter]",
-        trialIds: "typing.Sequence[int]",
-        userIds: "typing.Sequence[int]",
-        validationMetrics: "typing.Sequence[v1ColumnFilter]",
-        workspaceIds: "typing.Sequence[int]",
+        endTime: "typing.Union[v1TimestampFieldFilter, None, Unset]" = _unset,
+        experimentIds: "typing.Union[typing.Sequence[int], None, Unset]" = _unset,
+        hparams: "typing.Union[typing.Sequence[v1ColumnFilter], None, Unset]" = _unset,
+        projectIds: "typing.Union[typing.Sequence[int], None, Unset]" = _unset,
+        rankWithinExp: "typing.Union[TrialFiltersRankWithinExp, None, Unset]" = _unset,
+        searcher: "typing.Union[str, None, Unset]" = _unset,
+        searcherMetric: "typing.Union[str, None, Unset]" = _unset,
+        searcherMetricValue: "typing.Union[v1DoubleFieldFilter, None, Unset]" = _unset,
+        startTime: "typing.Union[v1TimestampFieldFilter, None, Unset]" = _unset,
+        states: "typing.Union[typing.Sequence[trialv1State], None, Unset]" = _unset,
+        tags: "typing.Union[typing.Sequence[v1TrialTag], None, Unset]" = _unset,
+        trainingMetrics: "typing.Union[typing.Sequence[v1ColumnFilter], None, Unset]" = _unset,
+        trialIds: "typing.Union[typing.Sequence[int], None, Unset]" = _unset,
+        userIds: "typing.Union[typing.Sequence[int], None, Unset]" = _unset,
+        validationMetrics: "typing.Union[typing.Sequence[v1ColumnFilter], None, Unset]" = _unset,
+        workspaceIds: "typing.Union[typing.Sequence[int], None, Unset]" = _unset,
     ):
-        self.endTime = endTime
-        self.experimentIds = experimentIds
-        self.hparams = hparams
-        self.projectIds = projectIds
-        self.rankWithinExp = rankWithinExp
-        self.searcher = searcher
-        self.searcherMetric = searcherMetric
-        self.searcherMetricValue = searcherMetricValue
-        self.startTime = startTime
-        self.states = states
-        self.tags = tags
-        self.trainingMetrics = trainingMetrics
-        self.trialIds = trialIds
-        self.userIds = userIds
-        self.validationMetrics = validationMetrics
-        self.workspaceIds = workspaceIds
+        if not isinstance(endTime, Unset):
+            self.endTime = endTime
+        if not isinstance(experimentIds, Unset):
+            self.experimentIds = experimentIds
+        if not isinstance(hparams, Unset):
+            self.hparams = hparams
+        if not isinstance(projectIds, Unset):
+            self.projectIds = projectIds
+        if not isinstance(rankWithinExp, Unset):
+            self.rankWithinExp = rankWithinExp
+        if not isinstance(searcher, Unset):
+            self.searcher = searcher
+        if not isinstance(searcherMetric, Unset):
+            self.searcherMetric = searcherMetric
+        if not isinstance(searcherMetricValue, Unset):
+            self.searcherMetricValue = searcherMetricValue
+        if not isinstance(startTime, Unset):
+            self.startTime = startTime
+        if not isinstance(states, Unset):
+            self.states = states
+        if not isinstance(tags, Unset):
+            self.tags = tags
+        if not isinstance(trainingMetrics, Unset):
+            self.trainingMetrics = trainingMetrics
+        if not isinstance(trialIds, Unset):
+            self.trialIds = trialIds
+        if not isinstance(userIds, Unset):
+            self.userIds = userIds
+        if not isinstance(validationMetrics, Unset):
+            self.validationMetrics = validationMetrics
+        if not isinstance(workspaceIds, Unset):
+            self.workspaceIds = workspaceIds
 
     @classmethod
     def from_json(cls, obj: Json) -> "v1TrialFilters":
         kwargs: "typing.Dict[str, typing.Any]" = {
-            "endTime": v1TimestampFieldFilter.from_json(obj["endTime"]),
-            "experimentIds": obj["experimentIds"],
-            "hparams": [v1ColumnFilter.from_json(x) for x in obj["hparams"]],
-            "projectIds": obj["projectIds"],
-            "rankWithinExp": TrialFiltersRankWithinExp.from_json(obj["rankWithinExp"]),
-            "searcher": obj["searcher"],
-            "searcherMetric": obj["searcherMetric"],
-            "searcherMetricValue": v1DoubleFieldFilter.from_json(obj["searcherMetricValue"]),
-            "startTime": v1TimestampFieldFilter.from_json(obj["startTime"]),
-            "states": [trialv1State(x) for x in obj["states"]],
-            "tags": [v1TrialTag.from_json(x) for x in obj["tags"]],
-            "trainingMetrics": [v1ColumnFilter.from_json(x) for x in obj["trainingMetrics"]],
-            "trialIds": obj["trialIds"],
-            "userIds": obj["userIds"],
-            "validationMetrics": [v1ColumnFilter.from_json(x) for x in obj["validationMetrics"]],
-            "workspaceIds": obj["workspaceIds"],
         }
+        if "endTime" in obj:
+            kwargs["endTime"] = v1TimestampFieldFilter.from_json(obj["endTime"]) if obj["endTime"] is not None else None
+        if "experimentIds" in obj:
+            kwargs["experimentIds"] = obj["experimentIds"]
+        if "hparams" in obj:
+            kwargs["hparams"] = [v1ColumnFilter.from_json(x) for x in obj["hparams"]] if obj["hparams"] is not None else None
+        if "projectIds" in obj:
+            kwargs["projectIds"] = obj["projectIds"]
+        if "rankWithinExp" in obj:
+            kwargs["rankWithinExp"] = TrialFiltersRankWithinExp.from_json(obj["rankWithinExp"]) if obj["rankWithinExp"] is not None else None
+        if "searcher" in obj:
+            kwargs["searcher"] = obj["searcher"]
+        if "searcherMetric" in obj:
+            kwargs["searcherMetric"] = obj["searcherMetric"]
+        if "searcherMetricValue" in obj:
+            kwargs["searcherMetricValue"] = v1DoubleFieldFilter.from_json(obj["searcherMetricValue"]) if obj["searcherMetricValue"] is not None else None
+        if "startTime" in obj:
+            kwargs["startTime"] = v1TimestampFieldFilter.from_json(obj["startTime"]) if obj["startTime"] is not None else None
+        if "states" in obj:
+            kwargs["states"] = [trialv1State(x) for x in obj["states"]] if obj["states"] is not None else None
+        if "tags" in obj:
+            kwargs["tags"] = [v1TrialTag.from_json(x) for x in obj["tags"]] if obj["tags"] is not None else None
+        if "trainingMetrics" in obj:
+            kwargs["trainingMetrics"] = [v1ColumnFilter.from_json(x) for x in obj["trainingMetrics"]] if obj["trainingMetrics"] is not None else None
+        if "trialIds" in obj:
+            kwargs["trialIds"] = obj["trialIds"]
+        if "userIds" in obj:
+            kwargs["userIds"] = obj["userIds"]
+        if "validationMetrics" in obj:
+            kwargs["validationMetrics"] = [v1ColumnFilter.from_json(x) for x in obj["validationMetrics"]] if obj["validationMetrics"] is not None else None
+        if "workspaceIds" in obj:
+            kwargs["workspaceIds"] = obj["workspaceIds"]
         return cls(**kwargs)
 
     def to_json(self, omit_unset: bool = False) -> typing.Dict[str, typing.Any]:
         out: "typing.Dict[str, typing.Any]" = {
-            "endTime": self.endTime.to_json(omit_unset),
-            "experimentIds": self.experimentIds,
-            "hparams": [x.to_json(omit_unset) for x in self.hparams],
-            "projectIds": self.projectIds,
-            "rankWithinExp": self.rankWithinExp.to_json(omit_unset),
-            "searcher": self.searcher,
-            "searcherMetric": self.searcherMetric,
-            "searcherMetricValue": self.searcherMetricValue.to_json(omit_unset),
-            "startTime": self.startTime.to_json(omit_unset),
-            "states": [x.value for x in self.states],
-            "tags": [x.to_json(omit_unset) for x in self.tags],
-            "trainingMetrics": [x.to_json(omit_unset) for x in self.trainingMetrics],
-            "trialIds": self.trialIds,
-            "userIds": self.userIds,
-            "validationMetrics": [x.to_json(omit_unset) for x in self.validationMetrics],
-            "workspaceIds": self.workspaceIds,
         }
+        if not omit_unset or "endTime" in vars(self):
+            out["endTime"] = None if self.endTime is None else self.endTime.to_json(omit_unset)
+        if not omit_unset or "experimentIds" in vars(self):
+            out["experimentIds"] = self.experimentIds
+        if not omit_unset or "hparams" in vars(self):
+            out["hparams"] = None if self.hparams is None else [x.to_json(omit_unset) for x in self.hparams]
+        if not omit_unset or "projectIds" in vars(self):
+            out["projectIds"] = self.projectIds
+        if not omit_unset or "rankWithinExp" in vars(self):
+            out["rankWithinExp"] = None if self.rankWithinExp is None else self.rankWithinExp.to_json(omit_unset)
+        if not omit_unset or "searcher" in vars(self):
+            out["searcher"] = self.searcher
+        if not omit_unset or "searcherMetric" in vars(self):
+            out["searcherMetric"] = self.searcherMetric
+        if not omit_unset or "searcherMetricValue" in vars(self):
+            out["searcherMetricValue"] = None if self.searcherMetricValue is None else self.searcherMetricValue.to_json(omit_unset)
+        if not omit_unset or "startTime" in vars(self):
+            out["startTime"] = None if self.startTime is None else self.startTime.to_json(omit_unset)
+        if not omit_unset or "states" in vars(self):
+            out["states"] = None if self.states is None else [x.value for x in self.states]
+        if not omit_unset or "tags" in vars(self):
+            out["tags"] = None if self.tags is None else [x.to_json(omit_unset) for x in self.tags]
+        if not omit_unset or "trainingMetrics" in vars(self):
+            out["trainingMetrics"] = None if self.trainingMetrics is None else [x.to_json(omit_unset) for x in self.trainingMetrics]
+        if not omit_unset or "trialIds" in vars(self):
+            out["trialIds"] = self.trialIds
+        if not omit_unset or "userIds" in vars(self):
+            out["userIds"] = self.userIds
+        if not omit_unset or "validationMetrics" in vars(self):
+            out["validationMetrics"] = None if self.validationMetrics is None else [x.to_json(omit_unset) for x in self.validationMetrics]
+        if not omit_unset or "workspaceIds" in vars(self):
+            out["workspaceIds"] = self.workspaceIds
         return out
 
 class v1TrialLogsFieldsResponse:
@@ -10519,29 +11379,37 @@ class v1TrialOperation:
         return out
 
 class v1TrialPatch:
+    addTag: "typing.Optional[typing.Sequence[v1TrialTag]]" = None
+    removeTag: "typing.Optional[typing.Sequence[v1TrialTag]]" = None
 
     def __init__(
         self,
         *,
-        addTag: "typing.Sequence[v1TrialTag]",
-        removeTag: "typing.Sequence[v1TrialTag]",
+        addTag: "typing.Union[typing.Sequence[v1TrialTag], None, Unset]" = _unset,
+        removeTag: "typing.Union[typing.Sequence[v1TrialTag], None, Unset]" = _unset,
     ):
-        self.addTag = addTag
-        self.removeTag = removeTag
+        if not isinstance(addTag, Unset):
+            self.addTag = addTag
+        if not isinstance(removeTag, Unset):
+            self.removeTag = removeTag
 
     @classmethod
     def from_json(cls, obj: Json) -> "v1TrialPatch":
         kwargs: "typing.Dict[str, typing.Any]" = {
-            "addTag": [v1TrialTag.from_json(x) for x in obj["addTag"]],
-            "removeTag": [v1TrialTag.from_json(x) for x in obj["removeTag"]],
         }
+        if "addTag" in obj:
+            kwargs["addTag"] = [v1TrialTag.from_json(x) for x in obj["addTag"]] if obj["addTag"] is not None else None
+        if "removeTag" in obj:
+            kwargs["removeTag"] = [v1TrialTag.from_json(x) for x in obj["removeTag"]] if obj["removeTag"] is not None else None
         return cls(**kwargs)
 
     def to_json(self, omit_unset: bool = False) -> typing.Dict[str, typing.Any]:
         out: "typing.Dict[str, typing.Any]" = {
-            "addTag": [x.to_json(omit_unset) for x in self.addTag],
-            "removeTag": [x.to_json(omit_unset) for x in self.removeTag],
         }
+        if not omit_unset or "addTag" in vars(self):
+            out["addTag"] = None if self.addTag is None else [x.to_json(omit_unset) for x in self.addTag]
+        if not omit_unset or "removeTag" in vars(self):
+            out["removeTag"] = None if self.removeTag is None else [x.to_json(omit_unset) for x in self.removeTag]
         return out
 
 class v1TrialProfilerMetricLabels:
@@ -10677,29 +11545,37 @@ class v1TrialRunnerMetadata:
         return out
 
 class v1TrialSimulation:
+    occurrences: "typing.Optional[int]" = None
+    operations: "typing.Optional[typing.Sequence[v1RunnableOperation]]" = None
 
     def __init__(
         self,
         *,
-        occurrences: int,
-        operations: "typing.Sequence[v1RunnableOperation]",
+        occurrences: "typing.Union[int, None, Unset]" = _unset,
+        operations: "typing.Union[typing.Sequence[v1RunnableOperation], None, Unset]" = _unset,
     ):
-        self.occurrences = occurrences
-        self.operations = operations
+        if not isinstance(occurrences, Unset):
+            self.occurrences = occurrences
+        if not isinstance(operations, Unset):
+            self.operations = operations
 
     @classmethod
     def from_json(cls, obj: Json) -> "v1TrialSimulation":
         kwargs: "typing.Dict[str, typing.Any]" = {
-            "occurrences": obj["occurrences"],
-            "operations": [v1RunnableOperation.from_json(x) for x in obj["operations"]],
         }
+        if "occurrences" in obj:
+            kwargs["occurrences"] = obj["occurrences"]
+        if "operations" in obj:
+            kwargs["operations"] = [v1RunnableOperation.from_json(x) for x in obj["operations"]] if obj["operations"] is not None else None
         return cls(**kwargs)
 
     def to_json(self, omit_unset: bool = False) -> typing.Dict[str, typing.Any]:
         out: "typing.Dict[str, typing.Any]" = {
-            "occurrences": self.occurrences,
-            "operations": [x.to_json(omit_unset) for x in self.operations],
         }
+        if not omit_unset or "occurrences" in vars(self):
+            out["occurrences"] = self.occurrences
+        if not omit_unset or "operations" in vars(self):
+            out["operations"] = None if self.operations is None else [x.to_json(omit_unset) for x in self.operations]
         return out
 
 class v1TrialSorter:
@@ -11441,33 +12317,45 @@ class v1WebhookType(enum.Enum):
     SLACK = "WEBHOOK_TYPE_SLACK"
 
 class v1WorkloadContainer:
+    checkpoint: "typing.Optional[v1CheckpointWorkload]" = None
+    training: "typing.Optional[v1MetricsWorkload]" = None
+    validation: "typing.Optional[v1MetricsWorkload]" = None
 
     def __init__(
         self,
         *,
-        checkpoint: "v1CheckpointWorkload",
-        training: "v1MetricsWorkload",
-        validation: "v1MetricsWorkload",
+        checkpoint: "typing.Union[v1CheckpointWorkload, None, Unset]" = _unset,
+        training: "typing.Union[v1MetricsWorkload, None, Unset]" = _unset,
+        validation: "typing.Union[v1MetricsWorkload, None, Unset]" = _unset,
     ):
-        self.checkpoint = checkpoint
-        self.training = training
-        self.validation = validation
+        if not isinstance(checkpoint, Unset):
+            self.checkpoint = checkpoint
+        if not isinstance(training, Unset):
+            self.training = training
+        if not isinstance(validation, Unset):
+            self.validation = validation
 
     @classmethod
     def from_json(cls, obj: Json) -> "v1WorkloadContainer":
         kwargs: "typing.Dict[str, typing.Any]" = {
-            "checkpoint": v1CheckpointWorkload.from_json(obj["checkpoint"]),
-            "training": v1MetricsWorkload.from_json(obj["training"]),
-            "validation": v1MetricsWorkload.from_json(obj["validation"]),
         }
+        if "checkpoint" in obj:
+            kwargs["checkpoint"] = v1CheckpointWorkload.from_json(obj["checkpoint"]) if obj["checkpoint"] is not None else None
+        if "training" in obj:
+            kwargs["training"] = v1MetricsWorkload.from_json(obj["training"]) if obj["training"] is not None else None
+        if "validation" in obj:
+            kwargs["validation"] = v1MetricsWorkload.from_json(obj["validation"]) if obj["validation"] is not None else None
         return cls(**kwargs)
 
     def to_json(self, omit_unset: bool = False) -> typing.Dict[str, typing.Any]:
         out: "typing.Dict[str, typing.Any]" = {
-            "checkpoint": self.checkpoint.to_json(omit_unset),
-            "training": self.training.to_json(omit_unset),
-            "validation": self.validation.to_json(omit_unset),
         }
+        if not omit_unset or "checkpoint" in vars(self):
+            out["checkpoint"] = None if self.checkpoint is None else self.checkpoint.to_json(omit_unset)
+        if not omit_unset or "training" in vars(self):
+            out["training"] = None if self.training is None else self.training.to_json(omit_unset)
+        if not omit_unset or "validation" in vars(self):
+            out["validation"] = None if self.validation is None else self.validation.to_json(omit_unset)
         return out
 
 class v1Workspace:

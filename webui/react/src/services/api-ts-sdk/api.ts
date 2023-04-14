@@ -200,13 +200,13 @@ export interface ProtobufAny {
      * @type {string}
      * @memberof ProtobufAny
      */
-    typeUrl: string;
+    typeUrl?: string;
     /**
      * Must be a valid serialized protocol buffer of the above specified type.
      * @type {string}
      * @memberof ProtobufAny
      */
-    value: string;
+    value?: string;
 }
 /**
  * `NullValue` is a singleton enumeration to represent the null value for the `Value` type union.   The JSON representation for `NullValue` is JSON `null`.   - NULL_VALUE: Null value.
@@ -228,7 +228,7 @@ export interface ResourcesSummaryDevices {
      * @type {Array<V1Device>}
      * @memberof ResourcesSummaryDevices
      */
-    devices: Array<V1Device>;
+    devices?: Array<V1Device>;
 }
 /**
  * 
@@ -309,13 +309,13 @@ export interface StreamResultOfV1GetTrainingMetricsResponse {
      * @type {V1GetTrainingMetricsResponse}
      * @memberof StreamResultOfV1GetTrainingMetricsResponse
      */
-    result?: V1GetTrainingMetricsResponse;
+    result: V1GetTrainingMetricsResponse;
     /**
      * 
      * @type {RuntimeStreamError}
      * @memberof StreamResultOfV1GetTrainingMetricsResponse
      */
-    error?: RuntimeStreamError;
+    error: RuntimeStreamError;
 }
 /**
  * 
@@ -328,13 +328,13 @@ export interface StreamResultOfV1GetTrialProfilerAvailableSeriesResponse {
      * @type {V1GetTrialProfilerAvailableSeriesResponse}
      * @memberof StreamResultOfV1GetTrialProfilerAvailableSeriesResponse
      */
-    result?: V1GetTrialProfilerAvailableSeriesResponse;
+    result: V1GetTrialProfilerAvailableSeriesResponse;
     /**
      * 
      * @type {RuntimeStreamError}
      * @memberof StreamResultOfV1GetTrialProfilerAvailableSeriesResponse
      */
-    error?: RuntimeStreamError;
+    error: RuntimeStreamError;
 }
 /**
  * 
@@ -347,13 +347,13 @@ export interface StreamResultOfV1GetTrialProfilerMetricsResponse {
      * @type {V1GetTrialProfilerMetricsResponse}
      * @memberof StreamResultOfV1GetTrialProfilerMetricsResponse
      */
-    result?: V1GetTrialProfilerMetricsResponse;
+    result: V1GetTrialProfilerMetricsResponse;
     /**
      * 
      * @type {RuntimeStreamError}
      * @memberof StreamResultOfV1GetTrialProfilerMetricsResponse
      */
-    error?: RuntimeStreamError;
+    error: RuntimeStreamError;
 }
 /**
  * 
@@ -366,13 +366,13 @@ export interface StreamResultOfV1GetValidationMetricsResponse {
      * @type {V1GetValidationMetricsResponse}
      * @memberof StreamResultOfV1GetValidationMetricsResponse
      */
-    result?: V1GetValidationMetricsResponse;
+    result: V1GetValidationMetricsResponse;
     /**
      * 
      * @type {RuntimeStreamError}
      * @memberof StreamResultOfV1GetValidationMetricsResponse
      */
-    error?: RuntimeStreamError;
+    error: RuntimeStreamError;
 }
 /**
  * 
@@ -385,13 +385,13 @@ export interface StreamResultOfV1MasterLogsResponse {
      * @type {V1MasterLogsResponse}
      * @memberof StreamResultOfV1MasterLogsResponse
      */
-    result?: V1MasterLogsResponse;
+    result: V1MasterLogsResponse;
     /**
      * 
      * @type {RuntimeStreamError}
      * @memberof StreamResultOfV1MasterLogsResponse
      */
-    error?: RuntimeStreamError;
+    error: RuntimeStreamError;
 }
 /**
  * 
@@ -404,13 +404,13 @@ export interface StreamResultOfV1MetricBatchesResponse {
      * @type {V1MetricBatchesResponse}
      * @memberof StreamResultOfV1MetricBatchesResponse
      */
-    result?: V1MetricBatchesResponse;
+    result: V1MetricBatchesResponse;
     /**
      * 
      * @type {RuntimeStreamError}
      * @memberof StreamResultOfV1MetricBatchesResponse
      */
-    error?: RuntimeStreamError;
+    error: RuntimeStreamError;
 }
 /**
  * 
@@ -423,13 +423,13 @@ export interface StreamResultOfV1MetricNamesResponse {
      * @type {V1MetricNamesResponse}
      * @memberof StreamResultOfV1MetricNamesResponse
      */
-    result?: V1MetricNamesResponse;
+    result: V1MetricNamesResponse;
     /**
      * 
      * @type {RuntimeStreamError}
      * @memberof StreamResultOfV1MetricNamesResponse
      */
-    error?: RuntimeStreamError;
+    error: RuntimeStreamError;
 }
 /**
  * 
@@ -442,13 +442,13 @@ export interface StreamResultOfV1TaskLogsFieldsResponse {
      * @type {V1TaskLogsFieldsResponse}
      * @memberof StreamResultOfV1TaskLogsFieldsResponse
      */
-    result?: V1TaskLogsFieldsResponse;
+    result: V1TaskLogsFieldsResponse;
     /**
      * 
      * @type {RuntimeStreamError}
      * @memberof StreamResultOfV1TaskLogsFieldsResponse
      */
-    error?: RuntimeStreamError;
+    error: RuntimeStreamError;
 }
 /**
  * 
@@ -461,13 +461,13 @@ export interface StreamResultOfV1TaskLogsResponse {
      * @type {V1TaskLogsResponse}
      * @memberof StreamResultOfV1TaskLogsResponse
      */
-    result?: V1TaskLogsResponse;
+    result: V1TaskLogsResponse;
     /**
      * 
      * @type {RuntimeStreamError}
      * @memberof StreamResultOfV1TaskLogsResponse
      */
-    error?: RuntimeStreamError;
+    error: RuntimeStreamError;
 }
 /**
  * 
@@ -480,13 +480,13 @@ export interface StreamResultOfV1TrialLogsFieldsResponse {
      * @type {V1TrialLogsFieldsResponse}
      * @memberof StreamResultOfV1TrialLogsFieldsResponse
      */
-    result?: V1TrialLogsFieldsResponse;
+    result: V1TrialLogsFieldsResponse;
     /**
      * 
      * @type {RuntimeStreamError}
      * @memberof StreamResultOfV1TrialLogsFieldsResponse
      */
-    error?: RuntimeStreamError;
+    error: RuntimeStreamError;
 }
 /**
  * 
@@ -499,13 +499,13 @@ export interface StreamResultOfV1TrialLogsResponse {
      * @type {V1TrialLogsResponse}
      * @memberof StreamResultOfV1TrialLogsResponse
      */
-    result?: V1TrialLogsResponse;
+    result: V1TrialLogsResponse;
     /**
      * 
      * @type {RuntimeStreamError}
      * @memberof StreamResultOfV1TrialLogsResponse
      */
-    error?: RuntimeStreamError;
+    error: RuntimeStreamError;
 }
 /**
  * 
@@ -518,13 +518,13 @@ export interface StreamResultOfV1TrialsSampleResponse {
      * @type {V1TrialsSampleResponse}
      * @memberof StreamResultOfV1TrialsSampleResponse
      */
-    result?: V1TrialsSampleResponse;
+    result: V1TrialsSampleResponse;
     /**
      * 
      * @type {RuntimeStreamError}
      * @memberof StreamResultOfV1TrialsSampleResponse
      */
-    error?: RuntimeStreamError;
+    error: RuntimeStreamError;
 }
 /**
  * 
@@ -537,13 +537,13 @@ export interface StreamResultOfV1TrialsSnapshotResponse {
      * @type {V1TrialsSnapshotResponse}
      * @memberof StreamResultOfV1TrialsSnapshotResponse
      */
-    result?: V1TrialsSnapshotResponse;
+    result: V1TrialsSnapshotResponse;
     /**
      * 
      * @type {RuntimeStreamError}
      * @memberof StreamResultOfV1TrialsSnapshotResponse
      */
-    error?: RuntimeStreamError;
+    error: RuntimeStreamError;
 }
 /**
  * The current state of the task.   - STATE_UNSPECIFIED: The task state is unknown.  - STATE_PULLING: The task's base image is being pulled from the Docker registry.  - STATE_STARTING: The image has been pulled and the task is being started, but the task is not ready yet.  - STATE_RUNNING: The service in the task is running.  - STATE_TERMINATED: The task has exited or has been aborted.  - STATE_TERMINATING: The task has begun to exit.  - STATE_WAITING: The task is waiting on something to complete.  - STATE_QUEUED: Additional state to cover queueing operations.
@@ -742,7 +742,7 @@ export interface UpdateTrialTagsRequestIds {
      * @type {Array<number>}
      * @memberof UpdateTrialTagsRequestIds
      */
-    ids: Array<number>;
+    ids?: Array<number>;
 }
 /**
  * Acknowledge the receipt of some stop signal.
@@ -837,25 +837,25 @@ export interface V1Address {
      * @type {string}
      * @memberof V1Address
      */
-    containerIp: string;
+    containerIp?: string;
     /**
      * ContainerPort is the port from inside the container.
      * @type {number}
      * @memberof V1Address
      */
-    containerPort: number;
+    containerPort?: number;
     /**
      * HostIP is the IP address from outside the container. This can be different than the ContainerIP because of network forwarding on the host machine.
      * @type {string}
      * @memberof V1Address
      */
-    hostIp: string;
+    hostIp?: string;
     /**
      * HostPort is the IP port from outside the container. This can be different than the ContainerPort because of network forwarding on the host machine.
      * @type {number}
      * @memberof V1Address
      */
-    hostPort: number;
+    hostPort?: number;
 }
 /**
  * Agent is a pool of resources where containers are run.
@@ -985,37 +985,37 @@ export interface V1Allocation {
      * @type {string}
      * @memberof V1Allocation
      */
-    taskId: string;
+    taskId?: string;
     /**
      * The current state of the allocation.
      * @type {Taskv1State}
      * @memberof V1Allocation
      */
-    state: Taskv1State;
+    state?: Taskv1State;
     /**
      * Whether the allocation is ready to access.
      * @type {boolean}
      * @memberof V1Allocation
      */
-    isReady: boolean;
+    isReady?: boolean;
     /**
      * Start timestamp.
      * @type {string}
      * @memberof V1Allocation
      */
-    startTime: string;
+    startTime?: string;
     /**
      * End timestamp if completed.
      * @type {string}
      * @memberof V1Allocation
      */
-    endTime: string;
+    endTime?: string;
     /**
      * Unique ID of the allocation.
      * @type {string}
      * @memberof V1Allocation
      */
-    allocationId: string;
+    allocationId?: string;
 }
 /**
  * Arguments to an all gather.
@@ -1105,7 +1105,7 @@ export interface V1AllocationReadyRequest {
      * @type {string}
      * @memberof V1AllocationReadyRequest
      */
-    allocationId: string;
+    allocationId?: string;
 }
 /**
  * Response to AllocationReadyRequest.
@@ -1138,61 +1138,61 @@ export interface V1AllocationSummary {
      * @type {string}
      * @memberof V1AllocationSummary
      */
-    taskId: string;
+    taskId?: string;
     /**
      * AllocationID is the ID of an allocation of a task. It is usually of the form TaskID.allocation_number, maybe with some other metadata if different types of allocations run.
      * @type {string}
      * @memberof V1AllocationSummary
      */
-    allocationId: string;
+    allocationId?: string;
     /**
      * The name of the task.
      * @type {string}
      * @memberof V1AllocationSummary
      */
-    name: string;
+    name?: string;
     /**
      * The registered time of the task.
      * @type {Date}
      * @memberof V1AllocationSummary
      */
-    registeredTime: Date;
+    registeredTime?: Date;
     /**
      * The name of the resource pool.
      * @type {string}
      * @memberof V1AllocationSummary
      */
-    resourcePool: string;
+    resourcePool?: string;
     /**
      * The number of slots that are needed.
      * @type {number}
      * @memberof V1AllocationSummary
      */
-    slotsNeeded: number;
+    slotsNeeded?: number;
     /**
      * ResourcesSummary provides a summary of the resources comprising what we know at the time the allocation is granted.
      * @type {Array<V1ResourcesSummary>}
      * @memberof V1AllocationSummary
      */
-    resources: Array<V1ResourcesSummary>;
+    resources?: Array<V1ResourcesSummary>;
     /**
      * The type of the scheduler. Either 'FAIR_SHARE', 'PRIORITY', or 'ROUND_ROBIN'.
      * @type {string}
      * @memberof V1AllocationSummary
      */
-    schedulerType: string;
+    schedulerType?: string;
     /**
      * THe priority of the task.
      * @type {number}
      * @memberof V1AllocationSummary
      */
-    priority: number;
+    priority?: number;
     /**
      * ProxyPortConfig configures a proxy the allocation should start.
      * @type {Array<V1ProxyPortConfig>}
      * @memberof V1AllocationSummary
      */
-    proxyPorts: Array<V1ProxyPortConfig>;
+    proxyPorts?: Array<V1ProxyPortConfig>;
 }
 /**
  * Mark the given task as waiting.
@@ -1205,7 +1205,7 @@ export interface V1AllocationWaitingRequest {
      * @type {string}
      * @memberof V1AllocationWaitingRequest
      */
-    allocationId: string;
+    allocationId?: string;
 }
 /**
  * Response to AllocationWaitingRequest.
@@ -1285,13 +1285,13 @@ export interface V1AssignRolesRequest {
      * @type {Array<V1GroupRoleAssignment>}
      * @memberof V1AssignRolesRequest
      */
-    groupRoleAssignments: Array<V1GroupRoleAssignment>;
+    groupRoleAssignments?: Array<V1GroupRoleAssignment>;
     /**
      * the set of users being assigned to a role.
      * @type {Array<V1UserRoleAssignment>}
      * @memberof V1AssignRolesRequest
      */
-    userRoleAssignments: Array<V1UserRoleAssignment>;
+    userRoleAssignments?: Array<V1UserRoleAssignment>;
 }
 /**
  * AssignRolesResponse is the body of the request for the call to grant a user or group a role.
@@ -1463,43 +1463,43 @@ export interface V1BulkExperimentFilters {
      * @type {string}
      * @memberof V1BulkExperimentFilters
      */
-    description: string;
+    description?: string;
     /**
      * Limit experiments to those that match the name.
      * @type {string}
      * @memberof V1BulkExperimentFilters
      */
-    name: string;
+    name?: string;
     /**
      * Limit experiments to those that match the provided labels.
      * @type {Array<string>}
      * @memberof V1BulkExperimentFilters
      */
-    labels: Array<string>;
+    labels?: Array<string>;
     /**
      * Limit experiments to those that are archived.
      * @type {boolean}
      * @memberof V1BulkExperimentFilters
      */
-    archived: boolean;
+    archived?: boolean;
     /**
      * Limit experiments to those that match the provided state.
      * @type {Array<Experimentv1State>}
      * @memberof V1BulkExperimentFilters
      */
-    states: Array<Experimentv1State>;
+    states?: Array<Experimentv1State>;
     /**
      * Limit experiments to those that are owned by users with the specified userIds.
      * @type {Array<number>}
      * @memberof V1BulkExperimentFilters
      */
-    userIds: Array<number>;
+    userIds?: Array<number>;
     /**
      * Limit experiments to those within a specified project, or 0 for all projects.
      * @type {number}
      * @memberof V1BulkExperimentFilters
      */
-    projectId: number;
+    projectId?: number;
 }
 /**
  * Response to CancelExperimentRequest.
@@ -1698,7 +1698,7 @@ export interface V1CloseTrialOperation {
      * @type {string}
      * @memberof V1CloseTrialOperation
      */
-    requestId: string;
+    requestId?: string;
 }
 /**
  * 
@@ -1711,13 +1711,13 @@ export interface V1ColumnFilter {
      * @type {string}
      * @memberof V1ColumnFilter
      */
-    name: string;
+    name?: string;
     /**
      * The filter to apply to the given column
      * @type {V1DoubleFieldFilter}
      * @memberof V1ColumnFilter
      */
-    filter: V1DoubleFieldFilter;
+    filter?: V1DoubleFieldFilter;
 }
 /**
  * Command is a single container running the configured command.
@@ -1848,13 +1848,13 @@ export interface V1CompleteValidateAfterOperation {
      * @type {V1ValidateAfterOperation}
      * @memberof V1CompleteValidateAfterOperation
      */
-    op: V1ValidateAfterOperation;
+    op?: V1ValidateAfterOperation;
     /**
      * The value of searcher metric associated with this completed operation. The metric provided should be the metric used to guide HP search.
      * @type {any}
      * @memberof V1CompleteValidateAfterOperation
      */
-    searcherMetric: any;
+    searcherMetric?: any;
 }
 /**
  * Container is a Docker container that is either scheduled to run or is currently running on a set of slots.
@@ -1898,67 +1898,67 @@ export interface V1CreateExperimentRequest {
      * @type {Array<V1File>}
      * @memberof V1CreateExperimentRequest
      */
-    modelDefinition: Array<V1File>;
+    modelDefinition?: Array<V1File>;
     /**
      * Experiment config (YAML).
      * @type {string}
      * @memberof V1CreateExperimentRequest
      */
-    config: string;
+    config?: string;
     /**
      * Only validate instead of creating the experiment. A dry run.
      * @type {boolean}
      * @memberof V1CreateExperimentRequest
      */
-    validateOnly: boolean;
+    validateOnly?: boolean;
     /**
      * Parent experiment id.
      * @type {number}
      * @memberof V1CreateExperimentRequest
      */
-    parentId: number;
+    parentId?: number;
     /**
      * Request to auto-activate the experiment.
      * @type {boolean}
      * @memberof V1CreateExperimentRequest
      */
-    activate: boolean;
+    activate?: boolean;
     /**
      * Project id to contain the experiment.
      * @type {number}
      * @memberof V1CreateExperimentRequest
      */
-    projectId: number;
+    projectId?: number;
     /**
      * Template to use for the experiment.
      * @type {string}
      * @memberof V1CreateExperimentRequest
      */
-    template: string;
+    template?: string;
     /**
      * Git remote at submission time.
      * @type {string}
      * @memberof V1CreateExperimentRequest
      */
-    gitRemote: string;
+    gitRemote?: string;
     /**
      * Git commit at submission time.
      * @type {string}
      * @memberof V1CreateExperimentRequest
      */
-    gitCommit: string;
+    gitCommit?: string;
     /**
      * Git committer at submission time.
      * @type {string}
      * @memberof V1CreateExperimentRequest
      */
-    gitCommitter: string;
+    gitCommitter?: string;
     /**
      * Git commit date at submission time.
      * @type {Date}
      * @memberof V1CreateExperimentRequest
      */
-    gitCommitDate: Date;
+    gitCommitDate?: Date;
 }
 /**
  * Response to CreateExperimentRequest.
@@ -2028,13 +2028,13 @@ export interface V1CreateTrialOperation {
      * @type {string}
      * @memberof V1CreateTrialOperation
      */
-    requestId: string;
+    requestId?: string;
     /**
      * A JSON object representing the hyperparameters.
      * @type {string}
      * @memberof V1CreateTrialOperation
      */
-    hyperparams: string;
+    hyperparams?: string;
 }
 /**
  * Request body for CeateTrials request which includes TrialFilters.
@@ -2293,13 +2293,13 @@ export interface V1DisableAgentRequest {
      * @type {string}
      * @memberof V1DisableAgentRequest
      */
-    agentId: string;
+    agentId?: string;
     /**
      * If true, wait for running tasks to finish.
      * @type {boolean}
      * @memberof V1DisableAgentRequest
      */
-    drain: boolean;
+    drain?: boolean;
 }
 /**
  * Response to DisableAgentRequest.
@@ -2325,19 +2325,19 @@ export interface V1DisableSlotRequest {
      * @type {string}
      * @memberof V1DisableSlotRequest
      */
-    agentId: string;
+    agentId?: string;
     /**
      * The id of the slot.
      * @type {string}
      * @memberof V1DisableSlotRequest
      */
-    slotId: string;
+    slotId?: string;
     /**
      * If true, wait for running task to finish.
      * @type {boolean}
      * @memberof V1DisableSlotRequest
      */
-    drain: boolean;
+    drain?: boolean;
 }
 /**
  * Response to DisableSlotRequest.
@@ -2741,43 +2741,43 @@ export interface V1FileNode {
      * @type {string}
      * @memberof V1FileNode
      */
-    path: string;
+    path?: string;
     /**
      * Name of file.
      * @type {string}
      * @memberof V1FileNode
      */
-    name: string;
+    name?: string;
     /**
      * Modification time of file.
      * @type {Date}
      * @memberof V1FileNode
      */
-    modifiedTime: Date;
+    modifiedTime?: Date;
     /**
      * Number of bytes in file content.
      * @type {number}
      * @memberof V1FileNode
      */
-    contentLength: number;
+    contentLength?: number;
     /**
      * Is this a directory.
      * @type {boolean}
      * @memberof V1FileNode
      */
-    isDir: boolean;
+    isDir?: boolean;
     /**
      * MIME type of file.
      * @type {string}
      * @memberof V1FileNode
      */
-    contentType: string;
+    contentType?: string;
     /**
      * Subdirectory files.
      * @type {Array<V1FileNode>}
      * @memberof V1FileNode
      */
-    files: Array<V1FileNode>;
+    files?: Array<V1FileNode>;
 }
 /**
  * The fitting policy of the scheduler.   - FITTING_POLICY_UNSPECIFIED: Unspecified. This value will never actually be returned by the API, it is just an artifact of using protobuf.  - FITTING_POLICY_BEST: Best fit. Tasks are preferentially “packed” together on the smallest number of agents  - FITTING_POLICY_WORST: Worst fit. Tasks are placed on under-utilized agents, spreading out the tasks.  - FITTING_POLICY_KUBERNETES: A kubernetes placeholder. In k8s, the task placement is delegated to the k8s scheduler so the fitting policy is not relevant.  - FITTING_POLICY_SLURM: A slurm placeholder. When running on slurm, task placement is delegated.  - FITTING_POLICY_PBS: A PBS placeholder. When running on PBS, task placement is delegated.
@@ -3389,13 +3389,13 @@ export interface V1GetModelDefFileRequest {
      * @type {number}
      * @memberof V1GetModelDefFileRequest
      */
-    experimentId: number;
+    experimentId?: number;
     /**
      * The path of file.
      * @type {string}
      * @memberof V1GetModelDefFileRequest
      */
-    path: string;
+    path?: string;
 }
 /**
  * Response to GetModelDefFileRequest.
@@ -3728,7 +3728,7 @@ export interface V1GetRolesByIDRequest {
      * @type {Array<number>}
      * @memberof V1GetRolesByIDRequest
      */
-    roleIds: Array<number>;
+    roleIds?: Array<number>;
 }
 /**
  * 
@@ -4273,13 +4273,13 @@ export interface V1Group {
      * @type {number}
      * @memberof V1Group
      */
-    groupId: number;
+    groupId?: number;
     /**
      * The name of the group
      * @type {string}
      * @memberof V1Group
      */
-    name: string;
+    name?: string;
 }
 /**
  * GroupDetails contains detailed information about a specific Group including which users belong to the group.
@@ -4355,13 +4355,13 @@ export interface V1IdleNotebookRequest {
      * @type {string}
      * @memberof V1IdleNotebookRequest
      */
-    notebookId: string;
+    notebookId?: string;
     /**
      * The value of idle timeout
      * @type {boolean}
      * @memberof V1IdleNotebookRequest
      */
-    idle: boolean;
+    idle?: boolean;
 }
 /**
  * Response to IdleNotebookRequest.
@@ -4381,7 +4381,7 @@ export interface V1InitialOperations {
      * @type {number}
      * @memberof V1InitialOperations
      */
-    placeholder: number;
+    placeholder?: number;
 }
 /**
  * Int32 filters.
@@ -4394,37 +4394,37 @@ export interface V1Int32FieldFilter {
      * @type {number}
      * @memberof V1Int32FieldFilter
      */
-    lt: number;
+    lt?: number;
     /**
      * Less than or equal.
      * @type {number}
      * @memberof V1Int32FieldFilter
      */
-    lte: number;
+    lte?: number;
     /**
      * Greater than.
      * @type {number}
      * @memberof V1Int32FieldFilter
      */
-    gt: number;
+    gt?: number;
     /**
      * Greater than or equal.
      * @type {number}
      * @memberof V1Int32FieldFilter
      */
-    gte: number;
+    gte?: number;
     /**
      * In a set. `in` is a reserved word in python.
      * @type {Array<number>}
      * @memberof V1Int32FieldFilter
      */
-    incl: Array<number>;
+    incl?: Array<number>;
     /**
      * Not in a set.
      * @type {Array<number>}
      * @memberof V1Int32FieldFilter
      */
-    notIn: Array<number>;
+    notIn?: Array<number>;
 }
 /**
  * Job represents a user submitted work that is not in a terminal state.
@@ -4553,13 +4553,13 @@ export interface V1K8PriorityClass {
      * @type {string}
      * @memberof V1K8PriorityClass
      */
-    priorityClass: string;
+    priorityClass?: string;
     /**
      * Priority class value.
      * @type {number}
      * @memberof V1K8PriorityClass
      */
-    priorityValue: number;
+    priorityValue?: number;
 }
 /**
  * Response to KillCommandRequest.
@@ -4670,31 +4670,31 @@ export interface V1LaunchCommandRequest {
      * @type {any}
      * @memberof V1LaunchCommandRequest
      */
-    config: any;
+    config?: any;
     /**
      * Template name.
      * @type {string}
      * @memberof V1LaunchCommandRequest
      */
-    templateName: string;
+    templateName?: string;
     /**
      * The files to run with the command.
      * @type {Array<V1File>}
      * @memberof V1LaunchCommandRequest
      */
-    files: Array<V1File>;
+    files?: Array<V1File>;
     /**
      * Additional data.
      * @type {string}
      * @memberof V1LaunchCommandRequest
      */
-    data: string;
+    data?: string;
     /**
      * Workspace ID. Defaults to the 'Uncategorized' workspace if not specified.
      * @type {number}
      * @memberof V1LaunchCommandRequest
      */
-    workspaceId: number;
+    workspaceId?: number;
 }
 /**
  * Response to LaunchCommandRequest.
@@ -4732,31 +4732,31 @@ export interface V1LaunchNotebookRequest {
      * @type {any}
      * @memberof V1LaunchNotebookRequest
      */
-    config: any;
+    config?: any;
     /**
      * Template name.
      * @type {string}
      * @memberof V1LaunchNotebookRequest
      */
-    templateName: string;
+    templateName?: string;
     /**
      * The files to run with the command.
      * @type {Array<V1File>}
      * @memberof V1LaunchNotebookRequest
      */
-    files: Array<V1File>;
+    files?: Array<V1File>;
     /**
      * Preview a launching request without actually creating a Notebook.
      * @type {boolean}
      * @memberof V1LaunchNotebookRequest
      */
-    preview: boolean;
+    preview?: boolean;
     /**
      * Workspace ID. Defaults to 'Uncategorized' workspace if not specified.
      * @type {number}
      * @memberof V1LaunchNotebookRequest
      */
-    workspaceId: number;
+    workspaceId?: number;
 }
 /**
  * Response to LaunchNotebookRequest.
@@ -4794,31 +4794,31 @@ export interface V1LaunchShellRequest {
      * @type {any}
      * @memberof V1LaunchShellRequest
      */
-    config: any;
+    config?: any;
     /**
      * Template name.
      * @type {string}
      * @memberof V1LaunchShellRequest
      */
-    templateName: string;
+    templateName?: string;
     /**
      * The files to run with the command.
      * @type {Array<V1File>}
      * @memberof V1LaunchShellRequest
      */
-    files: Array<V1File>;
+    files?: Array<V1File>;
     /**
      * Additional data.
      * @type {string}
      * @memberof V1LaunchShellRequest
      */
-    data: string;
+    data?: string;
     /**
      * Workspace ID. Defaults to 'Uncategorized' workspace if not specified.
      * @type {number}
      * @memberof V1LaunchShellRequest
      */
-    workspaceId: number;
+    workspaceId?: number;
 }
 /**
  * Response to LaunchShellRequest.
@@ -4856,43 +4856,43 @@ export interface V1LaunchTensorboardRequest {
      * @type {Array<number>}
      * @memberof V1LaunchTensorboardRequest
      */
-    experimentIds: Array<number>;
+    experimentIds?: Array<number>;
     /**
      * List of source trial ids.
      * @type {Array<number>}
      * @memberof V1LaunchTensorboardRequest
      */
-    trialIds: Array<number>;
+    trialIds?: Array<number>;
     /**
      * Tensorboard config (JSON).
      * @type {any}
      * @memberof V1LaunchTensorboardRequest
      */
-    config: any;
+    config?: any;
     /**
      * Tensorboard template name.
      * @type {string}
      * @memberof V1LaunchTensorboardRequest
      */
-    templateName: string;
+    templateName?: string;
     /**
      * The files to run with the command.
      * @type {Array<V1File>}
      * @memberof V1LaunchTensorboardRequest
      */
-    files: Array<V1File>;
+    files?: Array<V1File>;
     /**
      * Workspace in which to launch tensorboard. Defaults to 'Uncategorized'.
      * @type {number}
      * @memberof V1LaunchTensorboardRequest
      */
-    workspaceId: number;
+    workspaceId?: number;
     /**
      * Targets all experiments matching filters.
      * @type {V1BulkExperimentFilters}
      * @memberof V1LaunchTensorboardRequest
      */
-    filters: V1BulkExperimentFilters;
+    filters?: V1BulkExperimentFilters;
 }
 /**
  * Response to LaunchTensorboardRequest.
@@ -5806,43 +5806,43 @@ export interface V1PatchModel {
      * @type {string}
      * @memberof V1PatchModel
      */
-    name: string;
+    name?: string;
     /**
      * An updated description for the model.
      * @type {string}
      * @memberof V1PatchModel
      */
-    description: string;
+    description?: string;
     /**
      * An updated metadata object for the model.
      * @type {any}
      * @memberof V1PatchModel
      */
-    metadata: any;
+    metadata?: any;
     /**
      * An updated label list for the model.
      * @type {Array<string>}
      * @memberof V1PatchModel
      */
-    labels: Array<string>;
+    labels?: Array<string>;
     /**
      * Updated notes associated with this model.
      * @type {string}
      * @memberof V1PatchModel
      */
-    notes: string;
+    notes?: string;
     /**
      * The name of the workspace associated with this model.
      * @type {string}
      * @memberof V1PatchModel
      */
-    workspaceName: string;
+    workspaceName?: string;
     /**
      * The id of the workspace associated with this model.
      * @type {number}
      * @memberof V1PatchModel
      */
-    workspaceId: number;
+    workspaceId?: number;
 }
 /**
  * Response to PatchModelRequest.
@@ -5868,37 +5868,37 @@ export interface V1PatchModelVersion {
      * @type {V1Checkpoint}
      * @memberof V1PatchModelVersion
      */
-    checkpoint: V1Checkpoint;
+    checkpoint?: V1Checkpoint;
     /**
      * An updated name for the model version.
      * @type {string}
      * @memberof V1PatchModelVersion
      */
-    name: string;
+    name?: string;
     /**
      * An updated metadata object for the model version.
      * @type {any}
      * @memberof V1PatchModelVersion
      */
-    metadata: any;
+    metadata?: any;
     /**
      * An updated comment for the model version.
      * @type {string}
      * @memberof V1PatchModelVersion
      */
-    comment: string;
+    comment?: string;
     /**
      * An updated label list for the model version.
      * @type {Array<string>}
      * @memberof V1PatchModelVersion
      */
-    labels: Array<string>;
+    labels?: Array<string>;
     /**
      * Updated text notes for the model version.
      * @type {string}
      * @memberof V1PatchModelVersion
      */
-    notes: string;
+    notes?: string;
 }
 /**
  * Response to PatchModelVersionRequest.
@@ -5924,13 +5924,13 @@ export interface V1PatchProject {
      * @type {string}
      * @memberof V1PatchProject
      */
-    name: string;
+    name?: string;
     /**
      * The new description for the project.
      * @type {string}
      * @memberof V1PatchProject
      */
-    description: string;
+    description?: string;
 }
 /**
  * Response to PatchProjectRequest.
@@ -6000,49 +6000,49 @@ export interface V1PatchUser {
      * @type {string}
      * @memberof V1PatchUser
      */
-    username: string;
+    username?: string;
     /**
      * String denoting the password of the user.
      * @type {string}
      * @memberof V1PatchUser
      */
-    password: string;
+    password?: string;
     /**
      * Bool denoting whether the account is an admin account.
      * @type {boolean}
      * @memberof V1PatchUser
      */
-    admin: boolean;
+    admin?: boolean;
     /**
      * Bool denoting whether the account is active.
      * @type {boolean}
      * @memberof V1PatchUser
      */
-    active: boolean;
+    active?: boolean;
     /**
      * Name to display in the web UI.
      * @type {string}
      * @memberof V1PatchUser
      */
-    displayName: string;
+    displayName?: string;
     /**
      * The user and group on the agent host machine.
      * @type {V1AgentUserGroup}
      * @memberof V1PatchUser
      */
-    agentUserGroup: V1AgentUserGroup;
+    agentUserGroup?: V1AgentUserGroup;
     /**
      * Indicate whether the provided password is pre-salted & hashed or not.
      * @type {boolean}
      * @memberof V1PatchUser
      */
-    isHashed: boolean;
+    isHashed?: boolean;
     /**
      * Bool denoting whether the user should be able to login with or change a password.
      * @type {boolean}
      * @memberof V1PatchUser
      */
-    remote: boolean;
+    remote?: boolean;
 }
 /**
  * Response to PatchUserRequest.
@@ -6068,19 +6068,19 @@ export interface V1PatchWorkspace {
      * @type {string}
      * @memberof V1PatchWorkspace
      */
-    name: string;
+    name?: string;
     /**
      * Optional agent host uid and gid override.
      * @type {V1AgentUserGroup}
      * @memberof V1PatchWorkspace
      */
-    agentUserGroup: V1AgentUserGroup;
+    agentUserGroup?: V1AgentUserGroup;
     /**
      * Optional checkpoint storage config. Expects same format as experiment config's checkpoint storage.
      * @type {any}
      * @memberof V1PatchWorkspace
      */
-    checkpointStorageConfig: any;
+    checkpointStorageConfig?: any;
 }
 /**
  * Response to PatchWorkspaceRequest.
@@ -6217,25 +6217,25 @@ export interface V1PolymorphicFilter {
      * @type {string}
      * @memberof V1PolymorphicFilter
      */
-    name: string;
+    name?: string;
     /**
      * double value range for the query
      * @type {V1DoubleFieldFilter}
      * @memberof V1PolymorphicFilter
      */
-    doubleRange: V1DoubleFieldFilter;
+    doubleRange?: V1DoubleFieldFilter;
     /**
      * integer value range for the query
      * @type {V1Int32FieldFilter}
      * @memberof V1PolymorphicFilter
      */
-    integerRange: V1Int32FieldFilter;
+    integerRange?: V1Int32FieldFilter;
     /**
      * time value range for the query
      * @type {V1TimestampFieldFilter}
      * @memberof V1PolymorphicFilter
      */
-    timeRange: V1TimestampFieldFilter;
+    timeRange?: V1TimestampFieldFilter;
 }
 /**
  * Set the proxy address for some allocation.
@@ -6248,13 +6248,13 @@ export interface V1PostAllocationProxyAddressRequest {
      * @type {string}
      * @memberof V1PostAllocationProxyAddressRequest
      */
-    allocationId: string;
+    allocationId?: string;
     /**
      * The address of the host where the service is, w.r.t. the master.
      * @type {string}
      * @memberof V1PostAllocationProxyAddressRequest
      */
-    proxyAddress: string;
+    proxyAddress?: string;
 }
 /**
  * 
@@ -6274,7 +6274,7 @@ export interface V1PostCheckpointMetadataRequest {
      * @type {V1Checkpoint}
      * @memberof V1PostCheckpointMetadataRequest
      */
-    checkpoint: V1Checkpoint;
+    checkpoint?: V1Checkpoint;
 }
 /**
  * Response to PostCheckpointRequest.
@@ -6462,19 +6462,19 @@ export interface V1PostSearcherOperationsRequest {
      * @type {number}
      * @memberof V1PostSearcherOperationsRequest
      */
-    experimentId: number;
+    experimentId?: number;
     /**
      * List of operations to submit.
      * @type {Array<V1SearcherOperation>}
      * @memberof V1PostSearcherOperationsRequest
      */
-    searcherOperations: Array<V1SearcherOperation>;
+    searcherOperations?: Array<V1SearcherOperation>;
     /**
      * The event that triggered the client to send these operations to the master.
      * @type {V1SearcherEvent}
      * @memberof V1PostSearcherOperationsRequest
      */
-    triggeredByEvent: V1SearcherEvent;
+    triggeredByEvent?: V1SearcherEvent;
 }
 /**
  * Response to PostSearcherOperationsResponse.
@@ -6553,19 +6553,19 @@ export interface V1PostUserRequest {
      * @type {V1User}
      * @memberof V1PostUserRequest
      */
-    user: V1User;
+    user?: V1User;
     /**
      * The password of the user.
      * @type {string}
      * @memberof V1PostUserRequest
      */
-    password: string;
+    password?: string;
     /**
      * Indicate whether the provided password is pre-salted & hashed or not.
      * @type {boolean}
      * @memberof V1PostUserRequest
      */
-    isHashed: boolean;
+    isHashed?: boolean;
 }
 /**
  * Response to PostUserRequest.
@@ -6668,13 +6668,13 @@ export interface V1PreviewHPSearchRequest {
      * @type {any}
      * @memberof V1PreviewHPSearchRequest
      */
-    config: any;
+    config?: any;
     /**
      * The searcher simulation seed.
      * @type {number}
      * @memberof V1PreviewHPSearchRequest
      */
-    seed: number;
+    seed?: number;
 }
 /**
  * Response to PreviewSearchRequest.
@@ -6797,25 +6797,25 @@ export interface V1ProxyPortConfig {
      * @type {string}
      * @memberof V1ProxyPortConfig
      */
-    serviceId: string;
+    serviceId?: string;
     /**
      * The port of the proxy port config.
      * @type {number}
      * @memberof V1ProxyPortConfig
      */
-    port: number;
+    port?: number;
     /**
      * True if proxy uses TCP.
      * @type {boolean}
      * @memberof V1ProxyPortConfig
      */
-    proxyTcp: boolean;
+    proxyTcp?: boolean;
     /**
      * True if the proxy is unauthenticated.
      * @type {boolean}
      * @memberof V1ProxyPortConfig
      */
-    unauthenticated: boolean;
+    unauthenticated?: boolean;
 }
 /**
  * Request for setting project notes.
@@ -6979,13 +6979,13 @@ export interface V1RemoveAssignmentsRequest {
      * @type {Array<V1GroupRoleAssignment>}
      * @memberof V1RemoveAssignmentsRequest
      */
-    groupRoleAssignments: Array<V1GroupRoleAssignment>;
+    groupRoleAssignments?: Array<V1GroupRoleAssignment>;
     /**
      * the set of users being removed from a role.
      * @type {Array<V1UserRoleAssignment>}
      * @memberof V1RemoveAssignmentsRequest
      */
-    userRoleAssignments: Array<V1UserRoleAssignment>;
+    userRoleAssignments?: Array<V1UserRoleAssignment>;
 }
 /**
  * RemoveAssignmentsResponse is the body of the response for teh call to remove a user or group from a role.
@@ -7145,55 +7145,55 @@ export interface V1ResourceAllocationRawEntry {
      * @type {string}
      * @memberof V1ResourceAllocationRawEntry
      */
-    kind: string;
+    kind?: string;
     /**
      * The time at which the allocation began.
      * @type {Date}
      * @memberof V1ResourceAllocationRawEntry
      */
-    startTime: Date;
+    startTime?: Date;
     /**
      * The time at which the allocation ended.
      * @type {Date}
      * @memberof V1ResourceAllocationRawEntry
      */
-    endTime: Date;
+    endTime?: Date;
     /**
      * The ID of the experiment the allocation is a part of.
      * @type {number}
      * @memberof V1ResourceAllocationRawEntry
      */
-    experimentId: number;
+    experimentId?: number;
     /**
      * The username of the user who ran the experiment.
      * @type {string}
      * @memberof V1ResourceAllocationRawEntry
      */
-    username: string;
+    username?: string;
     /**
      * The username of the user who ran the experiment.
      * @type {number}
      * @memberof V1ResourceAllocationRawEntry
      */
-    userId: number;
+    userId?: number;
     /**
      * The labels assigned to the experiment.
      * @type {Array<string>}
      * @memberof V1ResourceAllocationRawEntry
      */
-    labels: Array<string>;
+    labels?: Array<string>;
     /**
      * The number of seconds for which the allocation was active during the requested period.
      * @type {number}
      * @memberof V1ResourceAllocationRawEntry
      */
-    seconds: number;
+    seconds?: number;
     /**
      * The number of slots used by the allocation.
      * @type {number}
      * @memberof V1ResourceAllocationRawEntry
      */
-    slots: number;
+    slots?: number;
 }
 /**
  * Response to ResourceAllocationRawRequest.
@@ -7539,19 +7539,19 @@ export interface V1ResourcePoolDetail {
      * @type {V1ResourcePoolAwsDetail}
      * @memberof V1ResourcePoolDetail
      */
-    aws: V1ResourcePoolAwsDetail;
+    aws?: V1ResourcePoolAwsDetail;
     /**
      * GCP-specific details
      * @type {V1ResourcePoolGcpDetail}
      * @memberof V1ResourcePoolDetail
      */
-    gcp: V1ResourcePoolGcpDetail;
+    gcp?: V1ResourcePoolGcpDetail;
     /**
      * Priority scheduler-specific details
      * @type {V1ResourcePoolPrioritySchedulerDetail}
      * @memberof V1ResourcePoolDetail
      */
-    priorityScheduler: V1ResourcePoolPrioritySchedulerDetail;
+    priorityScheduler?: V1ResourcePoolPrioritySchedulerDetail;
 }
 /**
  * 
@@ -7717,19 +7717,19 @@ export interface V1ResourcesFailure {
      * @type {V1FailureType}
      * @memberof V1ResourcesFailure
      */
-    failureType: V1FailureType;
+    failureType?: V1FailureType;
     /**
      * The error message of the failure.
      * @type {string}
      * @memberof V1ResourcesFailure
      */
-    errMsg: string;
+    errMsg?: string;
     /**
      * The exit code of the failure.
      * @type {number}
      * @memberof V1ResourcesFailure
      */
-    exitCode: number;
+    exitCode?: number;
 }
 /**
  * ResourcesStarted contains the information needed by tasks from container started.
@@ -7742,13 +7742,13 @@ export interface V1ResourcesStarted {
      * @type {Array<V1Address>}
      * @memberof V1ResourcesStarted
      */
-    addresses: Array<V1Address>;
+    addresses?: Array<V1Address>;
     /**
      * NativeResourcesID is the native Docker hex container ID of the Determined container.
      * @type {string}
      * @memberof V1ResourcesStarted
      */
-    nativeResourcesId: string;
+    nativeResourcesId?: string;
 }
 /**
  * ResourcesStopped contains the information needed by tasks from container stopped.
@@ -7761,7 +7761,7 @@ export interface V1ResourcesStopped {
      * @type {V1ResourcesFailure}
      * @memberof V1ResourcesStopped
      */
-    failure: V1ResourcesFailure;
+    failure?: V1ResourcesFailure;
 }
 /**
  * ResourcesSummary provides a summary of the resources comprising what we know at the time the allocation is granted, but for k8s it is granted before being scheduled so it isn't really much and `agent_devices` are missing for k8s.
@@ -7774,43 +7774,43 @@ export interface V1ResourcesSummary {
      * @type {string}
      * @memberof V1ResourcesSummary
      */
-    resourcesId: string;
+    resourcesId?: string;
     /**
      * ResourcesType is the type of some set of resources. This should be purely informational.
      * @type {string}
      * @memberof V1ResourcesSummary
      */
-    resourcesType: string;
+    resourcesType?: string;
     /**
      * AllocationID is the ID of an allocation of a task.
      * @type {string}
      * @memberof V1ResourcesSummary
      */
-    allocationId: string;
+    allocationId?: string;
     /**
      * ID, an identifier for an agent, maps to the associated devices.
      * @type {{ [key: string]: ResourcesSummaryDevices; }}
      * @memberof V1ResourcesSummary
      */
-    agentDevices: { [key: string]: ResourcesSummaryDevices; };
+    agentDevices?: { [key: string]: ResourcesSummaryDevices; };
     /**
      * Available if the RM can give information on the container level.
      * @type {string}
      * @memberof V1ResourcesSummary
      */
-    containerId: string;
+    containerId?: string;
     /**
      * Available if the RM knows the resource is already started / exited.
      * @type {V1ResourcesStarted}
      * @memberof V1ResourcesSummary
      */
-    started: V1ResourcesStarted;
+    started?: V1ResourcesStarted;
     /**
      * ResourcesStopped contains the information needed by tasks from container stopped.
      * @type {V1ResourcesStopped}
      * @memberof V1ResourcesSummary
      */
-    exited: V1ResourcesStopped;
+    exited?: V1ResourcesStopped;
 }
 /**
  * 
@@ -7904,19 +7904,19 @@ export interface V1RoleWithAssignments {
      * @type {V1Role}
      * @memberof V1RoleWithAssignments
      */
-    role: V1Role;
+    role?: V1Role;
     /**
      * The embedded GroupRoleAssignment.
      * @type {Array<V1GroupRoleAssignment>}
      * @memberof V1RoleWithAssignments
      */
-    groupRoleAssignments: Array<V1GroupRoleAssignment>;
+    groupRoleAssignments?: Array<V1GroupRoleAssignment>;
     /**
      * The embedded UserRoleAssignment.
      * @type {Array<V1UserRoleAssignment>}
      * @memberof V1RoleWithAssignments
      */
-    userRoleAssignments: Array<V1UserRoleAssignment>;
+    userRoleAssignments?: Array<V1UserRoleAssignment>;
 }
 /**
  * Job stats for a resource pool.
@@ -7954,13 +7954,13 @@ export interface V1RunnableOperation {
      * @type {V1RunnableType}
      * @memberof V1RunnableOperation
      */
-    type: V1RunnableType;
+    type?: V1RunnableType;
     /**
      * If the type == WORKLOAD_KIND_TRAIN, this is the number of units
      * @type {string}
      * @memberof V1RunnableOperation
      */
-    length: string;
+    length?: string;
 }
 /**
  * RunnableType defines the type of operation that should be executed by trial runners.   - RUNNABLE_TYPE_UNSPECIFIED: Denotes an unknown runnable type.  - RUNNABLE_TYPE_TRAIN: Signals to a trial runner that it should run a train.  - RUNNABLE_TYPE_VALIDATE: Signals to a trial runner it should compute validation metrics.
@@ -8010,13 +8010,13 @@ export interface V1ScopeTypeMask {
      * @type {boolean}
      * @memberof V1ScopeTypeMask
      */
-    cluster: boolean;
+    cluster?: boolean;
     /**
      * Whether this permission or role can be assigned on a particular workspace. For example, `ADMINISTRATE_USER` permission will have this field set to false, since user creation can only be done at a cluster level, and it doesn't make sense for a single workspace.
      * @type {boolean}
      * @memberof V1ScopeTypeMask
      */
-    workspace: boolean;
+    workspace?: boolean;
 }
 /**
  * SearcherEvent is a message from master to a client-driven custom searcher informing it of relevant changes in the state of an experiment.
@@ -8084,31 +8084,31 @@ export interface V1SearcherOperation {
      * @type {V1TrialOperation}
      * @memberof V1SearcherOperation
      */
-    trialOperation: V1TrialOperation;
+    trialOperation?: V1TrialOperation;
     /**
      * CreateTrialOperation is issued to create a trial.
      * @type {V1CreateTrialOperation}
      * @memberof V1SearcherOperation
      */
-    createTrial: V1CreateTrialOperation;
+    createTrial?: V1CreateTrialOperation;
     /**
      * CloseTrialOperation is issued to close a trial.
      * @type {V1CloseTrialOperation}
      * @memberof V1SearcherOperation
      */
-    closeTrial: V1CloseTrialOperation;
+    closeTrial?: V1CloseTrialOperation;
     /**
      * ShutDownOperation is issued to shut down the custom search method.
      * @type {V1ShutDownOperation}
      * @memberof V1SearcherOperation
      */
-    shutDown: V1ShutDownOperation;
+    shutDown?: V1ShutDownOperation;
     /**
      * SetSearcherProgressOperation is issued to set the progress of the custom search method.
      * @type {V1SetSearcherProgressOperation}
      * @memberof V1SearcherOperation
      */
-    setSearcherProgress: V1SetSearcherProgressOperation;
+    setSearcherProgress?: V1SetSearcherProgressOperation;
 }
 /**
  * 
@@ -8121,13 +8121,13 @@ export interface V1SearchExperimentExperiment {
      * @type {V1Experiment}
      * @memberof V1SearchExperimentExperiment
      */
-    experiment: V1Experiment;
+    experiment?: V1Experiment;
     /**
      * The best performing trial associated with the experiment
      * @type {Trialv1Trial}
      * @memberof V1SearchExperimentExperiment
      */
-    bestTrial: Trialv1Trial;
+    bestTrial?: Trialv1Trial;
 }
 /**
  * 
@@ -8203,13 +8203,13 @@ export interface V1SetCommandPriorityRequest {
      * @type {string}
      * @memberof V1SetCommandPriorityRequest
      */
-    commandId: string;
+    commandId?: string;
     /**
      * The new priority.
      * @type {number}
      * @memberof V1SetCommandPriorityRequest
      */
-    priority: number;
+    priority?: number;
 }
 /**
  * Response to SetCommandPriorityRequest.
@@ -8235,13 +8235,13 @@ export interface V1SetNotebookPriorityRequest {
      * @type {string}
      * @memberof V1SetNotebookPriorityRequest
      */
-    notebookId: string;
+    notebookId?: string;
     /**
      * The new priority.
      * @type {number}
      * @memberof V1SetNotebookPriorityRequest
      */
-    priority: number;
+    priority?: number;
 }
 /**
  * Response to SetNotebookPriorityRequest.
@@ -8267,7 +8267,7 @@ export interface V1SetSearcherProgressOperation {
      * @type {number}
      * @memberof V1SetSearcherProgressOperation
      */
-    progress: number;
+    progress?: number;
 }
 /**
  * Set the priority of the requested shell.
@@ -8280,13 +8280,13 @@ export interface V1SetShellPriorityRequest {
      * @type {string}
      * @memberof V1SetShellPriorityRequest
      */
-    shellId: string;
+    shellId?: string;
     /**
      * The new priority.
      * @type {number}
      * @memberof V1SetShellPriorityRequest
      */
-    priority: number;
+    priority?: number;
 }
 /**
  * Response to SetShellPriorityRequest.
@@ -8312,13 +8312,13 @@ export interface V1SetTensorboardPriorityRequest {
      * @type {string}
      * @memberof V1SetTensorboardPriorityRequest
      */
-    tensorboardId: string;
+    tensorboardId?: string;
     /**
      * The new priority.
      * @type {number}
      * @memberof V1SetTensorboardPriorityRequest
      */
-    priority: number;
+    priority?: number;
 }
 /**
  * Response to SetTensorboardPriorityRequest.
@@ -8460,7 +8460,7 @@ export interface V1ShutDownOperation {
      * @type {number}
      * @memberof V1ShutDownOperation
      */
-    placeholder: number;
+    placeholder?: number;
 }
 /**
  * Slot wraps a single device on the agent.
@@ -8961,97 +8961,97 @@ export interface V1TrialFilters {
      * @type {Array<number>}
      * @memberof V1TrialFilters
      */
-    experimentIds: Array<number>;
+    experimentIds?: Array<number>;
     /**
      * Filter trials by their corresponding project ids.
      * @type {Array<number>}
      * @memberof V1TrialFilters
      */
-    projectIds: Array<number>;
+    projectIds?: Array<number>;
     /**
      * Filter trials by their corresponding workspace ids.
      * @type {Array<number>}
      * @memberof V1TrialFilters
      */
-    workspaceIds: Array<number>;
+    workspaceIds?: Array<number>;
     /**
      * Filter trials to those containing ALL validation_metrics within the indicated ranges.
      * @type {Array<V1ColumnFilter>}
      * @memberof V1TrialFilters
      */
-    validationMetrics: Array<V1ColumnFilter>;
+    validationMetrics?: Array<V1ColumnFilter>;
     /**
      * Filter trials to those containing ALL training_metrics within the indicated ranges.
      * @type {Array<V1ColumnFilter>}
      * @memberof V1TrialFilters
      */
-    trainingMetrics: Array<V1ColumnFilter>;
+    trainingMetrics?: Array<V1ColumnFilter>;
     /**
      * Filter trials to those containing ALL hyperparameters within the indicated ranges. Nested hparams are specified with dots.
      * @type {Array<V1ColumnFilter>}
      * @memberof V1TrialFilters
      */
-    hparams: Array<V1ColumnFilter>;
+    hparams?: Array<V1ColumnFilter>;
     /**
      * Filter trials according to the creators user id.
      * @type {Array<number>}
      * @memberof V1TrialFilters
      */
-    userIds: Array<number>;
+    userIds?: Array<number>;
     /**
      * Filter trials according to the name of the searcher used.
      * @type {string}
      * @memberof V1TrialFilters
      */
-    searcher: string;
+    searcher?: string;
     /**
      * Filter trials to those containing ANY of the provided tags.
      * @type {Array<V1TrialTag>}
      * @memberof V1TrialFilters
      */
-    tags: Array<V1TrialTag>;
+    tags?: Array<V1TrialTag>;
     /**
      * Filter trials according to their rank within the experiment.
      * @type {TrialFiltersRankWithinExp}
      * @memberof V1TrialFilters
      */
-    rankWithinExp: TrialFiltersRankWithinExp;
+    rankWithinExp?: TrialFiltersRankWithinExp;
     /**
      * Filter trials to those starting within the given range.
      * @type {V1TimestampFieldFilter}
      * @memberof V1TrialFilters
      */
-    startTime: V1TimestampFieldFilter;
+    startTime?: V1TimestampFieldFilter;
     /**
      * Filter trials to those ending within the given range.
      * @type {V1TimestampFieldFilter}
      * @memberof V1TrialFilters
      */
-    endTime: V1TimestampFieldFilter;
+    endTime?: V1TimestampFieldFilter;
     /**
      * Filter trials to those with any of the given states.
      * @type {Array<Trialv1State>}
      * @memberof V1TrialFilters
      */
-    states: Array<Trialv1State>;
+    states?: Array<Trialv1State>;
     /**
      * Filter trials to those with the given searcher metric.
      * @type {string}
      * @memberof V1TrialFilters
      */
-    searcherMetric: string;
+    searcherMetric?: string;
     /**
      * Filter trials to those with a searcher metric within a given range
      * @type {V1DoubleFieldFilter}
      * @memberof V1TrialFilters
      */
-    searcherMetricValue: V1DoubleFieldFilter;
+    searcherMetricValue?: V1DoubleFieldFilter;
     /**
      * Filter trials to those with the provided ids
      * @type {Array<number>}
      * @memberof V1TrialFilters
      */
-    trialIds: Array<number>;
+    trialIds?: Array<number>;
 }
 /**
  * Response to TrialLogFieldsRequest.
@@ -9218,13 +9218,13 @@ export interface V1TrialPatch {
      * @type {Array<V1TrialTag>}
      * @memberof V1TrialPatch
      */
-    addTag: Array<V1TrialTag>;
+    addTag?: Array<V1TrialTag>;
     /**
      * Specifies that a tag will be removed.
      * @type {Array<V1TrialTag>}
      * @memberof V1TrialPatch
      */
-    removeTag: Array<V1TrialTag>;
+    removeTag?: Array<V1TrialTag>;
 }
 /**
  * 
@@ -9380,13 +9380,13 @@ export interface V1TrialSimulation {
      * @type {Array<V1RunnableOperation>}
      * @memberof V1TrialSimulation
      */
-    operations: Array<V1RunnableOperation>;
+    operations?: Array<V1RunnableOperation>;
     /**
      * The number of times that this trial configuration has occurred during the simulation.
      * @type {number}
      * @memberof V1TrialSimulation
      */
-    occurrences: number;
+    occurrences?: number;
 }
 /**
  * 
@@ -9952,19 +9952,19 @@ export interface V1WorkloadContainer {
      * @type {V1MetricsWorkload}
      * @memberof V1WorkloadContainer
      */
-    training: V1MetricsWorkload;
+    training?: V1MetricsWorkload;
     /**
      * Validation workload.
      * @type {V1MetricsWorkload}
      * @memberof V1WorkloadContainer
      */
-    validation: V1MetricsWorkload;
+    validation?: V1MetricsWorkload;
     /**
      * Checkpoint workload.
      * @type {V1CheckpointWorkload}
      * @memberof V1WorkloadContainer
      */
-    checkpoint: V1CheckpointWorkload;
+    checkpoint?: V1CheckpointWorkload;
 }
 /**
  * Workspace is a named collection of projects.
