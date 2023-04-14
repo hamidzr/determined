@@ -7,7 +7,7 @@ usage: swagger.py GENERATED_JSON PATCH_JSON
 
 import json
 import sys
-from typing import Any, Dict, List
+from typing import Any, Dict, List, Optional
 
 SERVICE_NAME = "Determined"
 
@@ -68,11 +68,13 @@ def clean(path: str, patch: str) -> None:
         if key.startswith(SERVICE_NAME.lower()):
             keys_to_rename.append(key)
 
-        # mark all properties as required unless it's a request object
-        # we default all the fields through grpc-gateway
-        if "properties" in value and not key.endswith("Request"):
-            properties_names = list(value["properties"].keys())
-            spec["definitions"][key]["required"] = properties_names
+        # default to setting properties as required unless there is an explicit
+        # required annotation since we default all the fields through grpc-gateway (`EmitDefaults`).
+        if "properties" in value:
+            cur_required_annots: Optional[List] = value.get("required", None)
+            if cur_required_annots is None:
+                properties_names = list(value["properties"].keys())
+                spec["definitions"][key]["required"] = properties_names
 
     for key in keys_to_rename:
         spec["definitions"][key[len(SERVICE_NAME) :]] = spec["definitions"].pop(key)
