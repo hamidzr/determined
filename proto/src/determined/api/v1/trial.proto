@@ -47,6 +47,9 @@ message WorkloadContainer {
 
 // A filter structure to allow for range filters on arbitrary keys
 message ColumnFilter {
+  option (grpc.gateway.protoc_gen_swagger.options.openapiv2_schema) = {
+    json_schema: { required: [ "NONE" ] }
+  };
   // The name of the field on which the filters is applied.
   string name = 1;
   // The filter to apply to the given column

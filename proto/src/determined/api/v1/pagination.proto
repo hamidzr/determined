@@ -2,10 +2,14 @@ syntax = "proto3";
 
 package determined.api.v1;
 option go_package = "github.com/determined-ai/determined/proto/pkg/apiv1";
+import "protoc-gen-swagger/options/annotations.proto";
 
 // Pagination provides information about the offset, limit, and total number of
 // records returned in the results.
 message Pagination {
+  option (grpc.gateway.protoc_gen_swagger.options.openapiv2_schema) = {
+    json_schema: { required: [ "NONE" ] }
+  };
   // The number of records skipped before returning results.
   int32 offset = 1;
   // The amount of records limited in the results.

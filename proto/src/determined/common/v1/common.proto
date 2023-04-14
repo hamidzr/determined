@@ -20,6 +20,9 @@ message Metrics {
 
 // Double filters.
 message DoubleFieldFilter {
+  option (grpc.gateway.protoc_gen_swagger.options.openapiv2_schema) = {
+    json_schema: { required: [ "NONE" ] }
+  };
   // Less than.
   optional double lt = 2;
   // Less than or equal.

@@ -2363,25 +2363,25 @@ export interface V1DoubleFieldFilter {
      * @type {number}
      * @memberof V1DoubleFieldFilter
      */
-    lt: number;
+    lt?: number;
     /**
      * Less than or equal.
      * @type {number}
      * @memberof V1DoubleFieldFilter
      */
-    lte: number;
+    lte?: number;
     /**
      * Greater than.
      * @type {number}
      * @memberof V1DoubleFieldFilter
      */
-    gt: number;
+    gt?: number;
     /**
      * Greater than or equal.
      * @type {number}
      * @memberof V1DoubleFieldFilter
      */
-    gte: number;
+    gte?: number;
 }
 /**
  * Response to EnableAgentRequest.
@@ -5719,31 +5719,31 @@ export interface V1Pagination {
      * @type {number}
      * @memberof V1Pagination
      */
-    offset: number;
+    offset?: number;
     /**
      * The amount of records limited in the results.
      * @type {number}
      * @memberof V1Pagination
      */
-    limit: number;
+    limit?: number;
     /**
      * The index of the first record in the dataset.
      * @type {number}
      * @memberof V1Pagination
      */
-    startIndex: number;
+    startIndex?: number;
     /**
      * The index+1 of the last record in the dataset.
      * @type {number}
      * @memberof V1Pagination
      */
-    endIndex: number;
+    endIndex?: number;
     /**
      * The total number of values that match the filter.
      * @type {number}
      * @memberof V1Pagination
      */
-    total: number;
+    total?: number;
 }
 /**
  * PatchExperiment is a partial update to an experiment with only id required.

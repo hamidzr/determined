@@ -2520,37 +2520,53 @@ class v1DisableSlotResponse:
         return out
 
 class v1DoubleFieldFilter:
+    gt: "typing.Optional[float]" = None
+    gte: "typing.Optional[float]" = None
+    lt: "typing.Optional[float]" = None
+    lte: "typing.Optional[float]" = None
 
     def __init__(
         self,
         *,
-        gt: float,
-        gte: float,
-        lt: float,
-        lte: float,
+        gt: "typing.Union[float, None, Unset]" = _unset,
+        gte: "typing.Union[float, None, Unset]" = _unset,
+        lt: "typing.Union[float, None, Unset]" = _unset,
+        lte: "typing.Union[float, None, Unset]" = _unset,
     ):
-        self.gt = gt
-        self.gte = gte
-        self.lt = lt
-        self.lte = lte
+        if not isinstance(gt, Unset):
+            self.gt = gt
+        if not isinstance(gte, Unset):
+            self.gte = gte
+        if not isinstance(lt, Unset):
+            self.lt = lt
+        if not isinstance(lte, Unset):
+            self.lte = lte
 
     @classmethod
     def from_json(cls, obj: Json) -> "v1DoubleFieldFilter":
         kwargs: "typing.Dict[str, typing.Any]" = {
-            "gt": float(obj["gt"]),
-            "gte": float(obj["gte"]),
-            "lt": float(obj["lt"]),
-            "lte": float(obj["lte"]),
         }
+        if "gt" in obj:
+            kwargs["gt"] = float(obj["gt"]) if obj["gt"] is not None else None
+        if "gte" in obj:
+            kwargs["gte"] = float(obj["gte"]) if obj["gte"] is not None else None
+        if "lt" in obj:
+            kwargs["lt"] = float(obj["lt"]) if obj["lt"] is not None else None
+        if "lte" in obj:
+            kwargs["lte"] = float(obj["lte"]) if obj["lte"] is not None else None
         return cls(**kwargs)
 
     def to_json(self, omit_unset: bool = False) -> typing.Dict[str, typing.Any]:
         out: "typing.Dict[str, typing.Any]" = {
-            "gt": dump_float(self.gt),
-            "gte": dump_float(self.gte),
-            "lt": dump_float(self.lt),
-            "lte": dump_float(self.lte),
         }
+        if not omit_unset or "gt" in vars(self):
+            out["gt"] = None if self.gt is None else dump_float(self.gt)
+        if not omit_unset or "gte" in vars(self):
+            out["gte"] = None if self.gte is None else dump_float(self.gte)
+        if not omit_unset or "lt" in vars(self):
+            out["lt"] = None if self.lt is None else dump_float(self.lt)
+        if not omit_unset or "lte" in vars(self):
+            out["lte"] = None if self.lte is None else dump_float(self.lte)
         return out
 
 class v1EnableAgentResponse:
@@ -6847,41 +6863,61 @@ class v1OrderBy(enum.Enum):
     DESC = "ORDER_BY_DESC"
 
 class v1Pagination:
+    endIndex: "typing.Optional[int]" = None
+    limit: "typing.Optional[int]" = None
+    offset: "typing.Optional[int]" = None
+    startIndex: "typing.Optional[int]" = None
+    total: "typing.Optional[int]" = None
 
     def __init__(
         self,
         *,
-        endIndex: int,
-        limit: int,
-        offset: int,
-        startIndex: int,
-        total: int,
+        endIndex: "typing.Union[int, None, Unset]" = _unset,
+        limit: "typing.Union[int, None, Unset]" = _unset,
+        offset: "typing.Union[int, None, Unset]" = _unset,
+        startIndex: "typing.Union[int, None, Unset]" = _unset,
+        total: "typing.Union[int, None, Unset]" = _unset,
     ):
-        self.endIndex = endIndex
-        self.limit = limit
-        self.offset = offset
-        self.startIndex = startIndex
-        self.total = total
+        if not isinstance(endIndex, Unset):
+            self.endIndex = endIndex
+        if not isinstance(limit, Unset):
+            self.limit = limit
+        if not isinstance(offset, Unset):
+            self.offset = offset
+        if not isinstance(startIndex, Unset):
+            self.startIndex = startIndex
+        if not isinstance(total, Unset):
+            self.total = total
 
     @classmethod
     def from_json(cls, obj: Json) -> "v1Pagination":
         kwargs: "typing.Dict[str, typing.Any]" = {
-            "endIndex": obj["endIndex"],
-            "limit": obj["limit"],
-            "offset": obj["offset"],
-            "startIndex": obj["startIndex"],
-            "total": obj["total"],
         }
+        if "endIndex" in obj:
+            kwargs["endIndex"] = obj["endIndex"]
+        if "limit" in obj:
+            kwargs["limit"] = obj["limit"]
+        if "offset" in obj:
+            kwargs["offset"] = obj["offset"]
+        if "startIndex" in obj:
+            kwargs["startIndex"] = obj["startIndex"]
+        if "total" in obj:
+            kwargs["total"] = obj["total"]
         return cls(**kwargs)
 
     def to_json(self, omit_unset: bool = False) -> typing.Dict[str, typing.Any]:
         out: "typing.Dict[str, typing.Any]" = {
-            "endIndex": self.endIndex,
-            "limit": self.limit,
-            "offset": self.offset,
-            "startIndex": self.startIndex,
-            "total": self.total,
         }
+        if not omit_unset or "endIndex" in vars(self):
+            out["endIndex"] = self.endIndex
+        if not omit_unset or "limit" in vars(self):
+            out["limit"] = self.limit
+        if not omit_unset or "offset" in vars(self):
+            out["offset"] = self.offset
+        if not omit_unset or "startIndex" in vars(self):
+            out["startIndex"] = self.startIndex
+        if not omit_unset or "total" in vars(self):
+            out["total"] = self.total
         return out
 
 class v1PatchExperiment:
