@@ -7,7 +7,7 @@ usage: swagger.py GENERATED_JSON PATCH_JSON
 
 import json
 import sys
-from typing import Any, Dict, List, Optional
+from typing import Any, Dict, List, Optional, Set
 
 SERVICE_NAME = "Determined"
 
@@ -43,6 +43,18 @@ def to_lower_camel_case(snake_str):
     return components[0] + "".join(x.title() for x in components[1:])
 
 
+def mark_props_required(_schema: dict) -> dict:
+    """
+    safely returned a copy of the schema with all properties marked as required.
+    """
+    schema = _schema.copy()
+    if schema.get("type") == "object" and "properties" in schema:
+        cur_required_annots: Optional[List] = schema.get("required", None)
+        if cur_required_annots is None:
+            schema["required"] = list(schema["properties"].keys())
+    return schema
+
+
 def clean(path: str, patch: str) -> None:
     with open(path, "r") as f:
         spec = json.load(f)
@@ -72,11 +84,12 @@ def clean(path: str, patch: str) -> None:
         # required annotation since we default all the fields through grpc-gateway (`EmitDefaults`).
         # CHECK: we might want to skip objects and proprities that are defined for use in requests.
         # these might end with `Request`.
-        if "properties" in value:
-            cur_required_annots: Optional[List] = value.get("required", None)
-            if cur_required_annots is None:
-                properties_names = list(value["properties"].keys())
-                spec["definitions"][key]["required"] = properties_names
+        spec["definitions"][key] = mark_props_required(value)
+        # if "properties" in value:
+        #     cur_required_annots: Optional[List] = value.get("required", None)
+        #     if cur_required_annots is None:
+        #         properties_names = list(value["properties"].keys())
+        #         spec["definitions"][key]["required"] = properties_names
 
     for key in keys_to_rename:
         spec["definitions"][key[len(SERVICE_NAME) :]] = spec["definitions"].pop(key)
@@ -97,6 +110,9 @@ def clean(path: str, patch: str) -> None:
 
     rename_refs(spec)
 
+    # collect all response objects names
+    response_objects: Set[str] = set()
+
     # remove operationId prefix from the main service.
     operationid_prefix = SERVICE_NAME + "_"
     for url, value in spec["paths"].items():
@@ -104,6 +120,21 @@ def clean(path: str, patch: str) -> None:
             cur_id = str(api["operationId"])
             if cur_id.startswith(operationid_prefix):
                 spec["paths"][url][method]["operationId"] = cur_id[len(operationid_prefix) :]
+
+        # for api in value.values():
+        #     if "responses" in api:
+        #         for response in api["responses"].values():
+        #             if "schema" in response:
+        #                 if "$ref" not in response["schema"]:
+        #                     print("WTF", url)
+        #                     return
+        #                 response_objects.add(response["schema"]["$ref"].split("/")[-1])
+        # print(value)
+        # for method, api in value.items():
+        #     for code, response in api["responses"].items():
+        #         if "schema" in response:
+        #             response_objects.add(response["schema"]["$ref"].split("/")[-1])
+    # print(list(response_objects).sort())
 
     with open(patch, "r") as f:
         merge_dict(spec, json.load(f))
