@@ -30,9 +30,10 @@ message Model {
     }
   };
   // The name of the model.
-  string name = 1 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
-    min_length: 1
-  }];
+  string name = 1
+      [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+        min_length: 1
+      }];
   // The description of the model.
   string description = 2;
   // The user-defined metadata of the model.

@@ -43,9 +43,10 @@ message Workspace {
   // The unique id of the workspace.
   int32 id = 1;
   // The unique name of the workspace.
-  string name = 2 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
-    min_length: 1
-  }];
+  string name = 2
+      [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+        min_length: 1
+      }];
   // Whether this workspace is archived or not.
   bool archived = 3;
   // User who created this workspace.

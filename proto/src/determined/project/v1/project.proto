@@ -80,9 +80,10 @@ message Project {
   // The unique id of the project.
   int32 id = 1;
   // The unique name of the project.
-  string name = 2 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
-    min_length: 1
-  }];
+  string name = 2
+      [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+        min_length: 1
+      }];
   // The id of the associated workspace.
   int32 workspace_id = 3;
   // The description of the project.
