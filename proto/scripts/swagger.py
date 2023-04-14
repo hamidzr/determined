@@ -70,6 +70,8 @@ def clean(path: str, patch: str) -> None:
 
         # default to setting properties as required unless there is an explicit
         # required annotation since we default all the fields through grpc-gateway (`EmitDefaults`).
+        # CHECK: we might want to skip objects and proprities that are defined for use in requests.
+        # these might end with `Request`.
         if "properties" in value:
             cur_required_annots: Optional[List] = value.get("required", None)
             if cur_required_annots is None:
