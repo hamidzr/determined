@@ -8,7 +8,7 @@ import "protoc-gen-openapiv2/options/annotations.proto";
 
 // Login the user.
 message LoginRequest {
-  option (grpc.gateway.protoc_gen_swagger.options.openapiv2_schema) = {
+  option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
     json_schema: { required: [ "username", "password" ] }
   };
   // The username of the user.
@@ -20,7 +20,7 @@ message LoginRequest {
 }
 // Response to LoginRequest.
 message LoginResponse {
-  option (grpc.gateway.protoc_gen_swagger.options.openapiv2_schema) = {
+  option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
     json_schema: { required: [ "user", "token" ] }
   };
   // The token to be used when sending results.
@@ -33,7 +33,7 @@ message LoginResponse {
 message CurrentUserRequest {}
 // Response to CurrentUserRequest.
 message CurrentUserResponse {
-  option (grpc.gateway.protoc_gen_swagger.options.openapiv2_schema) = {
+  option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
     json_schema: { required: [ "user" ] }
   };
   // The currently logged in user.

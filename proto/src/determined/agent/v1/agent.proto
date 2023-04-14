@@ -11,7 +11,7 @@ import "determined/device/v1/device.proto";
 
 // Agent is a pool of resources where containers are run.
 message Agent {
-  option (grpc.gateway.protoc_gen_swagger.options.openapiv2_schema) = {
+  option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
     json_schema: { required: [ "id" ] }
   };
   // The unique id of the agent.

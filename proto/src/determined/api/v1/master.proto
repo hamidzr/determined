@@ -12,7 +12,7 @@ import "determined/master/v1/master.proto";
 
 // Describe one SSO provider.
 message SSOProvider {
-  option (grpc.gateway.protoc_gen_swagger.options.openapiv2_schema) = {
+  option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
     json_schema: { required: [ "name", "sso_url" ] }
   };
   // A descriptive name for this provider.
@@ -25,7 +25,7 @@ message SSOProvider {
 message GetMasterRequest {}
 // Response to GetMasterRequest.
 message GetMasterResponse {
-  option (grpc.gateway.protoc_gen_swagger.options.openapiv2_schema) = {
+  option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
     json_schema: {
       required: [ "version", "master_id", "cluster_id", "cluster_name" ]
     }
@@ -69,7 +69,7 @@ message GetMasterResponse {
 message GetTelemetryRequest {}
 // Response to GetTelemetryRequest.
 message GetTelemetryResponse {
-  option (grpc.gateway.protoc_gen_swagger.options.openapiv2_schema) = {
+  option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
     json_schema: { required: [ "enabled" ] }
   };
   // Whether telemetry is enabled or not.
@@ -82,7 +82,7 @@ message GetTelemetryResponse {
 message GetMasterConfigRequest {}
 // Response to GetMasterRequest.
 message GetMasterConfigResponse {
-  option (grpc.gateway.protoc_gen_swagger.options.openapiv2_schema) = {
+  option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
     json_schema: { required: [ "config" ] }
   };
   // The config file loaded by the master.
@@ -101,7 +101,7 @@ message MasterLogsRequest {
 }
 // Response to MasterLogsRequest.
 message MasterLogsResponse {
-  option (grpc.gateway.protoc_gen_swagger.options.openapiv2_schema) = {
+  option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
     json_schema: { required: [ "log_entry" ] }
   };
   // The log entry.
@@ -110,17 +110,17 @@ message MasterLogsResponse {
 
 // Get a detailed view of resource allocation during the given time period.
 message ResourceAllocationRawRequest {
-  option (grpc.gateway.protoc_gen_swagger.options.openapiv2_schema) = {
+  option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
     json_schema: { required: [ "timestamp_after", "timestamp_before" ] }
   };
   // The start of the period to consider.
   google.protobuf.Timestamp timestamp_after = 1
-      [(grpc.gateway.protoc_gen_swagger.options.openapiv2_field) = {
+      [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
         required: "timestamp_after"
       }];
   // The end of the period to consider.
   google.protobuf.Timestamp timestamp_before = 2
-      [(grpc.gateway.protoc_gen_swagger.options.openapiv2_field) = {
+      [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
         required: "timestamp_before"
       }];
 }
@@ -132,30 +132,30 @@ message ResourceAllocationRawResponse {
 
 // Get an aggregated view of resource allocation during the given time period.
 message ResourceAllocationAggregatedRequest {
-  option (grpc.gateway.protoc_gen_swagger.options.openapiv2_schema) = {
+  option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
     json_schema: { required: [ "period", "start_date", "end_date" ] }
   };
   // The first day to consider (the exact time is midnight UTC at the beginning
   // of the day).
   string start_date = 1
-      [(grpc.gateway.protoc_gen_swagger.options.openapiv2_field) = {
+      [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
         required: "start_date"
       }];
   // The last day to consider (the exact time is midnight UTC at the end of the
   // day).
   string end_date = 2
-      [(grpc.gateway.protoc_gen_swagger.options.openapiv2_field) = {
+      [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
         required: "end_date"
       }];
   // The period over which to perform aggregation.
   determined.master.v1.ResourceAllocationAggregationPeriod period = 3
-      [(grpc.gateway.protoc_gen_swagger.options.openapiv2_field) = {
+      [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
         required: "period"
       }];
 }
 // Response to ResourceAllocationAggregatedRequest.
 message ResourceAllocationAggregatedResponse {
-  option (grpc.gateway.protoc_gen_swagger.options.openapiv2_schema) = {
+  option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
     json_schema: { required: [ "resourceEntries" ] }
   };
 

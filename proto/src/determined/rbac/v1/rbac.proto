@@ -24,7 +24,7 @@ message ScopeTypeMask {
 
 // Role contains information about a specific Role
 message Role {
-  option (grpc.gateway.protoc_gen_swagger.options.openapiv2_schema) = {
+  option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
     json_schema: { required: [ "role_id" ] }
   };
   // The id of the role being detailed
@@ -39,7 +39,7 @@ message Role {
 
 // Permission represents an action a user can take in the system
 message Permission {
-  option (grpc.gateway.protoc_gen_swagger.options.openapiv2_schema) = {
+  option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
     json_schema: { required: [ "id" ] }
   };
   // The id of the permission
@@ -138,7 +138,7 @@ enum PermissionType {
 
 // RoleAssignmentSummary is used to describe permissions a user has.
 message RoleAssignmentSummary {
-  option (grpc.gateway.protoc_gen_swagger.options.openapiv2_schema) = {
+  option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
     json_schema: { required: [ "role_id" ] }
   };
   // The id of the role being detailed
@@ -152,7 +152,7 @@ message RoleAssignmentSummary {
 // RoleAssignment contains information about the scope
 // of the role.
 message RoleAssignment {
-  option (grpc.gateway.protoc_gen_swagger.options.openapiv2_schema) = {
+  option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
     json_schema: { required: [ "role" ] }
   };
   // The role of the assignment.
@@ -166,7 +166,7 @@ message RoleAssignment {
 // GroupRoleAssignment contains information about the groups
 // belonging to a role.
 message GroupRoleAssignment {
-  option (grpc.gateway.protoc_gen_swagger.options.openapiv2_schema) = {
+  option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
     json_schema: { required: [ "group_id", "role_assignment" ] }
   };
   // The group id of the role assignment
@@ -178,7 +178,7 @@ message GroupRoleAssignment {
 // UserRoleAssignment contains information about the users
 // belonging to a role.
 message UserRoleAssignment {
-  option (grpc.gateway.protoc_gen_swagger.options.openapiv2_schema) = {
+  option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
     json_schema: { required: [ "user_id", "role_assignment" ] }
   };
   // the user id of the role assignment

@@ -25,7 +25,7 @@ enum State {
 
 // CheckpointTrainingMetadata is specifically metadata about training.
 message CheckpointTrainingMetadata {
-  option (grpc.gateway.protoc_gen_swagger.options.openapiv2_schema) = {
+  option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
     json_schema: { required: [] }
   };
   // The ID of the trial that created this checkpoint.
@@ -47,7 +47,7 @@ message CheckpointTrainingMetadata {
 
 // Checkpoint a collection of files saved by a task.
 message Checkpoint {
-  option (grpc.gateway.protoc_gen_swagger.options.openapiv2_schema) = {
+  option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
     json_schema: {
       required: [ "uuid", "resources", "metadata", "training", "state" ]
     }

@@ -55,7 +55,7 @@ message GetUserRequest {
 }
 // Response to GetUserRequest.
 message GetUserResponse {
-  option (grpc.gateway.protoc_gen_swagger.options.openapiv2_schema) = {
+  option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
     json_schema: { required: [ "user" ] }
   };
   // The requested user.
@@ -69,7 +69,7 @@ message GetUserByUsernameRequest {
 }
 // Response to GetUserByUsernameRequest.
 message GetUserByUsernameResponse {
-  option (grpc.gateway.protoc_gen_swagger.options.openapiv2_schema) = {
+  option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
     json_schema: { required: [ "user" ] }
   };
   // The requested user.
@@ -80,7 +80,7 @@ message GetUserByUsernameResponse {
 message GetMeRequest {}
 // Response to GetMeRequest.
 message GetMeResponse {
-  option (grpc.gateway.protoc_gen_swagger.options.openapiv2_schema) = {
+  option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
     json_schema: { required: [ "user" ] }
   };
   // The requested user.
@@ -124,7 +124,7 @@ message PatchUserRequest {
 }
 // Response to PatchUserRequest.
 message PatchUserResponse {
-  option (grpc.gateway.protoc_gen_swagger.options.openapiv2_schema) = {
+  option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
     json_schema: { required: [ "user" ] }
   };
   // The updated user.
@@ -134,7 +134,7 @@ message PatchUserResponse {
 message GetUserSettingRequest {}
 // Response to GetUserSettingRequest.
 message GetUserSettingResponse {
-  option (grpc.gateway.protoc_gen_swagger.options.openapiv2_schema) = {
+  option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
     json_schema: { required: [ "settings" ] }
   };
   // List of user settings.
@@ -142,7 +142,7 @@ message GetUserSettingResponse {
 }
 // Update user settings.
 message PostUserSettingRequest {
-  option (grpc.gateway.protoc_gen_swagger.options.openapiv2_schema) = {
+  option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
     json_schema: { required: [ "storage_path", "setting" ] }
   };
   // Storage path for setting.
@@ -159,7 +159,7 @@ message ResetUserSettingResponse {}
 
 // Update user activity.
 message PostUserActivityRequest {
-  option (grpc.gateway.protoc_gen_swagger.options.openapiv2_schema) = {
+  option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
     json_schema: { required: [ "activity_type", "entity_type", "entity_id" ] }
   };
   // The type of the activity.

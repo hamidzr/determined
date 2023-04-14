@@ -26,7 +26,7 @@ enum LogLevel {
 
 // LogEntry is a log event.
 message LogEntry {
-  option (grpc.gateway.protoc_gen_swagger.options.openapiv2_schema) = {
+  option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
     json_schema: { required: [ "id", "message", "level", "timestamp" ] }
   };
   // The id.

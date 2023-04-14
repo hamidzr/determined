@@ -13,7 +13,7 @@ import "determined/user/v1/user.proto";
 
 // Get the requested workspace.
 message GetWorkspaceRequest {
-  option (grpc.gateway.protoc_gen_swagger.options.openapiv2_schema) = {
+  option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
     json_schema: { required: [ "id" ] }
   };
 
@@ -23,7 +23,7 @@ message GetWorkspaceRequest {
 
 // Response to GetWorkspaceRequest.
 message GetWorkspaceResponse {
-  option (grpc.gateway.protoc_gen_swagger.options.openapiv2_schema) = {
+  option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
     json_schema: { required: [ "workspace" ] }
   };
 
@@ -33,7 +33,7 @@ message GetWorkspaceResponse {
 
 // Get a list of projects associated with a workspace.
 message GetWorkspaceProjectsRequest {
-  option (grpc.gateway.protoc_gen_swagger.options.openapiv2_schema) = {
+  option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
     json_schema: { required: [ "id" ] }
   };
 
@@ -80,7 +80,7 @@ message GetWorkspaceProjectsRequest {
 
 // Response to GetWorkspaceProjectsRequest.
 message GetWorkspaceProjectsResponse {
-  option (grpc.gateway.protoc_gen_swagger.options.openapiv2_schema) = {
+  option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
     json_schema: { required: [ "pagination", "projects" ] }
   };
 
@@ -127,7 +127,7 @@ message GetWorkspacesRequest {
 
 // Response to GetWorkspacesRequest.
 message GetWorkspacesResponse {
-  option (grpc.gateway.protoc_gen_swagger.options.openapiv2_schema) = {
+  option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
     json_schema: { required: [ "workspaces", "pagination" ] }
   };
 
@@ -139,7 +139,7 @@ message GetWorkspacesResponse {
 
 // Request for creating a workspace.
 message PostWorkspaceRequest {
-  option (grpc.gateway.protoc_gen_swagger.options.openapiv2_schema) = {
+  option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
     json_schema: { required: [ "name" ] }
   };
 
@@ -154,7 +154,7 @@ message PostWorkspaceRequest {
 
 // Response to PostWorkspaceRequest.
 message PostWorkspaceResponse {
-  option (grpc.gateway.protoc_gen_swagger.options.openapiv2_schema) = {
+  option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
     json_schema: { required: [ "workspace" ] }
   };
 
@@ -164,7 +164,7 @@ message PostWorkspaceResponse {
 
 // Request for updating a workspace.
 message PatchWorkspaceRequest {
-  option (grpc.gateway.protoc_gen_swagger.options.openapiv2_schema) = {
+  option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
     json_schema: { required: [ "id", "workspace" ] }
   };
 
@@ -176,7 +176,7 @@ message PatchWorkspaceRequest {
 
 // Response to PatchWorkspaceRequest.
 message PatchWorkspaceResponse {
-  option (grpc.gateway.protoc_gen_swagger.options.openapiv2_schema) = {
+  option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
     json_schema: { required: [ "workspace" ] }
   };
 
@@ -186,7 +186,7 @@ message PatchWorkspaceResponse {
 
 // Request for deleting a workspace.
 message DeleteWorkspaceRequest {
-  option (grpc.gateway.protoc_gen_swagger.options.openapiv2_schema) = {
+  option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
     json_schema: { required: [ "id" ] }
   };
 
@@ -196,7 +196,7 @@ message DeleteWorkspaceRequest {
 
 // Response to DeleteWorkspaceRequest.
 message DeleteWorkspaceResponse {
-  option (grpc.gateway.protoc_gen_swagger.options.openapiv2_schema) = {
+  option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
     json_schema: { required: [ "completed" ] }
   };
 
@@ -206,7 +206,7 @@ message DeleteWorkspaceResponse {
 
 // Request for archiving a workspace.
 message ArchiveWorkspaceRequest {
-  option (grpc.gateway.protoc_gen_swagger.options.openapiv2_schema) = {
+  option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
     json_schema: { required: [ "id" ] }
   };
 
@@ -219,7 +219,7 @@ message ArchiveWorkspaceResponse {}
 
 // Request for un-archiving a workspace.
 message UnarchiveWorkspaceRequest {
-  option (grpc.gateway.protoc_gen_swagger.options.openapiv2_schema) = {
+  option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
     json_schema: { required: [ "id" ] }
   };
 
@@ -232,7 +232,7 @@ message UnarchiveWorkspaceResponse {}
 
 // Request for pinning a workspace.
 message PinWorkspaceRequest {
-  option (grpc.gateway.protoc_gen_swagger.options.openapiv2_schema) = {
+  option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
     json_schema: { required: [ "id" ] }
   };
 
@@ -245,7 +245,7 @@ message PinWorkspaceResponse {}
 
 // Request for un-pinning a workspace.
 message UnpinWorkspaceRequest {
-  option (grpc.gateway.protoc_gen_swagger.options.openapiv2_schema) = {
+  option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
     json_schema: { required: [ "id" ] }
   };
 

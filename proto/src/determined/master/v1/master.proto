@@ -61,7 +61,7 @@ enum ResourceAllocationAggregationType {
 // One instance of slots in the cluster being allocated to a task during a
 // period (aggregated).
 message ResourceAllocationAggregatedEntry {
-  option (grpc.gateway.protoc_gen_swagger.options.openapiv2_schema) = {
+  option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
     json_schema: {
       required: [
         "periodStart",

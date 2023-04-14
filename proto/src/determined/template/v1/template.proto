@@ -9,7 +9,7 @@ import "protoc-gen-openapiv2/options/annotations.proto";
 // Templates move settings that are shared by many experiments into a single
 // YAML file.
 message Template {
-  option (grpc.gateway.protoc_gen_swagger.options.openapiv2_schema) = {
+  option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
     json_schema: { required: [ "name", "config" ] }
   };
   // The name of the template.

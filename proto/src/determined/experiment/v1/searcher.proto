@@ -16,7 +16,7 @@ message InitialOperations {
 
 // TrialCreated is a searcher event signaling the creation of a trial.
 message TrialCreated {
-  option (grpc.gateway.protoc_gen_swagger.options.openapiv2_schema) = {
+  option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
     json_schema: { required: [ "request_id" ] }
   };
   // UUID identifying the trial to the searcher.
@@ -26,7 +26,7 @@ message TrialCreated {
 // TrialProgress is a searcher event that tells you the number of batches
 // completed in the trial.
 message TrialProgress {
-  option (grpc.gateway.protoc_gen_swagger.options.openapiv2_schema) = {
+  option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
     json_schema: { required: [ "request_id", "partial_units" ] }
   };
   // UUID identifying the trial to the searcher.
@@ -39,7 +39,7 @@ message TrialProgress {
 // ValidationCompleted is a searcher event triggered when a validation has been
 // completed.
 message ValidationCompleted {
-  option (grpc.gateway.protoc_gen_swagger.options.openapiv2_schema) = {
+  option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
     json_schema: {
       required: [ "request_id", "metric", "validate_after_length" ]
     }
@@ -55,7 +55,7 @@ message ValidationCompleted {
 // TrialClosed is a searcher event triggered when a trial has successfully
 // finished.
 message TrialClosed {
-  option (grpc.gateway.protoc_gen_swagger.options.openapiv2_schema) = {
+  option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
     json_schema: { required: [ "request_id" ] }
   };
   // UUID identifying the trial to the searcher.
@@ -65,7 +65,7 @@ message TrialClosed {
 // TrialExitedEarly is a searcher event triggered when a trial exited
 // prematurely.
 message TrialExitedEarly {
-  option (grpc.gateway.protoc_gen_swagger.options.openapiv2_schema) = {
+  option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
     json_schema: { required: [ "request_id", "exited_reason" ] }
   };
   // UUID identifying the trial to the searcher.
@@ -89,7 +89,7 @@ message TrialExitedEarly {
 // ExperimentInactive is a searcher event triggered when an experiment
 // is no longer active.
 message ExperimentInactive {
-  option (grpc.gateway.protoc_gen_swagger.options.openapiv2_schema) = {
+  option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
     json_schema: { required: [ "experiment_state" ] }
   };
   // Current state of the experiment.
@@ -99,7 +99,7 @@ message ExperimentInactive {
 // SearcherEvent is a message from master to a client-driven custom searcher
 // informing it of relevant changes in the state of an experiment.
 message SearcherEvent {
-  option (grpc.gateway.protoc_gen_swagger.options.openapiv2_schema) = {
+  option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
     json_schema: { required: [ "id" ] }
   };
   // Incremental ID of the event.

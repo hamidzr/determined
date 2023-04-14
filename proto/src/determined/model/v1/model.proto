@@ -12,7 +12,7 @@ import "protoc-gen-openapiv2/options/annotations.proto";
 
 // Model is a named collection of model versions.
 message Model {
-  option (grpc.gateway.protoc_gen_swagger.options.openapiv2_schema) = {
+  option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
     json_schema: {
       required: [
         "id",
@@ -30,7 +30,7 @@ message Model {
     }
   };
   // The name of the model.
-  string name = 1 [(grpc.gateway.protoc_gen_swagger.options.openapiv2_field) = {
+  string name = 1 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
     min_length: 1
   }];
   // The description of the model.
@@ -63,7 +63,7 @@ message Model {
 message PatchModel {
   // An updated name for the model.
   google.protobuf.StringValue name = 2
-      [(grpc.gateway.protoc_gen_swagger.options.openapiv2_field) = {
+      [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
         min_length: 1
       }];
   // An updated description for the model.
@@ -84,7 +84,7 @@ message PatchModel {
 // a version of a model and use the model name and version to locate a
 // checkpoint.
 message ModelVersion {
-  option (grpc.gateway.protoc_gen_swagger.options.openapiv2_schema) = {
+  option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
     json_schema: {
       required: [
         "id",

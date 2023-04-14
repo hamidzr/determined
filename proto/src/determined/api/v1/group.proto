@@ -10,7 +10,7 @@ import "protoc-gen-openapiv2/options/annotations.proto";
 // GetGroupRequest is the body of the request for the call
 // to get a group by id.
 message GetGroupRequest {
-  option (grpc.gateway.protoc_gen_swagger.options.openapiv2_schema) = {
+  option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
     json_schema: { required: [ "group_id" ] }
   };
   // The id of the group to return.
@@ -20,7 +20,7 @@ message GetGroupRequest {
 // GetGroupResponse is the body of the response for the call
 // to get a group by id.
 message GetGroupResponse {
-  option (grpc.gateway.protoc_gen_swagger.options.openapiv2_schema) = {
+  option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
     json_schema: { required: [ "group" ] }
   };
   // The group info
@@ -30,7 +30,7 @@ message GetGroupResponse {
 // GetGroupsRequest is the body of the request for the call
 // to search for groups.
 message GetGroupsRequest {
-  option (grpc.gateway.protoc_gen_swagger.options.openapiv2_schema) = {
+  option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
     json_schema: { required: [ "limit" ] }
   };
   // The id of the user to use to find groups to which the user belongs.
@@ -56,7 +56,7 @@ message GetGroupsResponse {
 // UpdateGroupRequest is the body of the request for the call
 // to update a group and its members.
 message UpdateGroupRequest {
-  option (grpc.gateway.protoc_gen_swagger.options.openapiv2_schema) = {
+  option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
     json_schema: { required: [ "group_id" ] }
   };
   // The id of the group
@@ -72,7 +72,7 @@ message UpdateGroupRequest {
 // CreateGroupResponse is the body of the response for the call
 // to update a group and its members.
 message CreateGroupResponse {
-  option (grpc.gateway.protoc_gen_swagger.options.openapiv2_schema) = {
+  option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
     json_schema: { required: [ "group" ] }
   };
   // Info about the group after the update succeeded.
@@ -82,7 +82,7 @@ message CreateGroupResponse {
 // UpdateGroupResponse is the body of the response for the call
 // to update a group and its members.
 message UpdateGroupResponse {
-  option (grpc.gateway.protoc_gen_swagger.options.openapiv2_schema) = {
+  option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
     json_schema: { required: [ "group" ] }
   };
   // Info about the group after the update succeeded.
@@ -92,7 +92,7 @@ message UpdateGroupResponse {
 // CreateGroupRequest is the body of the request for the call
 // to create a group.
 message CreateGroupRequest {
-  option (grpc.gateway.protoc_gen_swagger.options.openapiv2_schema) = {
+  option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
     json_schema: { required: [ "name" ] }
   };
   // The name the new group should have
@@ -104,7 +104,7 @@ message CreateGroupRequest {
 // DeleteGroupRequest is the body of the request for the call
 // to delete a group.
 message DeleteGroupRequest {
-  option (grpc.gateway.protoc_gen_swagger.options.openapiv2_schema) = {
+  option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
     json_schema: { required: [ "group_id" ] }
   };
   // The id of the group that should be deleted.

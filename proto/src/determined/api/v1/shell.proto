@@ -45,7 +45,7 @@ message GetShellsRequest {
 }
 // Response to GetShellsRequest.
 message GetShellsResponse {
-  option (grpc.gateway.protoc_gen_swagger.options.openapiv2_schema) = {
+  option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
     json_schema: { required: [ "shells" ] }
   };
   // The list of returned shells.
@@ -61,7 +61,7 @@ message GetShellRequest {
 }
 // Response to GetShellRequest.
 message GetShellResponse {
-  option (grpc.gateway.protoc_gen_swagger.options.openapiv2_schema) = {
+  option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
     json_schema: { required: [ "shell", "config" ] }
   };
   // The requested shell.
@@ -109,7 +109,7 @@ message LaunchShellRequest {
 }
 // Response to LaunchShellRequest.
 message LaunchShellResponse {
-  option (grpc.gateway.protoc_gen_swagger.options.openapiv2_schema) = {
+  option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
     json_schema: { required: [ "shell", "config" ] }
   };
   // The requested shell.

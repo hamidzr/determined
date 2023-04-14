@@ -27,7 +27,7 @@ message GetActiveTasksCountRequest {}
 
 // Response to GetActiveTasksCountRequest.
 message GetActiveTasksCountResponse {
-  option (grpc.gateway.protoc_gen_swagger.options.openapiv2_schema) = {
+  option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
     json_schema: {
       required: [ "commands", "notebooks", "shells", "tensorboards" ]
     }
@@ -61,7 +61,7 @@ message AllocationWaitingResponse {}
 
 // Stream task logs.
 message TaskLogsRequest {
-  option (grpc.gateway.protoc_gen_swagger.options.openapiv2_schema) = {
+  option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
     json_schema: { required: [ "task_id" ] }
   };
   // The id of the task.
@@ -96,7 +96,7 @@ message TaskLogsRequest {
 
 // Response to TaskLogsRequest.
 message TaskLogsResponse {
-  option (grpc.gateway.protoc_gen_swagger.options.openapiv2_schema) = {
+  option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
     json_schema: {
       required: [ "id", "level", "log", "message", "task_id", "timestamp" ]
     }
@@ -129,7 +129,7 @@ message TaskLogsResponse {
 
 // Stream distinct task log fields.
 message TaskLogsFieldsRequest {
-  option (grpc.gateway.protoc_gen_swagger.options.openapiv2_schema) = {
+  option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
     json_schema: { required: [ "task_id" ] }
   };
   // The ID of the task.
@@ -140,7 +140,7 @@ message TaskLogsFieldsRequest {
 
 // Response to TaskLogsFieldsRequest.
 message TaskLogsFieldsResponse {
-  option (grpc.gateway.protoc_gen_swagger.options.openapiv2_schema) = {
+  option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
     json_schema: { required: [] }
   };
   // The distint allocation IDs present in the logs.
@@ -159,7 +159,7 @@ message TaskLogsFieldsResponse {
 
 // Report the given checkpoint for the task.
 message ReportCheckpointRequest {
-  option (grpc.gateway.protoc_gen_swagger.options.openapiv2_schema) = {
+  option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
     json_schema: { required: [ "checkpoint" ] }
   };
   // The training metrics to persist.

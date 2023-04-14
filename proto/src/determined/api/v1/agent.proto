@@ -33,7 +33,7 @@ message GetAgentsRequest {
 }
 // Response to GetAgentsRequest.
 message GetAgentsResponse {
-  option (grpc.gateway.protoc_gen_swagger.options.openapiv2_schema) = {
+  option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
     json_schema: { required: [ "agents" ] }
   };
 
@@ -50,7 +50,7 @@ message GetAgentRequest {
 }
 // Response to GetAgentRequest.
 message GetAgentResponse {
-  option (grpc.gateway.protoc_gen_swagger.options.openapiv2_schema) = {
+  option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
     json_schema: { required: [ "agent" ] }
   };
   // The requested agent.

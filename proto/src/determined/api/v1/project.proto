@@ -8,7 +8,7 @@ import "protoc-gen-openapiv2/options/annotations.proto";
 
 // Get the requested project.
 message GetProjectRequest {
-  option (grpc.gateway.protoc_gen_swagger.options.openapiv2_schema) = {
+  option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
     json_schema: { required: [ "id" ] }
   };
 
@@ -18,7 +18,7 @@ message GetProjectRequest {
 
 // Response to GetProjectRequest.
 message GetProjectResponse {
-  option (grpc.gateway.protoc_gen_swagger.options.openapiv2_schema) = {
+  option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
     json_schema: { required: [ "project" ] }
   };
 
@@ -28,7 +28,7 @@ message GetProjectResponse {
 
 // Request for experiment list columns
 message GetProjectColumnsRequest {
-  option (grpc.gateway.protoc_gen_swagger.options.openapiv2_schema) = {
+  option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
     json_schema: { required: [ "id" ] }
   };
 
@@ -38,7 +38,7 @@ message GetProjectColumnsRequest {
 
 // Response for experiment list columns
 message GetProjectColumnsResponse {
-  option (grpc.gateway.protoc_gen_swagger.options.openapiv2_schema) = {
+  option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
     json_schema: { required: [ "general", "hyperparameters", "metrics" ] }
   };
   // List of general columns.
@@ -51,7 +51,7 @@ message GetProjectColumnsResponse {
 
 // Request for creating a project.
 message PostProjectRequest {
-  option (grpc.gateway.protoc_gen_swagger.options.openapiv2_schema) = {
+  option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
     json_schema: { required: [ "name", "workspace_id" ] }
   };
 
@@ -65,7 +65,7 @@ message PostProjectRequest {
 
 // Response to PostProjectRequest.
 message PostProjectResponse {
-  option (grpc.gateway.protoc_gen_swagger.options.openapiv2_schema) = {
+  option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
     json_schema: { required: [ "project" ] }
   };
 
@@ -75,7 +75,7 @@ message PostProjectResponse {
 
 // Request for adding a note to a project.
 message AddProjectNoteRequest {
-  option (grpc.gateway.protoc_gen_swagger.options.openapiv2_schema) = {
+  option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
     json_schema: { required: [ "note", "project_id" ] }
   };
   // The note to add.
@@ -86,7 +86,7 @@ message AddProjectNoteRequest {
 
 // Response to AddProjectNoteRequest.
 message AddProjectNoteResponse {
-  option (grpc.gateway.protoc_gen_swagger.options.openapiv2_schema) = {
+  option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
     json_schema: { required: [ "notes" ] }
   };
 
@@ -96,7 +96,7 @@ message AddProjectNoteResponse {
 
 // Request for setting project notes.
 message PutProjectNotesRequest {
-  option (grpc.gateway.protoc_gen_swagger.options.openapiv2_schema) = {
+  option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
     json_schema: { required: [ "notes", "project_id" ] }
   };
   // The complete list of notes.
@@ -107,7 +107,7 @@ message PutProjectNotesRequest {
 
 // Response to PutProjectNotesRequest.
 message PutProjectNotesResponse {
-  option (grpc.gateway.protoc_gen_swagger.options.openapiv2_schema) = {
+  option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
     json_schema: { required: [ "notes" ] }
   };
 
@@ -117,7 +117,7 @@ message PutProjectNotesResponse {
 
 // Request for updating a project.
 message PatchProjectRequest {
-  option (grpc.gateway.protoc_gen_swagger.options.openapiv2_schema) = {
+  option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
     json_schema: { required: [ "id", "project" ] }
   };
 
@@ -129,7 +129,7 @@ message PatchProjectRequest {
 
 // Response to PatchProjectRequest.
 message PatchProjectResponse {
-  option (grpc.gateway.protoc_gen_swagger.options.openapiv2_schema) = {
+  option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
     json_schema: { required: [ "project" ] }
   };
 
@@ -139,7 +139,7 @@ message PatchProjectResponse {
 
 // Request for deleting a project.
 message DeleteProjectRequest {
-  option (grpc.gateway.protoc_gen_swagger.options.openapiv2_schema) = {
+  option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
     json_schema: { required: [ "id" ] }
   };
 
@@ -149,7 +149,7 @@ message DeleteProjectRequest {
 
 // Response to DeleteProjectRequest.
 message DeleteProjectResponse {
-  option (grpc.gateway.protoc_gen_swagger.options.openapiv2_schema) = {
+  option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
     json_schema: { required: [ "completed" ] }
   };
 
@@ -159,7 +159,7 @@ message DeleteProjectResponse {
 
 // Request to move a project into a workspace.
 message MoveProjectRequest {
-  option (grpc.gateway.protoc_gen_swagger.options.openapiv2_schema) = {
+  option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
     json_schema: { required: [ "destination_workspace_id", "project_id" ] }
   };
 
@@ -174,7 +174,7 @@ message MoveProjectResponse {}
 
 // Request for archiving a project.
 message ArchiveProjectRequest {
-  option (grpc.gateway.protoc_gen_swagger.options.openapiv2_schema) = {
+  option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
     json_schema: { required: [ "id" ] }
   };
 
@@ -187,7 +187,7 @@ message ArchiveProjectResponse {}
 
 // Request for un-archiving a project.
 message UnarchiveProjectRequest {
-  option (grpc.gateway.protoc_gen_swagger.options.openapiv2_schema) = {
+  option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
     json_schema: { required: [ "id" ] }
   };
 

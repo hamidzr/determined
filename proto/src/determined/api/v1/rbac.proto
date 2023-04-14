@@ -15,7 +15,7 @@ message GetPermissionsSummaryRequest {}
 
 // Response to GetPermissionsSummaryRequest.
 message GetPermissionsSummaryResponse {
-  option (grpc.gateway.protoc_gen_swagger.options.openapiv2_schema) = {
+  option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
     json_schema: { required: [ "assignments", "roles" ] }
   };
 
@@ -37,7 +37,7 @@ message GetGroupsAndUsersAssignedToWorkspaceRequest {
 
 // Response object for GetGroupsAndUsersAssignedToWorkspace.
 message GetGroupsAndUsersAssignedToWorkspaceResponse {
-  option (grpc.gateway.protoc_gen_swagger.options.openapiv2_schema) = {
+  option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
     json_schema: {
       required: [ "groups", "users_assigned_directly", "assignments" ]
     }
@@ -73,7 +73,7 @@ message GetRolesAssignedToUserRequest {
 
 // Response object for GetRolesAssignedToUser
 message GetRolesAssignedToUserResponse {
-  option (grpc.gateway.protoc_gen_swagger.options.openapiv2_schema) = {
+  option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
     json_schema: { required: [ "roles" ] }
   };
 
@@ -89,7 +89,7 @@ message GetRolesAssignedToGroupRequest {
 
 // Response object for GetRolesAssignedToGroup
 message GetRolesAssignedToGroupResponse {
-  option (grpc.gateway.protoc_gen_swagger.options.openapiv2_schema) = {
+  option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
     json_schema: { required: [ "roles", "assignments" ] }
   };
 
@@ -102,7 +102,7 @@ message GetRolesAssignedToGroupResponse {
 
 // Request object for SearchRolesAssignableToScope
 message SearchRolesAssignableToScopeRequest {
-  option (grpc.gateway.protoc_gen_swagger.options.openapiv2_schema) = {
+  option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
     json_schema: { required: [ "limit" ] }
   };
 
@@ -125,7 +125,7 @@ message SearchRolesAssignableToScopeResponse {
 // ListRolesRequest is the body of the request for the call
 // to search for a role.
 message ListRolesRequest {
-  option (grpc.gateway.protoc_gen_swagger.options.openapiv2_schema) = {
+  option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
     json_schema: { required: [ "limit" ] }
   };
   // the offset for pagination.
@@ -137,7 +137,7 @@ message ListRolesRequest {
 // ListRolesResponse is the body of the response for the call
 // to search for a role.
 message ListRolesResponse {
-  option (grpc.gateway.protoc_gen_swagger.options.openapiv2_schema) = {
+  option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
     json_schema: { required: [ "roles", "pagination" ] }
   };
   // a set of roles and all assignments belonging to it.

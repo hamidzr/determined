@@ -64,7 +64,7 @@ enum FittingPolicy {
 
 // A Resource Pool is a pool of resources where containers are run.
 message ResourcePool {
-  option (grpc.gateway.protoc_gen_swagger.options.openapiv2_schema) = {
+  option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
     json_schema: {
       required: [
         "name",
@@ -203,7 +203,7 @@ message ResourcePoolDetail {
 // List of arbitrary user-defined tags that are added to the Determined agent
 // instances
 message AwsCustomTag {
-  option (grpc.gateway.protoc_gen_swagger.options.openapiv2_schema) = {
+  option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
     json_schema: { required: [ "key", "value" ] }
   };
   // The key of the custom tag
@@ -214,7 +214,7 @@ message AwsCustomTag {
 
 // AWS-specific details about the resource pool
 message ResourcePoolAwsDetail {
-  option (grpc.gateway.protoc_gen_swagger.options.openapiv2_schema) = {
+  option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
     json_schema: {
       required: [
         "region",
@@ -272,7 +272,7 @@ message ResourcePoolAwsDetail {
 
 // GCP-specific details about the resource pool
 message ResourcePoolGcpDetail {
-  option (grpc.gateway.protoc_gen_swagger.options.openapiv2_schema) = {
+  option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
     json_schema: {
       required: [
         "project",
@@ -343,7 +343,7 @@ message K8PriorityClass {
 // Details related to the priority scheduler. This will only be present if the
 // schedulerType=priority
 message ResourcePoolPrioritySchedulerDetail {
-  option (grpc.gateway.protoc_gen_swagger.options.openapiv2_schema) = {
+  option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
     json_schema: { required: [ "preemption", "default_priority" ] }
   };
   // Whether lower priority tasks should be preempted to schedule higher

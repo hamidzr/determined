@@ -49,7 +49,7 @@ message GetTensorboardsRequest {
 }
 // Response to GetTensorboardsRequest.
 message GetTensorboardsResponse {
-  option (grpc.gateway.protoc_gen_swagger.options.openapiv2_schema) = {
+  option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
     json_schema: { required: [ "tensorboards" ] }
   };
   // The list of returned tensorboards.
@@ -65,7 +65,7 @@ message GetTensorboardRequest {
 }
 // Response to GetTensorboardRequest.
 message GetTensorboardResponse {
-  option (grpc.gateway.protoc_gen_swagger.options.openapiv2_schema) = {
+  option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
     json_schema: { required: [ "tensorboard", "config" ] }
   };
   // The requested tensorboard.
@@ -117,7 +117,7 @@ message LaunchTensorboardRequest {
 }
 // Response to LaunchTensorboardRequest.
 message LaunchTensorboardResponse {
-  option (grpc.gateway.protoc_gen_swagger.options.openapiv2_schema) = {
+  option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
     json_schema: { required: [ "tensorboard", "config" ] }
   };
   // The requested tensorboard.

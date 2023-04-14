@@ -61,7 +61,7 @@ message ExperimentTrial {
 // Experiment is a collection of one or more trials that are exploring a
 // user-defined hyperparameter space.
 message Experiment {
-  option (grpc.gateway.protoc_gen_swagger.options.openapiv2_schema) = {
+  option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
     json_schema: {
       required: [
         "id",
@@ -146,7 +146,7 @@ message Experiment {
 
 // PatchExperiment is a partial update to an experiment with only id required.
 message PatchExperiment {
-  option (grpc.gateway.protoc_gen_swagger.options.openapiv2_schema) = {
+  option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
     json_schema: { required: [ "id" ] }
   };
   // The id of the experiment.
@@ -164,7 +164,7 @@ message PatchExperiment {
 // ValidationHistoryEntry is a single entry for a validation history for an
 // experiment.
 message ValidationHistoryEntry {
-  option (grpc.gateway.protoc_gen_swagger.options.openapiv2_schema) = {
+  option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
     json_schema: { required: [ "trial_id", "end_time", "searcher_metric" ] }
   };
   // The id for the trial associated with this validation entry.

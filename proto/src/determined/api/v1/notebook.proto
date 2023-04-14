@@ -47,7 +47,7 @@ message GetNotebooksRequest {
 }
 // Response to GetNotebooksRequest.
 message GetNotebooksResponse {
-  option (grpc.gateway.protoc_gen_swagger.options.openapiv2_schema) = {
+  option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
     json_schema: { required: [ "notebooks" ] }
   };
   // The list of returned notebooks.
@@ -63,7 +63,7 @@ message GetNotebookRequest {
 }
 // Response to GetNotebookRequest.
 message GetNotebookResponse {
-  option (grpc.gateway.protoc_gen_swagger.options.openapiv2_schema) = {
+  option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
     json_schema: { required: [ "notebook", "config" ] }
   };
   // The requested notebook.
@@ -121,7 +121,7 @@ message LaunchNotebookRequest {
 }
 // Response to LaunchNotebookRequest.
 message LaunchNotebookResponse {
-  option (grpc.gateway.protoc_gen_swagger.options.openapiv2_schema) = {
+  option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
     json_schema: { required: [ "notebook", "config" ] }
   };
   // The requested notebook.

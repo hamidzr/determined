@@ -8,7 +8,7 @@ import "protoc-gen-openapiv2/options/annotations.proto";
 
 // Group contains information about a specific Group
 message Group {
-  option (grpc.gateway.protoc_gen_swagger.options.openapiv2_schema) = {
+  option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
     json_schema: { required: [] }
   };
   // The id of the group being detailed
@@ -20,7 +20,7 @@ message Group {
 // GroupDetails contains detailed information about a specific Group
 // including which users belong to the group.
 message GroupDetails {
-  option (grpc.gateway.protoc_gen_swagger.options.openapiv2_schema) = {
+  option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
     json_schema: { required: [] }
   };
   // The id of the group being detailed
@@ -34,7 +34,7 @@ message GroupDetails {
 // GroupSearchResult is the representation of groups as they're returned
 // by the search endpoint.
 message GroupSearchResult {
-  option (grpc.gateway.protoc_gen_swagger.options.openapiv2_schema) = {
+  option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
     json_schema: { required: [ "group", "num_members" ] }
   };
   // A group matching the search criteria

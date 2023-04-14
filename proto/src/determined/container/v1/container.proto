@@ -27,7 +27,7 @@ enum State {
 // Container is a Docker container that is either scheduled to run or is
 // currently running on a set of slots.
 message Container {
-  option (grpc.gateway.protoc_gen_swagger.options.openapiv2_schema) = {
+  option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
     json_schema: { required: [ "id", "state" ] }
   };
   // The id of the task that is currently managing this container.
