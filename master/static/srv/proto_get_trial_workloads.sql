@@ -27,6 +27,23 @@ trainings_vt AS (
       AND $4 = 'FILTER_OPTION_UNSPECIFIED'
     ) AS r1
 ),
+generic_vt AS (
+  SELECT row_to_json(r1) AS training, total_batches, end_time, metrics
+  FROM (
+      SELECT s.end_time,
+        CASE
+          WHEN $5 = true THEN
+            s.metrics
+          ELSE
+            jsonb_build_object('avg_metrics', s.metrics->'avg_metrics')
+        END as metrics,
+        s.metrics->'num_inputs' as num_inputs,
+        s.total_batches
+      FROM generic_metrics s
+      WHERE s.trial_id = $1
+      AND $4 = 'FILTER_OPTION_UNSPECIFIED'
+    ) AS r1
+),
 checkpoints_vt AS (
   SELECT row_to_json(r1) AS checkpoint, total_batches, end_time
   FROM (
