@@ -28,19 +28,19 @@ trainings_vt AS (
     ) AS r1
 ),
 generic_vt AS (
-  SELECT row_to_json(r1) AS training, total_batches, end_time, metrics
+  SELECT row_to_json(r1) AS generic, total_batches, end_time, metrics
   FROM (
-      SELECT s.end_time,
+      SELECT m.end_time,
         CASE
           WHEN $5 = true THEN
-            s.metrics
+            m.metrics
           ELSE
-            jsonb_build_object('avg_metrics', s.metrics->'avg_metrics')
+            jsonb_build_object('avg_metrics', m.metrics->'avg_metrics')
         END as metrics,
-        s.metrics->'num_inputs' as num_inputs,
-        s.total_batches
-      FROM generic_metrics s
-      WHERE s.trial_id = $1
+        m.metrics->'num_inputs' as num_inputs,
+        m.total_batches
+      FROM generic_metrics m
+      WHERE m.trial_id = $1
       AND $4 = 'FILTER_OPTION_UNSPECIFIED'
     ) AS r1
 ),
@@ -62,23 +62,27 @@ checkpoints_vt AS (
 workloads AS (
   SELECT v.validation::jsonb AS validation,
     t.training::jsonb AS training,
+    m.generic::jsonb AS generic,
     c.checkpoint::jsonb AS checkpoint,
-    coalesce(
+    coalesce( -- CHECK: is this the order we want?
+      m.total_batches,
       t.total_batches,
       v.total_batches,
       c.total_batches
     ) AS total_batches,
     coalesce(
+      m.end_time,
       t.end_time,
       v.end_time,
       c.end_time
     ) AS end_time,
     CASE
-      WHEN $6 = 'METRIC_TYPE_VALIDATION' THEN
+      WHEN $6 = 'METRIC_TYPE_VALIDATION' THEN -- FIXME.
         v.metrics
       WHEN $6 = 'METRIC_TYPE_TRAINING' THEN
         t.metrics
       ELSE coalesce(
+        m.metrics,
         t.metrics,
         v.metrics
       )
@@ -86,12 +90,13 @@ workloads AS (
   FROM trainings_vt t
     FULL JOIN checkpoints_vt c ON false
     FULL JOIN validations_vt v ON false
+    FULL JOIN generic_vt m ON false
 ),
 page_info AS (
   SELECT public.page_info((SELECT COUNT(*) AS count FROM workloads), $2 :: int, $3 :: int) AS page_info
 )
 SELECT (
-  SELECT jsonb_agg(w) FROM (SELECT validation, training, checkpoint FROM workloads
+  SELECT jsonb_agg(w) FROM (SELECT validation, training, generic, checkpoint FROM workloads
     ORDER BY (%s)::float %s NULLS LAST, total_batches %s, end_time %s
     OFFSET (SELECT p.page_info->>'start_index' FROM page_info p)::bigint
     LIMIT (SELECT (p.page_info->>'end_index')::bigint - (p.page_info->>'start_index')::bigint FROM page_info p)
