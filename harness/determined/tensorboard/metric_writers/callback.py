@@ -22,6 +22,9 @@ class BatchMetricWriter:
     def __init__(self, writer: MetricWriter) -> None:
         self.writer = writer
 
+    def _metric_key(self, metric_type: str, metric_name: str) -> str:
+        return f"{metric_type}/{metric_name}"
+
     def _maybe_write_metric(self, metric_key: str, metric_val: Any, step: int) -> None:
         # For now, we only log scalar metrics.
         if not util.is_numerical_scalar(metric_val):
@@ -60,5 +63,33 @@ class BatchMetricWriter:
             if not name.startswith("val"):
                 name = "val_" + name
             self._maybe_write_metric(name, value, steps_completed)
+
+        self.writer.reset()
+
+    def on_generic_metric_report(
+        self,
+        total_batches: int,
+        metric_type: str,
+        metrics: Dict[str, Any],
+        batch_metrics: Optional[List[Dict[str, Any]]] = None,
+    ):
+        logging.debug(f"Write '{metric_type}' metrics for TensorBoard")
+        metrics_seen = set()
+
+        # Log all batch metrics.
+        if batch_metrics:
+            for batch_idx, batch in enumerate(batch_metrics):
+                batches_seen = total_batches - len(batch_metrics) + batch_idx
+                for name, value in batch.items():
+                    self._maybe_write_metric(
+                        self._metric_key(metric_type, name), value, batches_seen
+                    )
+                    metrics_seen.add(name)
+
+        # Log avg metrics which were calculated by a custom reducer and are not in batch metrics.
+        for name, value in metrics.items():
+            if name in metrics_seen:
+                continue
+            self._maybe_write_metric(self._metric_key(metric_type, name), value, total_batches)
 
         self.writer.reset()
